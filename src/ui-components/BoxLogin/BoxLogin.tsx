@@ -18,7 +18,7 @@ export function BoxLogin({ children, text }: BoxLoginType): React.ReactElement {
                     borderRadius: "10px",
                     border: "black solid 1px",
                     padding: "31px",
-                    maxWidth: "42vh"
+                    maxWidth: "340px"
                 }}
             >
                 <StuperLogo src={Logo} />

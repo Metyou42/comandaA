@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Box, Button, Checkbox, FormControlLabel, Link, TextField } from "@mui/material";
-import { BlockFlex, BlockRight} from "./styled";
+import { BlockFlex, BlockRight } from "./styled";
 import { BoxLogin } from "ui-components/BoxLogin/BoxLogin";
 
 export function ForgotPassword(): React.ReactElement {
@@ -20,10 +20,13 @@ export function ForgotPassword(): React.ReactElement {
                     margin: "23px 0 0 0"
                 }}
             />
+
             <Box
                 sx={{
-                    width: "100%"
-                    }}>
+                    display: "flex",
+                    minWidth: "340px",
+                }}>
+
                 <Link
                     href="#"
                     sx={{
@@ -32,9 +35,10 @@ export function ForgotPassword(): React.ReactElement {
                         color: "white"
                     }}
                 >
-                Contact technical support
+                    Contact technical support
                 </Link>
             </Box>
+
             <Button
                 variant="contained"
                 size="large"
