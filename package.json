@@ -1,0 +1,98 @@
+{
+  "name": "@3edges/api-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "CI=false DISABLE_ESLINT_PLUGIN=true SKIP_PREFLIGHT_CHECK=true react-scripts build",
+    "start": "react-scripts --openssl-legacy-provider start",
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx --cache --fix"
+  },
+  "babel": {
+    "presets": [
+      "@babel/env",
+      "@babel/preset-react"
+    ],
+    "retainLines": true,
+    "sourceMaps": true
+  },
+  "dependencies": {
+    "@babel/plugin-transform-react-jsx": "7.14.9",
+    "@emotion/react": "11.9.3",
+    "@emotion/styled": "11.9.3",
+    "@jest/globals": "^29.5.0",
+    "@mui/icons-material": "^5.11.11",
+    "@mui/lab": "^5.0.0-alpha.121",
+    "@mui/material": "^5.10.6",
+    "@mui/x-date-pickers": "^6.1.0",
+    "@svgr/webpack": "^5.5.0",
+    "axios": "^0.24.0",
+    "bcryptjs": "2.4.3",
+    "crypto-js": "4.1.1",
+    "dotenv": "10.0.0",
+    "graphql-request": "^5.1.0",
+    "humanize-duration": "^3.28.0",
+    "i18next": "21.3.1",
+    "jest": "26.6.0",
+    "js-cookie": "^3.0.1",
+    "jsonwebtoken": "8.5.1",
+    "lodash.merge": "4.6.2",
+    "moment": "^2.29.4",
+    "prismjs": "1.25.0",
+    "public-ip": "4.0.4",
+    "react": "17.0.2",
+    "react-ace-builds": "7.3.6",
+    "react-dom": "17.0.2",
+    "react-i18next": "11.12.0",
+    "react-inlinesvg": "2.3.0",
+    "react-modal": "3.14.3",
+    "react-router-dom": "5.3.0",
+    "react-scripts": "4.0.3",
+    "react-toastify": "8.0.3",
+    "styled-components": "5.3.1",
+    "sweetalert2": "11.1.7",
+    "validator": "^13.9.0"
+  },
+  "resolutions": {
+    "@types/graphql": "14.5.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.0.2",
+    "@types/js-cookie": "3.0.0",
+    "@types/lodash.merge": "4.6.6",
+    "@types/prismjs": "1.16.6",
+    "@types/react": "17.0.30",
+    "@types/react-dom": "17.0.9",
+    "@types/react-form": "4.0.2",
+    "@types/react-google-recaptcha": "2.1.2",
+    "@types/react-modal": "3.12.1",
+    "@types/react-router-dom": "5.3.1",
+    "@types/react-toastify": "4.1.0",
+    "@types/styled-components": "5.1.15",
+    "babel-eslint": "10.1.0",
+    "babel-plugin-transform-react-jsx": "6.24.1",
+    "eslint": "^7.0.0",
+    "eslint-config-react-app": "6.0.0",
+    "eslint-plugin-import": "2.25.2",
+    "eslint-plugin-jsx-a11y": "6.4.1",
+    "eslint-plugin-react": "7.26.1",
+    "eslint-plugin-react-hooks": "4.2.0",
+    "eslint-plugin-unicorn": "37.0.1",
+    "husky": "3.0.8",
+    "style-loader": "2.0.0",
+    "ts-jest": "^26.5.6",
+    "ts-node": "10.9.1",
+    "typescript": "4.4.4"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

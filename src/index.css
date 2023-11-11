@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css?family=Iceland');
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+.App {
+    height: 100vh;
+    width: 100vw;
+}
+
+.MuiTableRow-root.MuiTableRow-hover:hover {
+    background-color: rgba(30, 136, 299, 0.3) !important;
+}
+
+/* path color */
+.setColorLine path:nth-child(1) {
+    stroke: rgb(100, 0, 100) !important;
+}
+
+/* text color */
+.setColorLine text textPath:nth-child(1) {
+    fill: rgb(100, 0, 100) !important;
+}
+
+/* set color isPath */
+.setColorPath path:nth-child(1) {
+    stroke: rgb(100, 0, 100, 0.6);
+}
+
+.setColorPath text textPath:nth-child(1) {
+    fill: rgb(100, 0, 100, 0.8) !important;
+}
+
+/* set color isResource */
+.setColorIsResource circle {
+    fill: rgba(100, 0, 100, 0.05) !important;
+}
+
+.setColorIsResource circle:nth-child(1) {
+    stroke: rgb(100, 0, 100, 0.1);
+}
+
+.setColorIsResource circle:nth-child(2) {
+    stroke: rgb(100, 0, 100, 0.1);
+}
+
+/* set color isAction */
+.setColorIsAction circle {
+    fill: rgba(100, 0, 100, 0.05) !important;
+}
+
+.setColorIsAction circle:nth-child(1) {
+    stroke: rgb(100, 0, 100, 0.1);
+}
+
+.setColorIsAction circle:nth-child(2) {
+    stroke: rgb(100, 0, 100, 0.1);
+}
+
+/* set color isSubject */
+.setColorIsSubject circle {
+    fill: rgba(100, 0, 100, 0.05) !important;
+}
+
+.setColorIsSubject circle:nth-child(1) {
+    stroke: rgb(100, 0, 100, 0.1);
+}
+
+.setColorIsSubject circle:nth-child(2) {
+    stroke: rgb(100, 0, 100, 0.1);
+}
+
+/* set color isPath */
+.setColorIsPath circle {
+    fill: rgba(100, 0, 100, 0.05) !important;
+}
+
+.setColorIsPath circle:nth-child(1) {
+    stroke: rgb(100, 0, 100, 0.1);
+}
+
+.setColorIsPath circle:nth-child(2) {
+    stroke: rgb(100, 0, 100, 0.1);
+}
+
+
+/* text color */
+.setColorOrbit {
+    fill: purple !important;
+}
+
+/* background color */
+.setColorOrbit circle:nth-child(1) {
+    stroke: purple;
+}
+
+/* foreground color */
+.setColorOrbit circle:nth-child(2) {
+    stroke: purple;
+}
+
+/* circle center color */
+.setColorOrbit circle:nth-child(3) {
+    fill: rgba(128, 0, 128, 0.2) !important;
+}
+
+.swal2-container {
+    z-index: 1400;
+}
+
+.addMarkerStart {
+    marker-start: url("#arrowheadstart");
+}
+
+.addMarkerEnd {
+    marker-end: url("#arrowheadend");
+}
+
+.setColorLine .addMarkerStart {
+    marker-start: url("#arrowheadstart-hover");
+}
+
+.setColorLine .addMarkerEnd {
+    marker-end: url("#arrowheadend-hover");
+}
+
+.setColorPath .addMarkerStart {
+    marker-start: url("#arrowheadstart-path");
+}
+
+.setColorPath .addMarkerEnd {
+    marker-end: url("#arrowheadend-path");
+}
+
+.setColorLine .implementEnumLink.addMarkerStart {
+    marker-start: url("#arrowheadstart-hover");
+}
+
+.setColorLine .implementEnumLink.addMarkerEnd {
+    marker-end: url("#arrowheadend-hover");
+}
+
+.implementEnumLink.addMarkerStart {
+    marker-start: url("#arrowheadstart-enum");
+}
+
+.implementEnumLink.addMarkerEnd {
+    marker-end: url("#arrowheadend-enum");
+}
+
+@media (max-width: 1000px) {
+    .resizeHeader>div {
+        padding: 12px !important;
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "session.expired": "Your session was expired.",
+    "confirm.yes": "Yes",
+    "confirm.no": "No",
+    "time.filter.custom.error.message": "Start date and end date is required"
+}

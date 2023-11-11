@@ -1,0 +1,11 @@
+{
+    "not.connected.error": "Please connect to ApiServer to view transaction history",
+    "no.transactions": "There are no transactions on this ApiServer",
+    "transaction.transactionID": "TransactionID",
+    "transaction.userID": "UserID",
+    "transaction.type.name": "Type Name",
+    "transaction.mode": "Mode",
+    "transaction.nb.rows": "Nb Rows",
+    "transaction.date": "Date",
+    "transaction.duration": "Duration"
+}
