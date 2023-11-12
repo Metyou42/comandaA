@@ -14,4 +14,5 @@ export const DataContainer = styled.div`
     height: 98%;
     border-radius: 1vh;
     background-color: #361866;
+    padding: 0 10px;
 `;
