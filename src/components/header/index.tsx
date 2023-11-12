@@ -18,7 +18,7 @@ export function PanelHeader(): React.ReactElement {
                     sx={{
                         display: "flex",
                         float: "left",
-                        width: "auto",
+                        width: "15%",
                         marginTop: "auto",
                         marginBottom: "auto",
                     }}

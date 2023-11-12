@@ -1,0 +1,32 @@
+﻿<link rel="stylesheet" type="text/css" href="~/css/Pages/Support.css" >
+
+<p class="title">Тех-підтримка STUPER</p>
+<p class="details">Вкажіть пошту, на яку вам буде зручніше отримати відповідь</p>
+<div class="email-container">
+    <input class="email-label" type="email" placeholder="Пошта.." />
+    <a class="autofill-button">Заповнити автоматично</a>
+</div>
+<p class="details">Опишіть що у Вас сталося. При потребі Ви також можете прикріпити фото</p>
+<div class="problem-container">
+    <textarea class="problem-label" type="text" multiple placeholder="Пишіть.."></textarea>
+    <a class="photo-button">Прикріпити фото</a>
+</div>
+
+<script>
+    const emailInput = document.querySelector('.email-label');
+    const autofillButton = document.querySelector('.autofill-button');
+
+    autofillButton.addEventListener('click', () => {
+        fetch('api/Users/Get', {
+            method: 'get',
+            credentials: "include"
+        })
+            .then(response => response.json())
+            .then(user => {
+                emailInput.value = user.universityEmail;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    });
+</script>

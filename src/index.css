@@ -160,3 +160,14 @@ body {
         padding: 12px !important;
     }
 }
+
+html,
+body,
+#root,
+.sc-kstqJO.bOVykR {
+    height: 100%;
+    margin: 0;
+    /* Remove default margin */
+    padding: 0;
+    /* Remove default padding */
+}

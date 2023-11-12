@@ -1,0 +1,27 @@
+﻿@using Web.Domain.DTOs.UserAccount
+@{
+    UserDto user = Model;
+}
+<link rel="stylesheet" type="text/css" href="~/css/Pages/Settings.css" >
+<p class="title">Налаштування</p>
+<div class="settings-container">
+    <div class="changing-avatar-container">
+        <img class="avatar-changing" src="@user.Avatar"/>
+        <div class="overlay"></div>
+        <input type="file" id="image-input" accept=".png, .jpeg, .jpg" style="display: none;">
+        <a class="change-button" id="select-button"><p class="change-button">Змінити</p></a>
+    </div>
+    <div class="change-nickname">
+        <a class="change-name">Змінити нікнейм</a>
+        <input type="text" id="nickname-input" class="change-nickname-field" />
+        <img src="Images/Settings_button.png" id="send-icon" class="change-nickname-field" />
+    </div>
+    <a class="change-mail">Змінити пошту</a>
+    <a class="change-password">Змінити пароль</a>
+    <div class="log-out">
+        <p>Log Out</p>
+        <a class="wrapper_button"><img src="/Images/Logout.png"></a>
+    </div>
+</div>
+
+<script src="~/js/Users/Settings.js" asp-append-version="true"></script>

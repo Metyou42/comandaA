@@ -1,0 +1,41 @@
+﻿@* @if (User.Identity.IsAuthenticated) *@
+@* { *@
+@*     <header class="header"> *@
+@*         <nav id="nav"> *@
+@*             <ul> *@
+@*                 <li> *@
+@*                     <a href="@ServiceConfig.WebService">Головна</a> *@
+@*                 </li> *@
+@*                 <li> *@
+@*                     <a href="@ServiceConfig.CommunicationService">Комунікація</a> *@
+@*                 </li> *@
+@*                 <li> *@
+@*                     <a href="@ServiceConfig.WebService/Search">Пошук</a> *@
+@*                 </li> *@
+@*             </ul> *@
+@*         </nav> *@
+@*     </header> *@
+@* } *@
+<link rel="stylesheet" href="~/css/Main/Header.css"/>
+
+<header>
+    <div class="student_info">
+        <img id="avatar" src=""/>
+        <div id="student-info">
+            <p id="user-firstname"></p>
+            <p id="user-lastname"></p>
+        </div>
+    </div>
+    <div class="container">
+        <a class="wrapper_button" asp-controller="SubjectsNotes" asp-action="Main"><img src="~/Images/Notebook.png"></a>
+        <a class="wrapper_button" asp-controller="Subjects" asp-action="Main"><img src="~/Images/Study.png"></a>
+        <a class="wrapper_button" asp-controller="Students" asp-action="Main"><img src="~/Images/Group.png"></a>
+        <a class="wrapper_button" asp-controller="ClassGroups" asp-action="Main"><img src="~/Images/Schedule.png"></a>
+    </div>
+    <div class="right_toolbar">
+        <a class="wrapper_button" asp-controller="Search" asp-action="Main"><img src="~/Images/Search.png"></a>
+        <a class="wrapper_button" asp-controller="Support" asp-action="Main"><img src="~/Images/Contact.png"></a>
+        <a class="wrapper_button" asp-controller="Users" asp-action="Settings"><img src="~/Images/Settings.png"></a>
+        <a class="wrapper_button" id="logOut" asp-controller="Account" asp-action="Logout"><img src="~/Images/LogOut.png"></a>
+    </div>
+</header>

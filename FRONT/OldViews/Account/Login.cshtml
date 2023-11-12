@@ -1,0 +1,40 @@
+﻿@model Web.Models.Identity.LoginModel
+
+<link rel="stylesheet" href="~/css/Identity/Main.css" />
+<link rel="stylesheet" href="~/css/Identity/Login.css" />
+
+<div class="identity-area">
+  <div id="login">
+    <div class="information">
+      <img class="logo" src="~/Images/logo.png"/>
+      <h2>STUPER</h2>
+      <h3>Вхід</h3>
+    </div>
+    <form asp-controller="Account" asp-action="Login" method="post">
+
+      <label asp-for="Email">Пошта</label>
+      <div class="string-parameters" id="email">
+        <input type="email" asp-for="Email" required/>
+      </div>
+
+      <label asp-for="Password">Пароль</label>
+      <div class="string-parameters" id="password">
+        <input type="password"  asp-for="Password" required/>
+      </div>
+
+      <div class="checkbox">
+        <input id="remember" type="checkbox" asp-for="RememberMe" name="RememberMe" />
+        <label asp-for="RememberMe">Запам'ятати мене?</label>
+        <a asp-controller="Account" asp-action="ForgotPassword">Забули пароль?</a>
+      </div>
+
+      <div class="action-buttons">
+        <input id="submit" type="submit" asp-controller="Account" asp-action="Login" value="Увійти" />
+      </div>
+      
+      <div class="form-groups">
+        <h4>Немаєте акаунту? <a asp-controller="Account" asp-action="Register">Зареєструватись</a></h4>
+      </div>
+    </form>
+  </div>
+</div>

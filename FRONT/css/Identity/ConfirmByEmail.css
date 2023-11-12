@@ -1,0 +1,19 @@
+#confirm-by-email{
+    background: rgba(20, 40, 108);
+    box-shadow: 0 1vh 2.5vh rgba(0, 0, 0, 1);
+    border-radius: 10px;
+    height: 35vh;
+    width: 42vh;
+    border: black solid 1px;
+    color: whitesmoke;
+}
+
+#description{
+    margin-top: 2vh;
+}
+
+.form-groups{
+    margin-top: 2vh;
+    display: flex;
+    justify-content: center;
+}

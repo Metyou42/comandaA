@@ -10,7 +10,7 @@ export const HeaderInfo = styled.div`
 
 export const Username = styled.div`
     width: 100%;
-    color: rgba(0,0,0,0.87);
+    color: rgba(255,255,255,0.87);
     text-align: center;
 `;
 
@@ -25,7 +25,7 @@ export const ButtonContainer = styled.div`
 
     width: 50%;
     align-items: center;
-    height: 90px;
+    height: 10vh;
     margin-top: -12px;
     margin-left: auto;
     margin-right: auto;
@@ -53,7 +53,7 @@ export const SupportButtonContainer = styled.div`
     justify-content: space-between;
 
     align-items: right;
-    height: 90px;
+    height: 10vh;
 
     img {
         width: 5vh;
