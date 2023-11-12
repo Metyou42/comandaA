@@ -1,0 +1,78 @@
+﻿@using Web.Domain.DTOs.StudySpace
+@using Newtonsoft.Json
+@{
+    ICollection<SubjectNoteDto> subjectNotes = Model;
+}
+
+<link rel="stylesheet" type="text/css" href="~/css/Pages/Notes.css" >
+
+<button class="deadline">Нотатник</button>
+
+<div class="days">
+    <button class="day">Понеділок</button>
+    <button class="day">Вівторок</button>
+    <button class="day">Середа</button>
+    <button class="day">Четвер</button>
+    <button class="day">П'ятниця</button>
+    @* <button class="day-plus">+</button> *@
+</div>
+<div class="additional">
+    @* <p class="date">07.08.23 - 13.08.23</p> *@
+    <div id="reset-to-current-day">
+        <button class="but">Повернутися до сьогодні</button>
+    </div>
+    <button id="current-week"></button>
+</div>
+<table class="info">
+    <tbody>
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    let subjectNotes = @Html.Raw(JsonConvert.SerializeObject(subjectNotes));
+</script>
+
+<script type="text/javascript" src="js/SubjectNotes/Main.js" asp-append-version="true"></script> 
+
+@* <table class="info">
+    <tr>
+        <td class="time">1</td>
+        <td class="schedule_data"></td>
+
+    </tr>
+    <tr>
+        <td class = "time">2</td>
+        <td class = "schedule_data">
+            Дедлайн Фізика 2 лаба
+        </td>
+
+    </tr>
+    <tr>
+        <td class = "time">3</td>
+        <td class = "schedule_data">
+        </td>
+
+    </tr>
+    <tr>
+        <td class = "time">4</td>
+        <td class = "schedule_data">
+            Індивідуалка з англ
+        </td>
+
+    </tr>
+    <tr>
+        <td class = "time">5</td>
+        <td class = "schedule_data"> 3 лаба</td>
+
+    </tr>
+    <tr>
+        <td class = "time">6</td>
+        <td class = "schedule_data"></td>
+
+    </tr>
+    <tr>
+        <td class = "time">7</td>
+        <td class = "schedule_data"></td>
+
+    </tr>
+</table> *@

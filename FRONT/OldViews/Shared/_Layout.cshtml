@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html lang="uk">
+<head>
+    @await Html.PartialAsync("HeadPartial")
+</head>
+<body>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <main role="main" class="main">
+            @await Html.PartialAsync("HeaderPartial")
+            <div id="main-context">
+                @RenderBody()
+            </div>
+        </main>
+    }
+    else
+    {
+        @RenderBody()
+    }
+
+    @await Html.PartialAsync("FooterPartial")
+    @if (User.Identity.IsAuthenticated)
+    {
+        @await Html.PartialAsync("ScriptsPartial")
+    }
+</body>
+</html>

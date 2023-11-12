@@ -1,0 +1,64 @@
+#main-context {
+    width: 100%;
+    height: 80vh;
+    display: grid;
+    justify-content: space-evenly;
+    padding: 3vh;
+    border-radius: 1vh;
+    background-color: #0a0366;
+    grid-row: 2;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    margin: 3vh 0 0 -2vh;
+    grid-template-columns: 10% 90%;
+    grid-template-rows: 10% 5% 85%;
+    grid-row-gap: 2%;
+}
+
+#HeadBody {
+     color: white;
+    text-align: center;
+    margin-left: -10%;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    font-size: 18vh;
+}
+
+#avatar2 {
+    width: 15vh; /* Фіксована ширина фотографії */
+    height: 15vh; /* Фіксована висота фотографії */
+    border-radius: 50%; /* Зробити фотографію круглою */
+}
+
+#HeadBody p {
+    font-size: 55px;
+}
+
+#BodyBody p {
+    margin-left: -50px;
+    font-size: 25px;
+    /* Додати відступ всередині рамки */
+    margin: 10px 0; /* Додати зовнішній відступ між елементами <p> */
+}
+
+#BodyBody p:not(:first-child) {
+    padding: 10px; 
+    margin: 10px 0;
+    margin-left: -4vh;
+    width: 104%;
+    border-top: 3px solid rgb(224, 217, 217); /* Додати верхню лінію до всіх <p> окрім першого */
+}
+.line-before::before {
+    margin-bottom: 10px; 
+    content: ""; /* Додати вміст для псевдоелементу */
+    display: block;
+    width: 105%; /* Відступ з правого краю (ширина лінії) */
+    height: 3px; /* Висота лінії */
+    background-color: white; /* Колір лінії (в даному випадку, білий) */
+    margin-left: -4vh; /* Зовнішній відступ від нижнього краю елементу */
+}
+
+.line-after {
+    margin: 10px 0; /* Додати зовнішній відступ навколо лінії */
+    border-bottom: 3px solid white; 
+}

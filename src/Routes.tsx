@@ -2,6 +2,7 @@
 /* eslint-disable react/no-multi-comp */
 import { useCookie } from "contexts/cookieContext";
 import { Login } from "pages/Login";
+import { Notes } from "pages/Notes";
 import { Register } from "pages/Register";
 // import NotFoundPage from "pages/NotFoundPage";
 import React, { useState } from "react";
@@ -30,6 +31,8 @@ function SwitchRoutes(): React.ReactElement {
                 <Route component={Login} path="/login" exact />
 
                 <Route component={Register} path="/registration" exact />
+
+                <Route component={Notes} path="/notes" exact />
             </Switch>
         );
     }

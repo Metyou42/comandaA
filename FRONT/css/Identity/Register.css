@@ -1,0 +1,14 @@
+﻿#register{
+    background: rgba(20, 40, 108);
+    box-shadow: 0 1vh 2.5vh rgba(0, 0, 0, 1);
+    border-radius: 10px;
+    height: 70vh;
+    width: 42vh;
+    border: black solid 1px;
+}
+
+.form-groups{
+    margin-top: 1vh;
+    display: flex;
+    justify-content: center;
+}

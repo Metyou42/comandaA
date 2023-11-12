@@ -1,0 +1,36 @@
+﻿@using Web.Domain.DTOs.StudySpace
+@using Newtonsoft.Json
+@{
+    ClassGroupDto classGroup = Model;
+}
+
+<link rel="stylesheet" type="text/css" href="~/css/ClassGroups/Main.css" >
+
+<div class="days">
+    <button class="day">Понеділок</button>
+    <button class="day">Вівторок</button>
+    <button class="day">Середа</button>
+    <button class="day">Четвер</button>
+    <button class="day">П'ятниця</button>
+    @* <button class="day-plus">+</button> *@
+</div>
+<div class="additional">
+    <div id="reset-to-current-day">
+        <button class="but">Повернутися до сьогодні</button>
+    </div>
+    <button id="current-week"></button>
+    @* <div class="updates"> *@
+    @*     <button class="but">Перенести пару</button> *@
+    @*     <button class="but">Відмітити відмінені</button> *@
+    @* </div> *@
+</div>
+<table class="info">
+    <tbody>
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    let timeTable = @Html.Raw(JsonConvert.SerializeObject(classGroup.SubjectInTimeTable));
+</script>
+
+<script type="text/javascript" src="js/ClassGroups/Main.js" asp-append-version="true"></script>
