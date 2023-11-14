@@ -14,6 +14,7 @@ import { PagesProfile } from "pages/PagesProfile";
 import { Teacher } from "pages/Teacher";
 import { Subject } from "pages/Subject";
 import { EditingUserProfile } from "pages/EditingUserProfile";
+import { EditingSubjectProfile } from "pages/EditingSubjectProfile";
 // import { toastError } from "components/Toastify";
 
 function SwitchRoutes(): React.ReactElement {
@@ -52,6 +53,7 @@ function SwitchRoutes(): React.ReactElement {
 
                 <Route component={EditingUserProfile} path="/EditingUserProfile" exact />
 
+                <Route component={EditingSubjectProfile} path="/EditingSubjectProfile" exact />
             </Switch>
         );
     }
