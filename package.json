@@ -1,5 +1,5 @@
 {
-  "name": "@3edges/api-dashboard",
+  "name": "das",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -17,13 +17,13 @@
   },
   "dependencies": {
     "@babel/plugin-transform-react-jsx": "7.14.9",
-    "@emotion/react": "11.9.3",
-    "@emotion/styled": "11.9.3",
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
     "@jest/globals": "^29.5.0",
     "@mui/icons-material": "^5.11.11",
     "@mui/lab": "^5.0.0-alpha.121",
-    "@mui/material": "^5.10.6",
-    "@mui/x-date-pickers": "^6.1.0",
+    "@mui/material": "^5.14.18",
+    "@mui/x-date-pickers": "^6.18.1",
     "@svgr/webpack": "^5.5.0",
     "axios": "^0.24.0",
     "bcryptjs": "2.4.3",

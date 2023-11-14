@@ -11,6 +11,8 @@ import { BrowserRouter, Route, Switch, useHistory, useLocation } from "react-rou
 import { Deadlines } from "pages/Deadlines";
 import { Notes } from "pages/Notes";
 import { PagesProfile } from "pages/PagesProfile";
+import { CreateNotes } from "pages/CreateNotes";
+import { TimeTable } from "pages/TimeTable";
 // import { toastError } from "components/Toastify";
 
 function SwitchRoutes(): React.ReactElement {
@@ -41,7 +43,13 @@ function SwitchRoutes(): React.ReactElement {
 
                 <Route component={Notes} path="/notes" exact />
 
+                <Route component={CreateNotes} path="/createnotes" exact />
+
                 <Route component={PagesProfile} path="/pagesProfile" exact />
+
+                <Route component={TimeTable} path="/TimeTable" exact />
+
+
             </Switch>
         );
     }
