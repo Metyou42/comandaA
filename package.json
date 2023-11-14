@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "CI=false DISABLE_ESLINT_PLUGIN=true SKIP_PREFLIGHT_CHECK=true react-scripts build",
-    "start": "react-scripts --openssl-legacy-provider start",
+    "start": "react-scripts start",
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx --cache --fix"
   },
   "babel": {

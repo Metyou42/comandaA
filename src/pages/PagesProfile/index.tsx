@@ -3,7 +3,7 @@ import { PanelHeader } from "components/header";
 import { MainBackGround } from "ui-components/MainCss/MainCSS";
 import { MainContainer } from "ui-components/MainContainer/MainContainer";
 import { Stack, Typography, Paper, Avatar } from '@mui/material';
-import { MainBoxText, StyledPaperMui } from "./styled";
+import { MainBoxText, StyledPaperMui,MainPhoto } from "./styled";
 import { TextLineBox } from "components/TextLineBox";
 import { Cat } from "assets";
 
@@ -18,25 +18,31 @@ export function PagesProfile(): React.ReactElement {
                     Profile
                 </MainBoxText>
 
-                <MainBoxText>
+                <MainPhoto>
                     <Avatar
                         alt="Remy Sharp"
-                        sx={{ width: "100px", height: "100px" }}
+                        sx={{ width: "150px", height: "150px" }}
                         src={Cat}
                     />
-                </MainBoxText>
+                </MainPhoto>
 
                 <MainBoxText>
-                    Profile 1
+                Могіш Крістіна Ярославівна
                 </MainBoxText>
+                <MainBoxText>
+                Навчальний заклад: Національний університет ім. Івана Франка
+                </MainBoxText>
+                <MainBoxText>
+                Факультет: Лісничі технології
+                </MainBoxText>
+                <MainBoxText> 
+                Спеціальність: 191 Розробка штучного інтелекту
+                </MainBoxText>
+                <MainBoxText>Група: 12
+                </MainBoxText> 
 
                 <MainBoxText>
-                    Profile 2
-                </MainBoxText>
-
-                <MainBoxText>
-                    Profile 3
-                </MainBoxText>
+Рік вступу: 2023</MainBoxText>
             </MainContainer>
         </MainBackGround>
     );
