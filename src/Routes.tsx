@@ -2,12 +2,15 @@
 /* eslint-disable react/no-multi-comp */
 import { useCookie } from "contexts/cookieContext";
 import { Login } from "pages/Login";
-import { Notes } from "pages/Notes";
+import { Archive } from "pages/Archive";
 import { Register } from "pages/Register";
 // import NotFoundPage from "pages/NotFoundPage";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { BrowserRouter, Route, Switch, useHistory, useLocation } from "react-router-dom";
+import { Deadlines } from "pages/Deadlines";
+import { Notes } from "pages/Notes";
+import { PagesProfile } from "pages/PagesProfile";
 // import { toastError } from "components/Toastify";
 
 function SwitchRoutes(): React.ReactElement {
@@ -32,7 +35,13 @@ function SwitchRoutes(): React.ReactElement {
 
                 <Route component={Register} path="/registration" exact />
 
+                <Route component={Archive} path="/archive" exact />
+
+                <Route component={Deadlines} path="/deadlines" exact />
+
                 <Route component={Notes} path="/notes" exact />
+
+                <Route component={PagesProfile} path="/pagesProfile" exact />
             </Switch>
         );
     }

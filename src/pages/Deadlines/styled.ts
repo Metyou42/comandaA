@@ -26,16 +26,6 @@ export const BlockFlex = styled.div`
     position: relative;
 `;
 
-export const BlockFlexJustify = styled.div`
-    display: flex;
-    justify-content: space-between;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    height: 6vh;
-`;
-
 export const BlockFlexText = styled.div`
     position: absolute;
     top: 50%;
