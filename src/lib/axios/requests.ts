@@ -4,13 +4,12 @@ import axios from './axios';
 import { ILogin } from './types';
 // import { IapiServerInfo, IEndLoadTransactionRequest, IloadDataRequest, IloadDataRequestBody, IloadDataRequestResponse, IStartLoadTransaction, IStartLoadTransactionRequestBody, IStartLoadTransactionResponse } from './types';
 
-export const login = async (email: string, password: string, rememberMe: boolean): Promise<string> => {
+export const login = async (email: string, password: string): Promise<string> => {
     const { data, status } = await axios.post<ILogin>(
         `${REACT_APP_BACKEND_URL}/api/Account/Login`,
         {
             email,
-            password,
-            rememberMe
+            password
         },
         {
             headers: {

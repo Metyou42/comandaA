@@ -19,7 +19,7 @@ export function Login(): React.ReactElement {
         }
 
         try {
-            const accessToken = await login(email, password, rememberMe)
+            const accessToken = await login(email, password)
 
             const now = new Date();
             now.setTime(now.getTime() + 60 * 60 * 1000); // 1 hour
