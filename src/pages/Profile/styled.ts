@@ -4,6 +4,12 @@ import styled from "styled-components";
 export const MainBoxText = styled.p`
     text-align: center;
     color: white;
+    font-size: 25px;
+`;
+export const MainPhoto = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 
 export const BoxCennter = styled.div`
@@ -18,3 +24,4 @@ export const StyledPaperMui = {
     alignItems: 'center',
     height: '70px'
 };
+

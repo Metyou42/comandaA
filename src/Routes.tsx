@@ -10,10 +10,10 @@ import { useTranslation } from "react-i18next";
 import { BrowserRouter, Route, Switch, useHistory, useLocation } from "react-router-dom";
 import { Deadlines } from "pages/Deadlines";
 import { Notes } from "pages/Notes";
-import { PagesProfile } from "pages/PagesProfile";
 import { CreateNotes } from "pages/CreateNotes";
 import { TimeTable } from "pages/TimeTable";
-import { Com } from "pages/Com";
+import { Teacher } from "pages/Teacher";
+import { Profile } from "pages/Profile";
 // import { toastError } from "components/Toastify";
 
 function SwitchRoutes(): React.ReactElement {
@@ -46,9 +46,11 @@ function SwitchRoutes(): React.ReactElement {
 
                 <Route component={CreateNotes} path="/createnotes" exact />
 
-                <Route component={PagesProfile} path="/pagesProfile" exact />
+                <Route component={Profile} path="/profile" exact />
 
                 <Route component={TimeTable} path="/TimeTable" exact />
+
+                <Route component={Teacher} path="/Teacher" exact />
             </Switch>
         );
     }
@@ -70,9 +72,11 @@ function SwitchRoutes(): React.ReactElement {
 
                 <Route component={CreateNotes} path="/createnotes" exact />
 
-                <Route component={PagesProfile} path="/pagesProfile" exact />
+                <Route component={Profile} path="/profile" exact />
 
                 <Route component={TimeTable} path="/TimeTable" exact />
+
+                <Route component={Teacher} path="/Teacher" exact />
             </Switch>
         </Switch>
     );
