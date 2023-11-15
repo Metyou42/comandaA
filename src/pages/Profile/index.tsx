@@ -6,8 +6,11 @@ import { Stack, Typography, Paper, Avatar } from '@mui/material';
 import { MainBoxText, StyledPaperMui, MainPhoto } from "./styled";
 import { TextLineBox } from "components/TextLineBox";
 import { Cat } from "assets";
+import { useCookie } from "contexts/cookieContext";
 
 export function Profile(): React.ReactElement {
+    const { getAccessTokenCookie } = useCookie();
+    const currentAccessToken = getAccessTokenCookie();
     const [name, setName] = useState<string>("");
 
     useEffect(() => {
