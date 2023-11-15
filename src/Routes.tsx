@@ -13,6 +13,7 @@ import { Notes } from "pages/Notes";
 import { PagesProfile } from "pages/PagesProfile";
 import { CreateNotes } from "pages/CreateNotes";
 import { TimeTable } from "pages/TimeTable";
+import { Com } from "pages/Com";
 // import { toastError } from "components/Toastify";
 
 function SwitchRoutes(): React.ReactElement {
@@ -48,25 +49,31 @@ function SwitchRoutes(): React.ReactElement {
                 <Route component={PagesProfile} path="/pagesProfile" exact />
 
                 <Route component={TimeTable} path="/TimeTable" exact />
-
-
             </Switch>
         );
     }
 
     return (
         <Switch>
-            {/* <Route render={(props) => <LoadDataPage {...props} apiServerUrl={apiServerUrl} setApiServerUrl={setApiServerUrl} isApiServerConnected={isApiServerConnected} setIsApiServerConnected={setIsApiServerConnected} />} path="/" exact />
+            <Switch>
+                <Route component={Login} path="/" exact />
 
-            <Route render={(props) => <LoadDataPage {...props} apiServerUrl={apiServerUrl} setApiServerUrl={setApiServerUrl} isApiServerConnected={isApiServerConnected} setIsApiServerConnected={setIsApiServerConnected} />} path="/load" exact />
+                <Route component={Login} path="/login" exact />
 
-            <Route render={(props) => <Logs {...props} apiServerUrl={apiServerUrl} isApiServerConnected={isApiServerConnected} />} path="/logs" exact />
+                <Route component={Register} path="/registration" exact />
 
-            <Route component={Login} path="/login" exact />
+                <Route component={Archive} path="/archive" exact />
 
-            <Route path="*" component={() => <NotFoundPage isAuth />} /> */}
+                <Route component={Deadlines} path="/deadlines" exact />
 
-            {/* <Route component={Login} path="/" exact /> */}
+                <Route component={Notes} path="/notes" exact />
+
+                <Route component={CreateNotes} path="/createnotes" exact />
+
+                <Route component={PagesProfile} path="/pagesProfile" exact />
+
+                <Route component={TimeTable} path="/TimeTable" exact />
+            </Switch>
         </Switch>
     );
 }
