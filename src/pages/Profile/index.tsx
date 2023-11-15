@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { PanelHeader } from "components/header";
 import { MainBackGround } from "ui-components/MainCss/MainCSS";
 import { MainContainer } from "ui-components/MainContainer/MainContainer";
@@ -8,6 +8,12 @@ import { TextLineBox } from "components/TextLineBox";
 import { Cat } from "assets";
 
 export function Profile(): React.ReactElement {
+    const [name, setName] = useState<string>("");
+
+    useEffect(() => {
+        // fetchData();
+        setName("Могіш Крістіна Ярославівна")
+    }, []);
 
     return (
         <MainBackGround>
@@ -27,7 +33,7 @@ export function Profile(): React.ReactElement {
                 </MainPhoto>
 
                 <MainBoxText>
-                    Могіш Крістіна Ярославівна
+                    {name}
                 </MainBoxText>
                 <MainBoxText>
                     Навчальний заклад: Національний університет ім. Івана Франка

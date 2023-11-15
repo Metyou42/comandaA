@@ -34,8 +34,6 @@ export function Login(): React.ReactElement {
         } catch (error) {
             toastError(error.message)
         }
-
-
     }
 
     return (
