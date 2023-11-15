@@ -1,37 +1,34 @@
-import { REACT_APP_DATALOADER_URL } from 'environmentVariables';
+import { REACT_APP_BACKEND_URL, REACT_APP_DATALOADER_URL } from 'environmentVariables';
 import { CSVWarningDuplicates, LoadDataEror, StratLoadTransactionError } from 'lib/types/customErrors';
 import axios from './axios';
+import { ILogin } from './types';
 // import { IapiServerInfo, IEndLoadTransactionRequest, IloadDataRequest, IloadDataRequestBody, IloadDataRequestResponse, IStartLoadTransaction, IStartLoadTransactionRequestBody, IStartLoadTransactionResponse } from './types';
 
-// export const apiServerInfo = async (accessToken: string, apiServerUrl: string): Promise<IapiServerInfo> => {
-//     const res = {
-//         isUp: null,
-//         message: null
-//     }
+export const login = async (email: string, password: string, rememberMe: boolean): Promise<string> => {
+    const { data, status } = await axios.post<ILogin>(
+        `${REACT_APP_BACKEND_URL}/api/Account/Login`,
+        {
+            email,
+            password,
+            rememberMe
+        },
+        {
+            headers: {
+                // "Access-Control-Allow-Origin": "*"
+            }
+        },
+    );
 
-//     try {
-//         const { data, status } = await axios.post<IapiServerInfo>(
-//             `${REACT_APP_DATALOADER_URL}/apiServerInfo`,
-//             {
-//                 url: apiServerUrl
-//             },
-//             {
-//                 headers: {
-//                     "Access-Control-Allow-Origin": "*",
-//                     Authorization: `Bearer ${accessToken}`
-//                 }
-//             },
-//         );
+    if (!data) {
+        throw new Error("Some error");
+    }
 
-//         // res.apiServerObjects = data.apiServerObjects
-//         res.isUp = status === 200 && data ? data.isUp : false;
-//     } catch (error) {
-//         res.isUp = false;
-//         res.message = error?.response?.data?.message ? error.response.data.message : error.message;
-//     }
+    if (data.httpCode !== 200) {
+        throw new Error("Invalid login");
+    }
 
-//     return res
-// }
+    return data.data
+}
 
 // export const startLoadTransactionRequest = async (apiServerUrl: string, accessToken: string, body: IStartLoadTransactionRequestBody): Promise<IStartLoadTransaction> => {
 //     const res = {

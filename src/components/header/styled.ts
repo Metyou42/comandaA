@@ -22,8 +22,8 @@ export const ButtonContainer = styled.div`
     grid-template-columns: repeat(4, 25%);
     background-color: #787474;
     border-radius: 0 0 2vh 2vh;
+    width: 65%;
 
-    width: 50%;
     align-items: center;
     height: 10vh;
     margin-top: -12px;
