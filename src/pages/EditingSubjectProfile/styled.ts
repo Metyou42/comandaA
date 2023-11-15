@@ -11,7 +11,11 @@ export const MainPhoto = styled.div`
     justify-content: center;
     align-items: center;
 `;
-
+export const TextField = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`; 
 export const BoxCennter = styled.div`
     text-align: center;
     color: white;
