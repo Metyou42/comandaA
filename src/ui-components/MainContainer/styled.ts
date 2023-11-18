@@ -10,7 +10,7 @@ export const MainContainerStyles = styled.div`
 `;
 
 export const DataContainer = styled.div`
-    width: 50%;
+    width: 64%;
     height: 98%;
     border-radius: 1vh;
     background-color: #361866;
