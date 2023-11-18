@@ -20,13 +20,11 @@ export const BoxCennter = styled.div`
 export const MainSubject = styled.div`
 text-align: center;
 color: white;
-        font-size: 35px;
         margin: 20px;
 `;
 export const MainWork = styled.div`
         text-align: center;
         color: white;
-        font-size: 23px;
         margin-bottom: 5px; 
 `;
 export const FormInput = styled.div`
@@ -45,6 +43,5 @@ export const StyledPaperMui = {
 export const MainAbout = styled.div`
 text-align: center;
 color: white;
-        font-size: 20px;
         
 `;
