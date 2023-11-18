@@ -1,7 +1,8 @@
 import { REACT_APP_BACKEND_URL, REACT_APP_DATALOADER_URL } from 'environmentVariables';
 import { CSVWarningDuplicates, LoadDataEror, StratLoadTransactionError } from 'lib/types/customErrors';
 import axios from './axios';
-import { ILogin } from './types';
+import {IGetUser, ILogin, IUser } from './types';
+import Cookies from "js-cookie";
 // import { IapiServerInfo, IEndLoadTransactionRequest, IloadDataRequest, IloadDataRequestBody, IloadDataRequestResponse, IStartLoadTransaction, IStartLoadTransactionRequestBody, IStartLoadTransactionResponse } from './types';
 
 export const login = async (email: string, password: string): Promise<string> => {
@@ -26,8 +27,33 @@ export const login = async (email: string, password: string): Promise<string> =>
         throw new Error("Invalid login");
     }
 
-    return data.data
+    return data.data as string
 }
+
+export const getUser = async (): Promise<IUser> => {
+    const { data, status } = await axios.get<IGetUser>(
+        `${REACT_APP_BACKEND_URL}/api/Users/Get`,
+        {
+            headers: {
+                Authorization: `Bearer ${Cookies.get('accessToken')}`,
+            }
+        },
+    );
+
+    if (!data) {
+        throw new Error("Some error");
+    }
+
+    if (data.httpCode !== 200) {
+        throw new Error("Not found");
+    }
+
+    if (!data.data) {
+        throw new Error("Data not found");
+    }
+
+    return data.data as IUser
+};
 
 // export const startLoadTransactionRequest = async (apiServerUrl: string, accessToken: string, body: IStartLoadTransactionRequestBody): Promise<IStartLoadTransaction> => {
 //     const res = {
