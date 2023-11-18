@@ -81,7 +81,7 @@ export function Login(): React.ReactElement {
                             }}
                         />
                     }
-                    label="Зпамятати мене?"
+                    label="Запам'ятати мене?"
                 />
                 <Link
                     href="#"

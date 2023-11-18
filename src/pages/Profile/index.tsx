@@ -7,15 +7,34 @@ import { MainBoxText, StyledPaperMui, MainPhoto } from "./styled";
 import { TextLineBox } from "components/TextLineBox";
 import { Cat } from "assets";
 import { useCookie } from "contexts/cookieContext";
+import {getUser, login} from "../../lib/axios/requests";
 
 export function Profile(): React.ReactElement {
     const { getAccessTokenCookie } = useCookie();
     const currentAccessToken = getAccessTokenCookie();
     const [name, setName] = useState<string>("");
+    const [university, setUniversity] = useState<string>("");
+    const [special, setSpecial] = useState<string>("");
+    const [group, setGroup] = useState<string>("");
+    const [year, setYear] = useState<number>(0);
 
     useEffect(() => {
-        // fetchData();
-        setName("Могіш Крістіна Ярославівна")
+        const fetchData = async () => {
+            try {
+                const user = await getUser();
+                console.log(user);
+                setName(user.firstName + " " + user.lastName);
+                
+                setUniversity(user.university);
+                setSpecial(user.special);
+                setGroup(user.group);
+                setYear(user.year);
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        };
+
+        fetchData();
     }, []);
 
     return (
@@ -39,19 +58,18 @@ export function Profile(): React.ReactElement {
                     {name}
                 </MainBoxText>
                 <MainBoxText>
-                    Навчальний заклад: Національний університет ім. Івана Франка
+                    Університет: {university}
                 </MainBoxText>
                 <MainBoxText>
-                    Факультет: Лісничі технології
+                    Спеціальність: {special}
                 </MainBoxText>
                 <MainBoxText>
-                    Спеціальність: 191 Розробка штучного інтелекту
-                </MainBoxText>
-                <MainBoxText>Група: 12
+                    Група: {group}
                 </MainBoxText>
 
                 <MainBoxText>
-                    Рік вступу: 2023</MainBoxText>
+                    Рік вступу: {year}
+                </MainBoxText>
             </MainContainer>
         </MainBackGround>
     );
