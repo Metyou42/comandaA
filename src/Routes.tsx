@@ -5,7 +5,7 @@ import { Login } from "pages/Login";
 import { Archive } from "pages/Archive";
 import { Register } from "pages/Register";
 // import NotFoundPage from "pages/NotFoundPage";
-import React, { useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { BrowserRouter, Route, Switch, useHistory, useLocation } from "react-router-dom";
 import { Deadlines } from "pages/Deadlines";
@@ -13,6 +13,9 @@ import { Notes } from "pages/Notes";
 import { PagesProfile } from "pages/PagesProfile";
 import { CreateNotes } from "pages/CreateNotes";
 import { TimeTable } from "pages/TimeTable";
+import { TechnicalSupport } from "pages/TechnicalSupport";
+import { Search } from "pages/Search";
+import {Settings} from "./pages/Settings";
 // import { toastError } from "components/Toastify";
 
 function SwitchRoutes(): React.ReactElement {
@@ -49,7 +52,11 @@ function SwitchRoutes(): React.ReactElement {
 
                 <Route component={TimeTable} path="/TimeTable" exact />
 
+                <Route component={TechnicalSupport} path="/technicalsupport" exact />
 
+                <Route component={Search} path="/search" exact />
+
+                {<Route component={Settings} path="/settings" /> }
             </Switch>
         );
     }
