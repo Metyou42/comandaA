@@ -14,6 +14,7 @@ import { CreateNotes } from "pages/CreateNotes";
 import { TimeTable } from "pages/TimeTable";
 import { Teacher } from "pages/Teacher";
 import { Profile } from "pages/Profile";
+import { Subject } from "pages/Subject";
 // import { toastError } from "components/Toastify";
 
 function SwitchRoutes(): React.ReactElement {
@@ -51,6 +52,9 @@ function SwitchRoutes(): React.ReactElement {
                 <Route component={TimeTable} path="/TimeTable" exact />
 
                 <Route component={Teacher} path="/Teacher" exact />
+
+                <Route component={Subject} path="/Subject" exact />
+
             </Switch>
         );
     }
