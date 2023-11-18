@@ -4,7 +4,6 @@ import styled from "styled-components";
 export const MainBoxText = styled.p`
     text-align: center;
     color: white;
-    font-size: 30px;
 `;
 export const MainPhoto = styled.div`
     display: flex;
@@ -20,12 +19,10 @@ export const BoxCennter = styled.div`
 export const MainEmail = styled.div`
 text-align: center;
 color: white;
-        font-size: 35px;
 `;
 export const MainWork = styled.div`
         text-align: center;
         color: white;
-        font-size: 23px;
 `;
 
 
@@ -37,3 +34,32 @@ export const StyledPaperMui = {
     height: '70px'
 };
 
+export const BlockFlex = styled.div`
+    text-align: center;
+    height: 50px;
+    position: relative;
+`;
+
+export const BlockFlexText = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+`;
+
+export const BlockFlexAdditional = styled.div`
+    position: absolute;
+    right: 0;
+    top: 56%;
+    transform: translate(0, -50%);
+    margin-right: 20px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+`;
+
+export const BlockMargin = styled.div`
+    margin-right: 20px;
+    margin-left: 20px;
+`;
