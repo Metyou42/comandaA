@@ -7,13 +7,12 @@ import { MainBoxText, StyledPaperMui, MainPhoto } from "./styled";
 import { TextLineBox } from "components/TextLineBox";
 import { Cat } from "assets";
 import { getUser } from "../../lib/axios/requests";
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 export function Profile(): React.ReactElement {
-    interface PathParams {
-        id: string;
-    }
-    const { id } = useParams<PathParams>();
+    const searchParams = new URLSearchParams(useLocation().search)
+    const profileId = searchParams.get("id")
+    
     const [name, setName] = useState<string>("");
     const [avatar, setAvatar] = useState<string>("");
     const [university, setUniversity] = useState<string>("");
@@ -24,8 +23,8 @@ export function Profile(): React.ReactElement {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                console.log("Id=" + id);
-                const user = await getUser(id);
+                console.log(profileId);
+                const user = await getUser(profileId);
                 console.log(user);
                 
                 setName(user.firstName + " " + user.lastName);

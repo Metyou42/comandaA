@@ -6,14 +6,24 @@ import { Stack, Typography, Paper, Avatar, IconButton, Box, ListItem, ListItemBu
 import { MainBoxText, StyledPaperMui,MainEmail,MainWork, BlockFlex, BlockFlexText, BlockFlexAdditional, BlockMargin } from "./styled";
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import {getLecturer} from "../../lib/axios/requests";
-import {useParams} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import {ISubjectForLecturer} from "../../lib/axios/types";
 
 export function Lecturer(): React.ReactElement {
-    interface PathParams {
-        id: string;
+    const searchParams = new URLSearchParams(useLocation().search)
+    const lectorId = searchParams.get("id")
+
+    if(!lectorId) {
+        return (
+            <MainBackGround>
+                <PanelHeader />
+
+                <MainContainer>
+                </MainContainer>
+            </MainBackGround>
+        );
     }
-    const { id } = useParams<PathParams>();
+            
     const [fullName, setFullName] = useState<string>("");
     const [university, setUniversity] = useState<string>("");
     const [rank, setRank] = useState<string>("");
@@ -23,7 +33,7 @@ export function Lecturer(): React.ReactElement {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const lecturer = await getLecturer('2');// TODO test data
+                const lecturer = await getLecturer(lectorId);
                 console.log(lecturer);
                 
                 setFullName(lecturer.surname + " " + lecturer.name + " " + lecturer.patronymic);

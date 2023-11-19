@@ -44,6 +44,16 @@ export interface IGetLecturer {
     data: ILecturer
 }
 
+export interface IGetSubject {
+    httpCode: number,
+    status: string,
+    displayMessage: string,
+    additionalMessages: [
+        string
+    ],
+    data: ISubject
+}
+
 export interface ILecturer {
     id: number,
     name: string,
@@ -57,7 +67,23 @@ export interface ILecturer {
 
 export interface ISubjectForLecturer {
     id: number,
-    name: string
+    name: string,
+    description: string
+}
+
+export interface ISubject {
+    id: number,
+    name: string,
+    description: string
+    lecturers: ILecturerForSubject[]
+}
+
+export interface ILecturerForSubject {
+    id: number,
+    name: string,
+    surname: string,
+    patronymic: string,
+    email: string,
 }
 
 export interface IEducationalInstitution {

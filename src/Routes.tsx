@@ -56,7 +56,7 @@ function SwitchRoutes(): React.ReactElement {
 
                 <Route component={Subject} path="/subject" exact />
 
-                <Route component={EditLecturer} path="/lecturer/edit" exact />
+                <Route component={EditLecturer} path="/edit/lecturer" exact />
             </Switch>
         );
     }
@@ -86,7 +86,7 @@ function SwitchRoutes(): React.ReactElement {
 
                 <Route component={Subject} path="/subject" exact />
 
-                <Route component={EditLecturer} path="/lecturer/edit" exact />
+                <Route component={EditLecturer} path="/edit/lecturer" exact />
             </Switch>
         </Switch>
     );

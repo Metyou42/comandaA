@@ -1,7 +1,7 @@
 import { REACT_APP_BACKEND_URL, REACT_APP_DATALOADER_URL } from 'environmentVariables';
 import { CSVWarningDuplicates, LoadDataEror, StratLoadTransactionError } from 'lib/types/customErrors';
 import axios from './axios';
-import {IGetLecturer, IGetUser, ILecturer, ILogin, IUser} from './types';
+import {IGetLecturer, IGetSubject, IGetUser, ILecturer, ILogin, ISubject, IUser} from './types';
 import Cookies from "js-cookie";
 // import { IapiServerInfo, IEndLoadTransactionRequest, IloadDataRequest, IloadDataRequestBody, IloadDataRequestResponse, IStartLoadTransaction, IStartLoadTransactionRequestBody, IStartLoadTransactionResponse } from './types';
 
@@ -34,7 +34,7 @@ export const getUser = async (id: string): Promise<IUser> => {
     let url = `${REACT_APP_BACKEND_URL}/api/Users/Get`;
 
     if (id) {
-        url += `?id=${id}`;
+        url += `ById?id=${id}`;
     }
 
     const { data, status } = await axios.get<IGetUser>(
@@ -62,7 +62,7 @@ export const getUser = async (id: string): Promise<IUser> => {
 };
 
 export const getLecturer = async (id: string): Promise<ILecturer> => {
-    let url = `${REACT_APP_BACKEND_URL}/api/Lecturers/Get?id=${id}`;
+    let url = `${REACT_APP_BACKEND_URL}/api/Lecturers/GetById?id=${id}`;
 
     const { data, status } = await axios.get<IGetLecturer>(
         url,
@@ -88,6 +88,32 @@ export const getLecturer = async (id: string): Promise<ILecturer> => {
     return data.data as ILecturer;
 };
 
+export const getSubject = async (id: string): Promise<ISubject> => {
+    let url = `${REACT_APP_BACKEND_URL}/api/Subjects/GetById?id=${id}`;
+
+    const { data, status } = await axios.get<IGetSubject>(
+        url,
+        {
+            headers: {
+                Authorization: `Bearer ${Cookies.get('accessToken')}`,
+            }
+        },
+    );
+
+    if (!data) {
+        throw new Error("Some error");
+    }
+
+    if (data.httpCode !== 200) {
+        throw new Error("Not found");
+    }
+
+    if (!data.data) {
+        throw new Error("Data not found");
+    }
+
+    return data.data as ISubject;
+};
 
 // export const startLoadTransactionRequest = async (apiServerUrl: string, accessToken: string, body: IStartLoadTransactionRequestBody): Promise<IStartLoadTransaction> => {
 //     const res = {
