@@ -6,9 +6,8 @@ import { Stack, Typography, Paper, Avatar, TextField, Box, ListItem, ListItemBut
 import { MainBoxText, StyledPaperMui,MainSubject,MainWork,FormInput } from "./styled";
 import { TextLineBox } from "components/TextLineBox";
 import { Cat } from "assets";
-import { FixedSizeList, ListChildComponentProps } from 'react-window';
 
-export function EditingTeacherProfile(): React.ReactElement {
+export function EditLecturer(): React.ReactElement {
 
     return (
         <MainBackGround>

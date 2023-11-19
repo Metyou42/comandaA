@@ -33,3 +33,34 @@ export interface IUser {
     nickName: string,
     special: string
 }
+
+export interface IGetLecturer {
+    httpCode: number,
+    status: string,
+    displayMessage: string,
+    additionalMessages: [
+        string
+    ],
+    data: ILecturer
+}
+
+export interface ILecturer {
+    id: number,
+    name: string,
+    surname: string,
+    patronymic: string,
+    email: string,
+    rank: string,
+    educationalInstitution: IEducationalInstitution,
+    subjects: ISubjectForLecturer[]
+}
+
+export interface ISubjectForLecturer {
+    id: number,
+    name: string
+}
+
+export interface IEducationalInstitution {
+    id: number,
+    name: string
+}

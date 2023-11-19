@@ -1,15 +1,44 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import { PanelHeader } from "components/header";
 import { MainBackGround } from "ui-components/MainCss/MainCSS";
 import { MainContainer } from "ui-components/MainContainer/MainContainer";
 import { Stack, Typography, Paper, Avatar, IconButton, Box, ListItem, ListItemButton, ListItemText, List, Divider } from '@mui/material';
 import { MainBoxText, StyledPaperMui,MainEmail,MainWork, BlockFlex, BlockFlexText, BlockFlexAdditional, BlockMargin } from "./styled";
-import { TextLineBox } from "components/TextLineBox";
-import { Cat } from "assets";
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import {getLecturer} from "../../lib/axios/requests";
+import {useParams} from "react-router-dom";
+import {ISubjectForLecturer} from "../../lib/axios/types";
 
-export function Teacher(): React.ReactElement {
+export function Lecturer(): React.ReactElement {
+    interface PathParams {
+        id: string;
+    }
+    const { id } = useParams<PathParams>();
+    const [fullName, setFullName] = useState<string>("");
+    const [university, setUniversity] = useState<string>("");
+    const [rank, setRank] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
+    const [subjects, setSubjects] = useState<ISubjectForLecturer[]>([]);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const lecturer = await getLecturer('2');// TODO test data
+                console.log(lecturer);
+                
+                setFullName(lecturer.surname + " " + lecturer.name + " " + lecturer.patronymic);
+                setUniversity(lecturer.educationalInstitution.name);
+                setRank(lecturer.rank);
+                setEmail(lecturer.email);
+                setSubjects(lecturer.subjects);
+            } catch (error) {
+                console.error('Error fetching lecturer data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+    
     return (
         <MainBackGround>
             <PanelHeader />
@@ -18,7 +47,7 @@ export function Teacher(): React.ReactElement {
 
                 <BlockFlex>
                     <BlockFlexText>
-                        <p>maksymenko.l@lpnu.ua</p>
+                        <p>{email}</p>
                     </BlockFlexText>
 
                     <BlockFlexAdditional>
@@ -39,13 +68,13 @@ export function Teacher(): React.ReactElement {
                         Викладач
                     </MainBoxText>
                     <MainBoxText>
-                        Максименко Лідія Анатоліївна
+                        {fullName}
                     </MainBoxText>
                     <MainWork>
-                        Працює в: Національний університет "Львівська Політехніка" 
+                        Працює в: {university} 
                     </MainWork>
-                    <MainBoxText> 
-                        Доцент кафедри ІКТАІ, доктор наук......
+                    <MainBoxText>
+                        {rank}
                     </MainBoxText>
 
                     <Box
@@ -65,11 +94,11 @@ export function Teacher(): React.ReactElement {
                             maxHeight: 300,
                           }}
                         >
-                          {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+                          {subjects.map((subject) => (
                             <ListItem disablePadding>
                                 <ListItemButton>
                                     <ListItemText 
-                                        primary={`Item ${item}`}
+                                        primary={`${subject.name}`}
                                         sx={{
                                             color: "white"
                                         }}

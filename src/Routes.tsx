@@ -12,10 +12,10 @@ import { Deadlines } from "pages/Deadlines";
 import { Notes } from "pages/Notes";
 import { CreateNotes } from "pages/CreateNotes";
 import { TimeTable } from "pages/TimeTable";
-import { Teacher } from "pages/Teacher";
+import { Lecturer } from "pages/Lecturer";
 import { Profile } from "pages/Profile";
 import { Subject } from "pages/Subject";
-import { EditingTeacherProfile } from "pages/EditingTeacherProfile";
+import { EditLecturer } from "pages/EditLecturer";
 // import { toastError } from "components/Toastify";
 
 function SwitchRoutes(): React.ReactElement {
@@ -50,13 +50,13 @@ function SwitchRoutes(): React.ReactElement {
 
                 <Route component={Profile} path="/profile" exact />
 
-                <Route component={TimeTable} path="/TimeTable" exact />
+                <Route component={TimeTable} path="/timeTable" exact />
 
-                <Route component={Teacher} path="/Teacher" exact />
+                <Route component={Lecturer} path="/lecturer" exact />
 
-                <Route component={Subject} path="/Subject" exact />
+                <Route component={Subject} path="/subject" exact />
 
-                <Route component={EditingTeacherProfile} path="/EditingTeacherProfile" exact />
+                <Route component={EditLecturer} path="/lecturer/edit" exact />
             </Switch>
         );
     }
@@ -82,7 +82,11 @@ function SwitchRoutes(): React.ReactElement {
 
                 <Route component={TimeTable} path="/TimeTable" exact />
 
-                <Route component={Teacher} path="/Teacher" exact />
+                <Route component={Lecturer} path="/Lecturer" exact />
+
+                <Route component={Subject} path="/subject" exact />
+
+                <Route component={EditLecturer} path="/lecturer/edit" exact />
             </Switch>
         </Switch>
     );

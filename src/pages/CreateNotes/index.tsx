@@ -15,7 +15,7 @@ import { Moment } from "moment";
 export function CreateNotes(): React.ReactElement {
     const [lessonNumber, setLessonNumber] = useState<string>();
     const [lessonName, setLessonName] = useState<string>();
-    const [teacherName, setTeacherName] = useState<string>();
+    const [lecturerName, setLecturerName] = useState<string>();
     const [lessonType, setLessonType] = useState<string>();
 
     const [dateTime, setDateTime] = React.useState<Moment | null>();
@@ -34,8 +34,8 @@ export function CreateNotes(): React.ReactElement {
         setLessonName(event.target.value as string)
     }
 
-    function onChangeTeacherName(event: SelectChangeEvent) {
-        setTeacherName(event.target.value as string)
+    function onChangeLecturerName(event: SelectChangeEvent) {
+        setLecturerName(event.target.value as string)
     }
 
     function onChangeLessonType(event: SelectChangeEvent) {
@@ -127,9 +127,9 @@ export function CreateNotes(): React.ReactElement {
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            value={teacherName}
-                            label="teacherName"
-                            onChange={onChangeTeacherName}
+                            value={lecturerName}
+                            label="lecturerName"
+                            onChange={onChangeLecturerName}
                         >
                             <MenuItem value={"Журавель"}>Журавель</MenuItem>
                             <MenuItem value={"Коробейнікова"}>Коробейнікова</MenuItem>
