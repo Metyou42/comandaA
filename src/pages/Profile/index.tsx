@@ -6,13 +6,15 @@ import { Stack, Typography, Paper, Avatar } from '@mui/material';
 import { MainBoxText, StyledPaperMui, MainPhoto } from "./styled";
 import { TextLineBox } from "components/TextLineBox";
 import { Cat } from "assets";
-import { useCookie } from "contexts/cookieContext";
-import {getUser, login} from "../../lib/axios/requests";
+import { getUser } from "../../lib/axios/requests";
+import { useLocation } from 'react-router-dom';
 
 export function Profile(): React.ReactElement {
-    const { getAccessTokenCookie } = useCookie();
-    const currentAccessToken = getAccessTokenCookie();
+    const searchParams = new URLSearchParams(useLocation().search)
+    const profileId = searchParams.get("id")
+    
     const [name, setName] = useState<string>("");
+    const [avatar, setAvatar] = useState<string>("");
     const [university, setUniversity] = useState<string>("");
     const [special, setSpecial] = useState<string>("");
     const [group, setGroup] = useState<string>("");
@@ -21,14 +23,17 @@ export function Profile(): React.ReactElement {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const user = await getUser();
+                console.log(profileId);
+                const user = await getUser(profileId);
                 console.log(user);
-                setName(user.firstName + " " + user.lastName);
                 
+                setName(user.firstName + " " + user.lastName);
+                setAvatar(user.avatar)
                 setUniversity(user.university);
                 setSpecial(user.special);
                 setGroup(user.group);
                 setYear(user.year);
+                
             } catch (error) {
                 console.error('Error fetching user data:', error);
             }
@@ -50,7 +55,7 @@ export function Profile(): React.ReactElement {
                     <Avatar
                         alt="Remy Sharp"
                         sx={{ width: "150px", height: "150px" }}
-                        src={Cat}
+                        src={avatar}
                     />
                 </MainPhoto>
 
