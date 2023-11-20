@@ -6,8 +6,11 @@ import { Button, TextField } from '@mui/material';
 import {
     AnotherBoxText,
     BlockFlex,
+    BlockNote,
     MainBoxText,
+    VisuallyHiddenInput,
 } from "./styled";
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 export function TechnicalSupport(): React.ReactElement {
 
@@ -43,31 +46,31 @@ export function TechnicalSupport(): React.ReactElement {
                     </AnotherBoxText>
                 </BlockFlex>
 
-                <BlockFlex>
+                <BlockNote>
                     <TextField
                         placeholder="Нотатка"
                         multiline
                         rows={12}
                         maxRows={12}
                         sx={{
-                            width: "60%",
+                            width: "100%",
                         }}
                     />
-                </BlockFlex>
 
-                <BlockFlex>
                     <Button
+                        component="label"
                         variant="contained"
-                        size="large"
+                        startIcon={<CloudUploadIcon />}
                         sx={{
-                            marginTop: "2vh",
-                            marginLeft: "45%",
-                            display: "block",
+                            marginTop: "12px",
                         }}
                     >
-                        Прикріпити фото
+                        Upload file
+                        <VisuallyHiddenInput type="file" />
                     </Button>
-                </BlockFlex>
+                </BlockNote>
+
+
 
                 <BlockFlex>
                     <Button variant="contained" size="large" sx={{ marginTop: "2vh" }}>
@@ -75,7 +78,7 @@ export function TechnicalSupport(): React.ReactElement {
                     </Button>
                 </BlockFlex>
             </MainContainer>
-        </MainBackGround>
+        </MainBackGround >
     );
 }
 

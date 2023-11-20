@@ -14,17 +14,82 @@ import Paper from '@mui/material/Paper';
 import {
     BlockFlex,
 } from "./styled";
-import {TextField} from "@mui/material";
+import { TextField } from "@mui/material";
 
 export function Search(): React.ReactElement {
-    const [alignment, setAlignment] = React.useState<string | null>('students');
+    const [alignment, setAlignment] = React.useState<"students" | "teachers" | "subjects">('students');
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
     const handleAlignment = (
         event: React.MouseEvent<HTMLElement>,
-        newAlignment: string | null,
+        newAlignment: "students" | "teachers" | "subjects",
     ) => {
         setAlignment(newAlignment);
     };
+
+
+    // https://mui.com/material-ui/react-table/#custom-pagination-options
+    const getTale = () => {
+        if (alignment === "students") {
+            return (
+                <Table>
+                    <TableBody>
+                        <TableRow>
+                            <TableCell>Маштак Денис Олегович</TableCell>
+                            <TableCell>ІПЗ - 21/2</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Маштак Денис Олегович</TableCell>
+                            <TableCell>ІПЗ - 21/2</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Маштак Денис Олегович</TableCell>
+                            <TableCell>ІПЗ - 21/2</TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
+            )
+        } else if (alignment === "teachers") {
+            return (
+                <Table>
+                    <TableBody>
+                        <TableRow>
+                            <TableCell>Прикладна математика</TableCell>
+                            <TableCell></TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Прикладна математика</TableCell>
+                            <TableCell></TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Прикладна математика</TableCell>
+                            <TableCell></TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
+            )
+        } else {
+            return (
+                <Table>
+                    <TableBody>
+                        <TableRow>
+                            <TableCell>Максименко Лідія Анатолівна</TableCell>
+                            <TableCell>maksymenko.l@lpnu.ua</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Максименко Лідія Анатолівна</TableCell>
+                            <TableCell>maksymenko.l@lpnu.ua</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Максименко Лідія Анатолівна</TableCell>
+                            <TableCell>maksymenko.l@lpnu.ua</TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
+            )
+        }
+    }
 
     return (
         <MainBackGround>
@@ -63,23 +128,8 @@ export function Search(): React.ReactElement {
                 </BlockFlex>
 
                 <BlockFlex>
-                    <TableContainer component={Paper}>
-                        <Table>
-                            <TableBody>
-                                <TableRow>
-                                    <TableCell>Маштак Денис Олегович</TableCell>
-                                    <TableCell>ІПЗ - 21/2</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>Прикладна математика</TableCell>
-                                    <TableCell></TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>Максименко Лідія Анатолівна</TableCell>
-                                    <TableCell>maksymenko.l@lpnu.ua</TableCell>
-                                </TableRow>
-                            </TableBody>
-                        </Table>
+                    <TableContainer>
+                        {getTale()}
                     </TableContainer>
                 </BlockFlex>
 

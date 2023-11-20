@@ -26,3 +26,22 @@ export const BlockFlex = styled.div`
   justify-content: center;
 `;
 
+export const BlockNote = styled.div`
+  width: 60%;
+  margin-top: 12px;
+  margin-left: auto;
+  margin-right: auto;
+`;
+
+export const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
+});
+

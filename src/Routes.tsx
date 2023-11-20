@@ -15,7 +15,7 @@ import { CreateNotes } from "pages/CreateNotes";
 import { TimeTable } from "pages/TimeTable";
 import { TechnicalSupport } from "pages/TechnicalSupport";
 import { Search } from "pages/Search";
-import {Settings} from "./pages/Settings";
+import { Settings } from "./pages/Settings";
 // import { toastError } from "components/Toastify";
 
 function SwitchRoutes(): React.ReactElement {
@@ -56,7 +56,7 @@ function SwitchRoutes(): React.ReactElement {
 
                 <Route component={Search} path="/search" exact />
 
-                {<Route component={Settings} path="/settings" /> }
+                <Route component={Settings} path="/settings" />
             </Switch>
         );
     }
@@ -74,6 +74,12 @@ function SwitchRoutes(): React.ReactElement {
             <Route path="*" component={() => <NotFoundPage isAuth />} /> */}
 
             {/* <Route component={Login} path="/" exact /> */}
+
+            <Route component={TechnicalSupport} path="/technicalsupport" exact />
+
+            <Route component={Search} path="/search" exact />
+
+            <Route component={Settings} path="/settings" />
         </Switch>
     );
 }
