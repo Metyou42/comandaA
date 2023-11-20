@@ -1,37 +1,154 @@
-import { REACT_APP_DATALOADER_URL } from 'environmentVariables';
+import { REACT_APP_BACKEND_URL, REACT_APP_DATALOADER_URL } from 'environmentVariables';
 import { CSVWarningDuplicates, LoadDataEror, StratLoadTransactionError } from 'lib/types/customErrors';
 import axios from './axios';
+import { IGetLecturer, IGetSubject, IGetUser, ILecturer, ILogin, IMessage, ISubject, IUser } from './types';
+import Cookies from "js-cookie";
 // import { IapiServerInfo, IEndLoadTransactionRequest, IloadDataRequest, IloadDataRequestBody, IloadDataRequestResponse, IStartLoadTransaction, IStartLoadTransactionRequestBody, IStartLoadTransactionResponse } from './types';
 
-// export const apiServerInfo = async (accessToken: string, apiServerUrl: string): Promise<IapiServerInfo> => {
-//     const res = {
-//         isUp: null,
-//         message: null
-//     }
+export const login = async (email: string, password: string): Promise<string> => {
+    const { data, status } = await axios.post<ILogin>(
+        `${REACT_APP_BACKEND_URL}/api/Account/Login`,
+        {
+            email,
+            password
+        },
+        {
+            headers: {
+                // "Access-Control-Allow-Origin": "*"
+            }
+        },
+    );
 
-//     try {
-//         const { data, status } = await axios.post<IapiServerInfo>(
-//             `${REACT_APP_DATALOADER_URL}/apiServerInfo`,
-//             {
-//                 url: apiServerUrl
-//             },
-//             {
-//                 headers: {
-//                     "Access-Control-Allow-Origin": "*",
-//                     Authorization: `Bearer ${accessToken}`
-//                 }
-//             },
-//         );
+    if (!data) {
+        throw new Error("Some error");
+    }
 
-//         // res.apiServerObjects = data.apiServerObjects
-//         res.isUp = status === 200 && data ? data.isUp : false;
-//     } catch (error) {
-//         res.isUp = false;
-//         res.message = error?.response?.data?.message ? error.response.data.message : error.message;
-//     }
+    if (data.httpCode !== 200) {
+        throw new Error("Invalid login");
+    }
 
-//     return res
-// }
+    return data.data as string
+}
+
+export const getUser = async (id: string): Promise<IUser> => {
+    let url = `${REACT_APP_BACKEND_URL}/api/Users/Get`;
+
+    if (id) {
+        url += `ById?id=${id}`;
+    }
+
+    const { data, status } = await axios.get<IGetUser>(
+        url,
+        {
+            headers: {
+                Authorization: `Bearer ${Cookies.get('accessToken')}`,
+            }
+        },
+    );
+
+    if (!data) {
+        throw new Error("Some error");
+    }
+
+    if (data.httpCode !== 200) {
+        throw new Error("Not found");
+    }
+
+    if (!data.data) {
+        throw new Error("Data not found");
+    }
+
+    return data.data as IUser;
+};
+
+export const getLecturer = async (id: string): Promise<ILecturer> => {
+    const { data, status } = await axios.get<IGetLecturer>(
+        `${REACT_APP_BACKEND_URL}/api/Lecturers/GetById?id=${id}`,
+        {
+            headers: {
+                Authorization: `Bearer ${Cookies.get('accessToken')}`,
+            }
+        },
+    );
+
+    if (!data) {
+        throw new Error("Some error");
+    }
+
+    if (data.httpCode !== 200) {
+        throw new Error("Not found");
+    }
+
+    if (!data.data) {
+        throw new Error("Data not found");
+    }
+
+    return data.data as ILecturer;
+};
+
+export const getSubject = async (id: string): Promise<ISubject> => {
+    let url = `${REACT_APP_BACKEND_URL}/api/Subjects/GetById?id=${id}`;
+
+    const { data, status } = await axios.get<IGetSubject>(
+        url,
+        {
+            headers: {
+                Authorization: `Bearer ${Cookies.get('accessToken')}`,
+            }
+        },
+    );
+
+    if (!data) {
+        throw new Error("Some error");
+    }
+
+    if (data.httpCode !== 200) {
+        throw new Error("Not found");
+    }
+
+    if (!data.data) {
+        throw new Error("Data not found");
+    }
+
+    return data.data as ISubject;
+};
+export const updateLecturer = async (
+    id: string,
+    name: string,
+    surname: string,
+    patronymic: string,
+    email: string,
+    rank: string
+): Promise<string> => {
+
+    const { data, status } = await axios.put<IMessage>(
+        `${REACT_APP_BACKEND_URL}/api/Lecturers/Update`,
+        {
+            id,
+            name,
+            surname,
+            patronymic,
+            email,
+            rank
+        },
+        {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${Cookies.get('accessToken')}`,
+            }
+        },
+    );
+
+    if (!data) {
+        throw new Error("Some error");
+    }
+
+    if (data.httpCode !== 200) {
+        throw new Error("Not found");
+    }
+
+    return data.displayMessage as string;
+};
 
 // export const startLoadTransactionRequest = async (apiServerUrl: string, accessToken: string, body: IStartLoadTransactionRequestBody): Promise<IStartLoadTransaction> => {
 //     const res = {

@@ -1,47 +1,77 @@
 /* eslint-disable @typescript-eslint/no-type-alias */
 // @flow
 
-
-export enum SubscriptionLevelENUM {
-    FREE = "FREE",
-    PRO = "PRO",
-    ENT = "ENT"
+export interface IUser {
+    id: number,
+    firstName: string,
+    lastName: string,
+    universityEmail: string,
+    avatar: string,
+    university: string,
+    group: string,
+    year: number,
+    nickName: string,
+    special: string
 }
 
-export interface IapiServerInfo {
-    isUp: boolean;
-    // apiServerObjects?: string[];
-    message?: string;
+export interface IMessage {
+    httpCode: number,
+    status: string,
+    displayMessage: string,
+    additionalMessages: [
+        string
+    ]
 }
 
-export interface IStartLoadTransactionRequestBody {
-    fileName: string
-    rows: Array<Record<string, string>>
-    headers: Array<string>
-    acceptDublicates: boolean
+export interface ILogin extends IMessage {
+    data: string
 }
 
-export interface IStartLoadTransactionResponse {
-    transactionID: string;
+export interface IGetUser extends IMessage {
+    data: IUser
 }
 
-export interface IStartLoadTransaction {
-    transactionID: string;
-    message?: string;
-    warning?: string | any;
+export interface IGetLecturer extends IMessage {
+    data: ILecturer
 }
 
-export interface IloadDataRequestBody {
-    fileName: string,
-    rows: Array<Record<string, string>>,
-    serverURL: string
+export interface IGetSubject extends IMessage {
+    data: ISubject
 }
 
-interface IloadDataRequestOptionalResponse {
-    ThreeEdgesObjects: string;
-    ThreeEdgesRelationships: string;
+export interface ILecturer {
+    id: number,
+    name: string,
+    surname: string,
+    patronymic: string,
+    email: string,
+    rank: string,
+    educationalInstitution: IEducationalInstitution,
+    subjects: ISubjectForLecturer[]
 }
 
-export interface IEndLoadTransactionRequest {
-    message?: string
+export interface ISubjectForLecturer {
+    id: number,
+    name: string,
+    description: string
+}
+
+export interface ISubject {
+    id: number,
+    name: string,
+    description: string
+    lecturers: ILecturerForSubject[]
+}
+
+export interface ILecturerForSubject {
+    id: number,
+    name: string,
+    surname: string,
+    patronymic: string,
+    email: string,
+}
+
+export interface IEducationalInstitution {
+    id: number,
+    name: string
 }
