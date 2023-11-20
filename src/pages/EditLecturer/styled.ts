@@ -32,6 +32,11 @@ text-align: center;
 margin-bottom: 20px; 
 `;
 
+export const FormInputBottom = styled.div`
+    text-align: center;  
+    margin-bottom: 20px;
+    margin-top: auto;
+`;
 
 export const StyledPaperMui = {
     backgroundColor: 'rgba(83, 59, 119, 0.5)',

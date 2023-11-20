@@ -1,19 +1,20 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { PanelHeader } from "components/header";
 import { MainBackGround } from "ui-components/MainCss/MainCSS";
 import { MainContainer } from "ui-components/MainContainer/MainContainer";
 import { Stack, Typography, Paper, Avatar, IconButton, Box, ListItem, ListItemButton, ListItemText, List, Divider } from '@mui/material';
-import { MainBoxText, StyledPaperMui,MainEmail,MainWork, BlockFlex, BlockFlexText, BlockFlexAdditional, BlockMargin } from "./styled";
+import { MainBoxText, StyledPaperMui, MainEmail, MainWork, BlockFlex, BlockFlexText, BlockFlexAdditional, BlockMargin } from "./styled";
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import {getLecturer} from "../../lib/axios/requests";
-import {useLocation} from "react-router-dom";
-import {ISubjectForLecturer} from "../../lib/axios/types";
+import { getLecturer } from "../../lib/axios/requests";
+import { useLocation } from "react-router-dom";
+import { ISubjectForLecturer } from "../../lib/axios/types";
+import { toastError } from "components/Toastify";
 
 export function Lecturer(): React.ReactElement {
     const searchParams = new URLSearchParams(useLocation().search)
     const lectorId = searchParams.get("id")
 
-    if(!lectorId) {
+    if (!lectorId) {
         return (
             <MainBackGround>
                 <PanelHeader />
@@ -23,7 +24,7 @@ export function Lecturer(): React.ReactElement {
             </MainBackGround>
         );
     }
-            
+
     const [fullName, setFullName] = useState<string>("");
     const [university, setUniversity] = useState<string>("");
     const [rank, setRank] = useState<string>("");
@@ -35,7 +36,7 @@ export function Lecturer(): React.ReactElement {
             try {
                 const lecturer = await getLecturer(lectorId);
                 console.log(lecturer);
-                
+
                 setFullName(lecturer.surname + " " + lecturer.name + " " + lecturer.patronymic);
                 setUniversity(lecturer.educationalInstitution.name);
                 setRank(lecturer.rank);
@@ -43,12 +44,13 @@ export function Lecturer(): React.ReactElement {
                 setSubjects(lecturer.subjects);
             } catch (error) {
                 console.error('Error fetching lecturer data:', error);
+                toastError(error.message)
             }
         };
 
         fetchData();
     }, []);
-    
+
     return (
         <MainBackGround>
             <PanelHeader />
@@ -72,7 +74,7 @@ export function Lecturer(): React.ReactElement {
 
                     </BlockFlexAdditional>
                 </BlockFlex>
-               
+
                 <BlockMargin>
                     <MainBoxText>
                         Викладач
@@ -81,41 +83,41 @@ export function Lecturer(): React.ReactElement {
                         {fullName}
                     </MainBoxText>
                     <MainWork>
-                        Працює в: {university} 
+                        Працює в: {university}
                     </MainWork>
                     <MainBoxText>
                         {rank}
                     </MainBoxText>
 
                     <Box
-                        sx={{ 
+                        sx={{
                             width: '40%',
-                            height: 300, 
+                            height: 300,
                             maxWidth: 360,
                             marginLeft: "auto",
                             marginRight: "auto",
                         }}
                     >
                         <List
-                          sx={{
-                            width: '100%',
-                            bgcolor: '#8d98b8',
-                            overflow: 'auto',
-                            maxHeight: 300,
-                          }}
+                            sx={{
+                                width: '100%',
+                                bgcolor: '#8d98b8',
+                                overflow: 'auto',
+                                maxHeight: 300,
+                            }}
                         >
-                          {subjects.map((subject) => (
-                            <ListItem disablePadding>
-                                <ListItemButton>
-                                    <ListItemText 
-                                        primary={`${subject.name}`}
-                                        sx={{
-                                            color: "white"
-                                        }}
-                                    />
-                                </ListItemButton>
-                            </ListItem>
-                          ))}
+                            {subjects.map((subject) => (
+                                <ListItem disablePadding>
+                                    <ListItemButton>
+                                        <ListItemText
+                                            primary={`${subject.name}`}
+                                            sx={{
+                                                color: "white"
+                                            }}
+                                        />
+                                    </ListItemButton>
+                                </ListItem>
+                            ))}
                         </List>
                     </Box>
                 </BlockMargin>

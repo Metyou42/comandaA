@@ -1,29 +1,9 @@
 /* eslint-disable @typescript-eslint/no-type-alias */
 // @flow
 
-export interface ILogin {
-    httpCode: number,
-    status: string,
-    displayMessage: string,
-    additionalMessages: [
-        string
-    ],
-    data: string
-}
-
-export interface IGetUser {
-    httpCode: number,
-    status: string,
-    displayMessage: string,
-    additionalMessages: [
-        string
-    ],
-    data: IUser
-}
-
 export interface IUser {
     id: number,
-    firstName: string, 
+    firstName: string,
     lastName: string,
     universityEmail: string,
     avatar: string,
@@ -34,23 +14,28 @@ export interface IUser {
     special: string
 }
 
-export interface IGetLecturer {
+export interface IMessage {
     httpCode: number,
     status: string,
     displayMessage: string,
     additionalMessages: [
         string
-    ],
+    ]
+}
+
+export interface ILogin extends IMessage {
+    data: string
+}
+
+export interface IGetUser extends IMessage {
+    data: IUser
+}
+
+export interface IGetLecturer extends IMessage {
     data: ILecturer
 }
 
-export interface IGetSubject {
-    httpCode: number,
-    status: string,
-    displayMessage: string,
-    additionalMessages: [
-        string
-    ],
+export interface IGetSubject extends IMessage {
     data: ISubject
 }
 
