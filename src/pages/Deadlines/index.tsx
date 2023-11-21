@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import { PanelHeader } from "components/header";
 import { MainBackGround } from "ui-components/MainCss/MainCSS";
 import { MainContainer } from "ui-components/MainContainer/MainContainer";
@@ -8,9 +8,29 @@ import FlagIcon from '@mui/icons-material/Flag';
 import { red, green, yellow } from '@mui/material/colors';
 import { DeadlinesCheckBox } from "components/DeadlinesCheckBox";
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import {ISubjectNote} from "../../lib/axios/types";
+import {getDeadLines} from "../../lib/axios/requests";
+import {TextLineBox} from "../../components/TextLineBox";
 
 export function Deadlines(): React.ReactElement {
 
+    const [deadLines, setDeadLines] = useState<ISubjectNote[]>([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const deadLines = await getDeadLines();
+                console.log(deadLines);
+
+                setDeadLines(deadLines);
+            } catch (error) {
+                console.error('Error fetching lecturer data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+    
     return (
         <MainBackGround>
             <PanelHeader />
@@ -45,21 +65,40 @@ export function Deadlines(): React.ReactElement {
                         paddingRight: '20px'
                     }}
                 >
-                    <DeadlinesCheckBox
-                        text="27.08 - Дискретна метематика - 5 лаб"
-                        color="red"
-                        checked="Option 1"
-                    />
-                    <DeadlinesCheckBox
-                        text="27.08 - Дискретна метематика - 2 лаб"
-                        color="green"
-                        checked="Option 2"
-                    />
-                    <DeadlinesCheckBox
-                        text="27.08 - Дискретна метематика - 3 лаб"
-                        color="yellow"
-                        checked="Option 2"
-                    />
+                    {deadLines.map((deadLine) => {
+                        const deadLineDate = new Date(deadLine.date);
+                        const day = deadLineDate.getDate();
+                        const month = deadLineDate.getMonth() + 1;
+
+                        let color: "green" | "red" | "yellow" = "red";
+                        let checked: "Option 1" | "Option 2" | "Option 3" = "Option 1";
+
+                        const currentDate = new Date();
+                        const twoWeeksFromNow = new Date(currentDate);
+                        twoWeeksFromNow.setDate(currentDate.getDate() + 14);
+
+                        switch (true) {
+                            case deadLineDate > twoWeeksFromNow:
+                                color = "green";
+                                break;
+                            case deadLineDate < currentDate:
+                                color = "red";
+                                break;
+                            default:
+                                color = "yellow";
+                                break;
+                        }
+
+                        checked = `Option ${deadLine.status + 1}` as "Option 1" | "Option 2" | "Option 3";
+
+                        return (
+                            <DeadlinesCheckBox
+                                text={`${day}.${month} - ${deadLine.subjectInTimeTable.subject.name} - ${deadLine.text}`}
+                                color={color}
+                                checked={checked}
+                            />
+                        );
+                    })}
                 </Stack>
 
             </MainContainer>
