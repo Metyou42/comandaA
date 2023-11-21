@@ -6,7 +6,7 @@ import {Stack, Typography, Paper, ListItem, ListItemButton, ListItemText} from '
 import { MainBoxText, StyledPaperMui } from "./styled";
 import { TextLineBox } from "components/TextLineBox";
 import {ISubjectForLecturer, ISubjectNote} from "../../lib/axios/types";
-import {getDeadLinesArchive, getLecturer} from "../../lib/axios/requests";
+import { getDeadLinesArchive } from "lib/axios/SubjectsNotes/requests";
 
 export function Archive(): React.ReactElement {
 

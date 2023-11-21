@@ -20,8 +20,8 @@ import { Cat } from "assets";
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { useLocation } from "react-router-dom";
 import { ILecturerForSubject } from "../../lib/axios/types";
-import { getSubject } from "../../lib/axios/requests";
 import { toastError } from "components/Toastify";
+import {getSubjectById} from "../../lib/axios/Subjects/requests";
 
 export function Subject(): React.ReactElement {
     const searchParams = new URLSearchParams(useLocation().search)
@@ -45,7 +45,7 @@ export function Subject(): React.ReactElement {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const subject = await getSubject(subjectId);
+                const subject = await getSubjectById(subjectId);
                 console.log(subject);
 
                 setName(subject.name);
@@ -130,5 +130,9 @@ export function Subject(): React.ReactElement {
             </MainContainer>
         </MainBackGround>
     );
+}
+
+function getSubject(subjectId: string) {
+    throw new Error("Function not implemented.");
 }
 

@@ -6,8 +6,8 @@ import { Stack, Typography, Paper, Avatar } from '@mui/material';
 import { MainBoxText, StyledPaperMui, MainPhoto } from "./styled";
 import { TextLineBox } from "components/TextLineBox";
 import { Cat } from "assets";
-import { getUser } from "../../lib/axios/requests";
 import { useLocation } from 'react-router-dom';
+import {getUser, getUserById} from "lib/axios/Users/requests";
 
 export function Profile(): React.ReactElement {
     const searchParams = new URLSearchParams(useLocation().search)
@@ -24,7 +24,15 @@ export function Profile(): React.ReactElement {
         const fetchData = async () => {
             try {
                 console.log(profileId);
-                const user = await getUser(profileId);
+                
+                let user;
+                
+                if (profileId) {
+                    user = await getUserById(profileId);   
+                }
+                else {
+                    user = await getUser();
+                }
                 console.log(user);
                 
                 setName(user.firstName + " " + user.lastName);

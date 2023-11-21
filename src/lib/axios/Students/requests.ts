@@ -53,7 +53,7 @@ export const getClassGroupStudentsByUser = async (): Promise<IStudent[]> => {
     return data.data.students as IStudent[];
 };
 
-export const isUserOwner = async (ownershipId: number, ownershipType: number): Promise<boolean> => {
+export const isUserOwner = async (ownershipId: string, ownershipType: number): Promise<boolean> => {
     const { data, status } = await axios.get<IMessage>(
         `${studentsUrl}/IsOwner?ownershipId=${ownershipId}&ownershipType=${ownershipType}`,
         {

@@ -10,8 +10,8 @@ import { NotesLine } from "components/NotesLine";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LessonLine } from "components/LessonLine";
-import {getDeadLinesArchive, getTimeTable} from "../../lib/axios/requests";
 import {ISubjectInTimeTable, ISubjectNote} from "../../lib/axios/types";
+import { getTimeTable } from "lib/axios/TimeTables/requests";
 
 export function TimeTable(): React.ReactElement {
     

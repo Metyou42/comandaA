@@ -9,13 +9,13 @@ import { red, green, yellow } from '@mui/material/colors';
 import { DeadlinesCheckBox } from "components/DeadlinesCheckBox";
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import {ISubjectNote} from "../../lib/axios/types";
-import {getDeadLines} from "../../lib/axios/requests";
 import {TextLineBox} from "../../components/TextLineBox";
+import { getDeadLines } from "lib/axios/SubjectsNotes/requests";
 
 export function Deadlines(): React.ReactElement {
 
     const [deadLines, setDeadLines] = useState<ISubjectNote[]>([]);
-
+    
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -43,7 +43,7 @@ export function Deadlines(): React.ReactElement {
                     </BlockFlexText>
 
                     <BlockFlexAdditional>
-                        <Button variant="outlined" sx={{ marginLeft: "auto", marginRight: "24px" }}>Outlined</Button>
+                        <Button variant="outlined" sx={{ marginLeft: "auto", marginRight: "24px" }}>Архів</Button>
                         <IconButton>
                             <InfoOutlinedIcon
                                 sx={{
@@ -71,7 +71,7 @@ export function Deadlines(): React.ReactElement {
                         const month = deadLineDate.getMonth() + 1;
 
                         let color: "green" | "red" | "yellow" = "red";
-                        let checked: "Option 1" | "Option 2" | "Option 3" = "Option 1";
+                        let checked: 1 | 2 | 3 = 1;
 
                         const currentDate = new Date();
                         const twoWeeksFromNow = new Date(currentDate);
@@ -89,10 +89,12 @@ export function Deadlines(): React.ReactElement {
                                 break;
                         }
 
-                        checked = `Option ${deadLine.status + 1}` as "Option 1" | "Option 2" | "Option 3";
+
+                        checked = deadLine.status + 1 as 1 | 2 | 3;
 
                         return (
                             <DeadlinesCheckBox
+                                id={deadLine.id}
                                 text={`${day}.${month} - ${deadLine.subjectInTimeTable.subject.name} - ${deadLine.text}`}
                                 color={color}
                                 checked={checked}

@@ -3,7 +3,7 @@ import { AppBar, Avatar, Box, Button, ButtonGroup, Checkbox, Container, FormCont
 import { BoxLogin } from "ui-components/BoxLogin/BoxLogin";
 import { Cat, Contact, Group, LogOut, Notebook, Schedule, Search, Settings, Study } from "assets";
 import { ButtonContainer, ButtonCustom, HeaderInfo, HeadersImg, SupportButtonContainer, SupportButtonCustom, Username } from "./styled";
-import {getUser} from "../../lib/axios/requests";
+import { getUser } from "lib/axios/Users/requests";
 
 export function PanelHeader(): React.ReactElement {
 
@@ -13,7 +13,7 @@ export function PanelHeader(): React.ReactElement {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const user = await getUser(undefined);
+                const user = await getUser();
                 console.log(user);
 
                 setName(user.firstName + " " + user.lastName);
