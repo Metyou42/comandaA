@@ -34,17 +34,34 @@ export const ButtonContainer = styled.div`
         width: 5vh;
         height: 5vh;
     }
+
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 `;
 
-export const ButtonCustom = styled.div`
-    background-color: transparent;
-    border: none;
+export const ButtonCustom = styled.div.attrs((props: { isSelected: boolean }) => ({
+    isSelected: props.isSelected
+}))`
+    background-color: ${(props) => (props.isSelected ? 'lightblue' : 'transparent')};
     padding: 0.1vh;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 25%;
+    height: 100%;
+    border-radius: 0 0 2vh 2vh;
+
+    &:hover {
+        background-color: ${(props) => (props.isSelected ? 'lightblue' : "#948f8f")};
+    }
+
+    &:active {
+        background-color: ${(props) => (props.isSelected ? 'lightblue' : "#b0abab")};
+    }
 `;
 
 export const SupportButtonContainer = styled.div`
@@ -82,4 +99,10 @@ export const HeadersImg = styled.img.attrs((props: { src: string }) => ({
 
     box-sizing: border-box;
     object-fit: contain;
+
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 `;
