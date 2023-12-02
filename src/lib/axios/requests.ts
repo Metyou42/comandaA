@@ -112,6 +112,7 @@ export const getSubject = async (id: string): Promise<ISubject> => {
 
     return data.data as ISubject;
 };
+
 export const updateLecturer = async (
     id: string,
     name: string,
@@ -130,6 +131,38 @@ export const updateLecturer = async (
             patronymic,
             email,
             rank
+        },
+        {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${Cookies.get('accessToken')}`,
+            }
+        },
+    );
+
+    if (!data) {
+        throw new Error("Some error");
+    }
+
+    if (data.httpCode !== 200) {
+        throw new Error("Not found");
+    }
+
+    return data.displayMessage as string;
+};
+
+export const updateSubject = async (
+    id: string,
+    name: string,
+    description: string
+): Promise<string> => {
+
+    const { data, status } = await axios.put<IMessage>(
+        `${REACT_APP_BACKEND_URL}/api/Subjects/Update`,
+        {
+            id,
+            name,
+            description
         },
         {
             headers: {
