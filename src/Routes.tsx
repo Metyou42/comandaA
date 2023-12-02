@@ -19,6 +19,7 @@ import { EditLecturer } from "pages/EditLecturer";
 import { EditingSubjectProfile } from "pages/EditingSubjectProfile";
 import { GroupList } from "pages/GroupList";
 import { CreateGroup } from "pages/CreateGroup";
+import NotFoundPage from "pages/NotFoundPage";
 // import { toastError } from "components/Toastify";
 
 function SwitchRoutes(): React.ReactElement {
@@ -29,10 +30,10 @@ function SwitchRoutes(): React.ReactElement {
     const history = useHistory();
     const location = useLocation();
 
-    // if (!["/login"].includes(location.pathname) && !currentAccessToken) {
-    //     // toastError(t("validations:session.expired"));
-    //     history.push("/login")
-    // }
+    if (!["/login", "/registration"].includes(location.pathname) && !currentAccessToken) {
+        // toastError(t("validations:session.expired"));
+        history.push("/login")
+    }
 
     if (!currentAccessToken) {
         return (
@@ -43,29 +44,7 @@ function SwitchRoutes(): React.ReactElement {
 
                 <Route component={Register} path="/registration" exact />
 
-                <Route component={Archive} path="/archive" exact />
-
-                <Route component={Deadlines} path="/deadlines" exact />
-
-                <Route component={Notes} path="/notes" exact />
-
-                <Route component={CreateNotes} path="/createnotes" exact />
-
-                <Route component={Profile} path="/profile" exact />
-
-                <Route component={TimeTable} path="/timeTable" exact />
-
-                <Route component={Lecturer} path="/lecturer" exact />
-
-                <Route component={Subject} path="/subject" exact />
-
-                <Route component={EditLecturer} path="/edit/lecturer" exact />
-
-                <Route component={EditingSubjectProfile} path="/edit/subject" exact />
-
-                <Route component={GroupList} path="/grouplist" exact />
-
-                <Route component={CreateGroup} path="/CreateGroup" exact />
+                <Route path="*" component={NotFoundPage} />
             </Switch >
         );
     }
@@ -73,11 +52,7 @@ function SwitchRoutes(): React.ReactElement {
     return (
         <Switch>
             <Switch>
-                <Route component={Login} path="/" exact />
-
-                <Route component={Login} path="/login" exact />
-
-                <Route component={Register} path="/registration" exact />
+                <Route component={Profile} path="/" exact />
 
                 <Route component={Archive} path="/archive" exact />
 
@@ -102,6 +77,8 @@ function SwitchRoutes(): React.ReactElement {
                 <Route component={GroupList} path="/grouplist" exact />
 
                 <Route component={CreateGroup} path="/CreateGroup" exact />
+
+                <Route path="*" component={NotFoundPage} />
             </Switch >
         </Switch >
     );

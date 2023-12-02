@@ -6,8 +6,11 @@ import { REACT_APP_ACCESS_TOKEN_COOKIE_NAME, REACT_APP_BACKEND_URL } from "envir
 import { toastError } from "components/Toastify";
 import { login } from "lib/axios/requests";
 import Cookies from "js-cookie";
+import { useHistory } from "react-router-dom";
 
 export function Login(): React.ReactElement {
+    const history = useHistory();
+
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [rememberMe, setRememberMe] = useState<boolean>(false);
@@ -31,6 +34,8 @@ export function Login(): React.ReactElement {
                 secure: window.location.protocol === 'https:' ? true : false,
                 sameSite: 'strict',
             });
+
+            history.push("/")
         } catch (error) {
             toastError(error.message)
         }
@@ -59,6 +64,7 @@ export function Login(): React.ReactElement {
                 required
                 id="outlined-required"
                 label="Password"
+                type="password"
                 value={password}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                     setPassword(event.target.value);
