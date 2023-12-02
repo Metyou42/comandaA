@@ -2,32 +2,19 @@ import React, { useEffect, useState } from "react";
 import { PanelHeader } from "components/header";
 import { MainBackGround } from "ui-components/MainCss/MainCSS";
 import { MainContainer } from "ui-components/MainContainer/MainContainer";
-import {
-    Stack,
-    Typography,
-    Paper,
-    Avatar,
-    IconButton,
-    Box,
-    List,
-    ListItem,
-    ListItemButton,
-    ListItemText
-} from '@mui/material';
-import { MainBoxText, StyledPaperMui, MainSubject, MainWork, MainAbout, BlockFlex, BlockFlexText, BlockFlexAdditional, BlockMargin } from "./styled";
-import { TextLineBox } from "components/TextLineBox";
-import { Cat } from "assets";
+import { Stack, Typography, Paper, Avatar, IconButton, Box, ListItem, ListItemButton, ListItemText, List, Divider } from '@mui/material';
+import { MainBoxText, StyledPaperMui, MainEmail, MainWork, BlockFlex, BlockFlexText, BlockFlexAdditional, BlockMargin } from "./styled";
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import { getLecturer } from "../../lib/axios/requests";
 import { useLocation } from "react-router-dom";
-import { ILecturerForSubject } from "../../lib/axios/types";
-import { getSubject } from "../../lib/axios/requests";
+import { ISubjectForLecturer } from "../../lib/axios/types";
 import { toastError } from "components/Toastify";
 
-export function Subject(): React.ReactElement {
+export function Lecturer(): React.ReactElement {
     const searchParams = new URLSearchParams(useLocation().search)
-    const subjectId = searchParams.get("id")
+    const lectorId = searchParams.get("id")
 
-    if (!subjectId) {
+    if (!lectorId) {
         return (
             <MainBackGround>
                 <PanelHeader />
@@ -38,19 +25,23 @@ export function Subject(): React.ReactElement {
         );
     }
 
-    const [name, setName] = useState<string>("");
-    const [description, setDescription] = useState<string>("");
-    const [lecturers, setLecturers] = useState<ILecturerForSubject[]>([]);
+    const [fullName, setFullName] = useState<string>("");
+    const [university, setUniversity] = useState<string>("");
+    const [rank, setRank] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
+    const [subjects, setSubjects] = useState<ISubjectForLecturer[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const subject = await getSubject(subjectId);
-                console.log(subject);
+                const lecturer = await getLecturer(lectorId);
+                console.log(lecturer);
 
-                setName(subject.name);
-                setDescription(subject.description);
-                setLecturers(subject.lecturers);
+                setFullName(lecturer.surname + " " + lecturer.name + " " + lecturer.patronymic);
+                setUniversity(lecturer.educationalInstitution.name);
+                setRank(lecturer.rank);
+                setEmail(lecturer.email);
+                setSubjects(lecturer.subjects);
             } catch (error) {
                 console.error('Error fetching lecturer data:', error);
                 toastError(error.message)
@@ -67,6 +58,9 @@ export function Subject(): React.ReactElement {
             <MainContainer>
 
                 <BlockFlex>
+                    <BlockFlexText>
+                        <p>{email}</p>
+                    </BlockFlexText>
 
                     <BlockFlexAdditional>
                         <IconButton>
@@ -82,19 +76,19 @@ export function Subject(): React.ReactElement {
                 </BlockFlex>
 
                 <BlockMargin>
-                    <MainSubject>
-                        Предмет
-                    </MainSubject>
-                    <MainSubject>
-                        {name}
-                    </MainSubject>
+                    <MainBoxText>
+                        Викладач
+                    </MainBoxText>
+                    <MainBoxText>
+                        {fullName}
+                    </MainBoxText>
+                    <MainWork>
+                        Працює в: {university}
+                    </MainWork>
+                    <MainBoxText>
+                        {rank}
+                    </MainBoxText>
 
-                    <MainWork>{description}</MainWork>
-
-
-                    <MainSubject>
-                        Викладачі:
-                    </MainSubject>
                     <Box
                         sx={{
                             width: '40%',
@@ -112,11 +106,11 @@ export function Subject(): React.ReactElement {
                                 maxHeight: 300,
                             }}
                         >
-                            {lecturers.map((lecturer) => (
+                            {subjects.map((subject) => (
                                 <ListItem disablePadding>
                                     <ListItemButton>
                                         <ListItemText
-                                            primary={`${lecturer.surname + " " + lecturer.name + " " + lecturer.patronymic}`}
+                                            primary={`${subject.name}`}
                                             sx={{
                                                 color: "white"
                                             }}

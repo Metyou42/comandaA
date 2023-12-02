@@ -10,10 +10,12 @@ import { useTranslation } from "react-i18next";
 import { BrowserRouter, Route, Switch, useHistory, useLocation } from "react-router-dom";
 import { Deadlines } from "pages/Deadlines";
 import { Notes } from "pages/Notes";
-import { PagesProfile } from "pages/PagesProfile";
-import { Teacher } from "pages/Teacher";
+import { CreateNotes } from "pages/CreateNotes";
+import { TimeTable } from "pages/TimeTable";
+import { Lecturer } from "pages/Lecturer";
+import { Profile } from "pages/Profile";
 import { Subject } from "pages/Subject";
-import { EditingUserProfile } from "pages/EditingUserProfile";
+import { EditLecturer } from "pages/EditLecturer";
 import { EditingSubjectProfile } from "pages/EditingSubjectProfile";
 // import { toastError } from "components/Toastify";
 
@@ -45,32 +47,52 @@ function SwitchRoutes(): React.ReactElement {
 
                 <Route component={Notes} path="/notes" exact />
 
-                <Route component={PagesProfile} path="/pagesProfile" exact />
+                <Route component={CreateNotes} path="/createnotes" exact />
 
-                <Route component={Teacher} path="/Teacher" exact />
+                <Route component={Profile} path="/profile" exact />
 
-                <Route component={Subject} path="/Subject" exact />
+                <Route component={TimeTable} path="/timeTable" exact />
 
-                <Route component={EditingUserProfile} path="/EditingUserProfile" exact />
+                <Route component={Lecturer} path="/lecturer" exact />
+
+                <Route component={Subject} path="/subject" exact />
+
+                <Route component={EditLecturer} path="/edit/lecturer" exact />
 
                 <Route component={EditingSubjectProfile} path="/EditingSubjectProfile" exact />
-            </Switch>
+            </Switch >
         );
     }
 
     return (
         <Switch>
-            {/* <Route render={(props) => <LoadDataPage {...props} apiServerUrl={apiServerUrl} setApiServerUrl={setApiServerUrl} isApiServerConnected={isApiServerConnected} setIsApiServerConnected={setIsApiServerConnected} />} path="/" exact />
+            <Switch>
+                <Route component={Login} path="/" exact />
 
-            <Route render={(props) => <LoadDataPage {...props} apiServerUrl={apiServerUrl} setApiServerUrl={setApiServerUrl} isApiServerConnected={isApiServerConnected} setIsApiServerConnected={setIsApiServerConnected} />} path="/load" exact />
+                <Route component={Login} path="/login" exact />
 
-            <Route render={(props) => <Logs {...props} apiServerUrl={apiServerUrl} isApiServerConnected={isApiServerConnected} />} path="/logs" exact />
+                <Route component={Register} path="/registration" exact />
 
-            <Route component={Login} path="/login" exact />
+                <Route component={Archive} path="/archive" exact />
 
-            <Route path="*" component={() => <NotFoundPage isAuth />} /> */}
+                <Route component={Deadlines} path="/deadlines" exact />
 
-            {/* <Route component={Login} path="/" exact /> */}
+                <Route component={Notes} path="/notes" exact />
+
+                <Route component={CreateNotes} path="/createnotes" exact />
+
+                <Route component={Profile} path="/profile" exact />
+
+                <Route component={TimeTable} path="/TimeTable" exact />
+
+                <Route component={Lecturer} path="/Lecturer" exact />
+
+                <Route component={Subject} path="/subject" exact />
+
+                <Route component={EditLecturer} path="/edit/lecturer" exact />
+
+                <Route component={EditingSubjectProfile} path="/EditingSubjectProfile" exact />
+            </Switch>
         </Switch>
     );
 }

@@ -17,17 +17,26 @@ export const BoxCennter = styled.div`
     color: white;
 `;
 
-export const MainEmail = styled.div`
+export const MainSubject = styled.div`
 text-align: center;
 color: white;
-        font-size: 35px;
+        margin: 20px;
 `;
 export const MainWork = styled.div`
         text-align: center;
         color: white;
-        font-size: 23px;
+        margin-bottom: 5px; 
+`;
+export const FormInput = styled.div`
+text-align: center;  
+margin-bottom: 20px; 
 `;
 
+export const FormInputBottom = styled.div`
+    text-align: center;  
+    margin-bottom: 20px;
+    margin-top: auto;
+`;
 
 export const StyledPaperMui = {
     backgroundColor: 'rgba(83, 59, 119, 0.5)',
@@ -36,4 +45,8 @@ export const StyledPaperMui = {
     alignItems: 'center',
     height: '70px'
 };
-
+export const MainAbout = styled.div`
+text-align: center;
+color: white;
+        
+`;
