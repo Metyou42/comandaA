@@ -1,7 +1,7 @@
 import { REACT_APP_BACKEND_URL, REACT_APP_DATALOADER_URL } from 'environmentVariables';
 import { CSVWarningDuplicates, LoadDataEror, StratLoadTransactionError } from 'lib/types/customErrors';
 import axios from './axios';
-import { IGetLecturer, IGetSubject, IGetUser, ILecturer, ILogin, IMessage, ISubject, IUser } from './types';
+import { IClassGroupsData, IGetClassGroups, IGetLecturer, IGetSubject, IGetUser, ILecturer, ILogin, IMessage, ISubject, IUser } from './types';
 import Cookies from "js-cookie";
 // import { IapiServerInfo, IEndLoadTransactionRequest, IloadDataRequest, IloadDataRequestBody, IloadDataRequestResponse, IStartLoadTransaction, IStartLoadTransactionRequestBody, IStartLoadTransactionResponse } from './types';
 
@@ -163,6 +163,61 @@ export const updateSubject = async (
             id,
             name,
             description
+        },
+        {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${Cookies.get('accessToken')}`,
+            }
+        },
+    );
+
+    if (!data) {
+        throw new Error("Some error");
+    }
+
+    if (data.httpCode !== 200) {
+        throw new Error("Not found");
+    }
+
+    return data.displayMessage as string;
+};
+
+export const getClassGroups = async (): Promise<IClassGroupsData> => {
+    let url = `${REACT_APP_BACKEND_URL}/api/ClassGroups/Get`;
+
+    const { data, status } = await axios.get<IGetClassGroups>(
+        url,
+        {
+            headers: {
+                Authorization: `Bearer ${Cookies.get('accessToken')}`,
+            }
+        },
+    );
+
+    if (!data) {
+        throw new Error("Some error");
+    }
+
+    if (data.httpCode !== 200) {
+        throw new Error("Not found");
+    }
+
+    if (!data.data) {
+        throw new Error("Data not found");
+    }
+
+    return data.data as IClassGroupsData;
+};
+
+export const createClassGroup = async (
+    subgroup: string
+): Promise<string> => {
+
+    const { data, status } = await axios.post<IMessage>(
+        `${REACT_APP_BACKEND_URL}/api/ClassGroups/Create`,
+        {
+            subgroup
         },
         {
             headers: {
