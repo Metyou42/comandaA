@@ -36,6 +36,24 @@ export function PanelHeader({ picked }: PanelHeaderProps): React.ReactElement {
         history.push("/login")
     }
 
+    const [name, setName] = useState<string>("");
+    const [group, setGroup] = useState<string>("");
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const user = await getUser();
+                console.log(user);
+
+                setName(user.firstName + " " + user.lastName);
+                setGroup(user.special + "-" + user.group)
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
     return (
         <AppBar
             position="static"
@@ -64,13 +82,14 @@ export function PanelHeader({ picked }: PanelHeaderProps): React.ReactElement {
 
                     <HeaderInfo>
                         <Username>
-                            {"Матвійчук Адрій"}
+                            {name}
                         </Username>
 
                         <Username>
-                            {"КБ-49"}
+                            {group}
                         </Username>
                     </HeaderInfo>
+                    
                 </Button>
 
                 <ButtonContainer>

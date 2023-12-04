@@ -7,9 +7,10 @@ import { MainBoxText, StyledPaperMui, MainSubject, MainWork, FormInput, FormInpu
 import { TextLineBox } from "components/TextLineBox";
 import { Cat } from "assets";
 import { useLocation } from "react-router-dom";
-import { getLecturer, updateLecturer } from "../../lib/axios/requests";
 import { toastError, toastSuccess } from "components/Toastify";
 import { log } from "console";
+import {getLecturerById, updateLecturer } from "lib/axios/Lecturers/requests";
+import {isUserOwner} from "../../lib/axios/Students/requests";
 
 export function EditLecturer(): React.ReactElement {
     const searchParams = new URLSearchParams(useLocation().search)
@@ -35,14 +36,22 @@ export function EditLecturer(): React.ReactElement {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const lecturer = await getLecturer(lectorId);
-                console.log(lecturer);
+                const isOwner = await isUserOwner(lectorId, 0);
 
-                setName(lecturer.name);
-                setSurname(lecturer.surname);
-                setPatronymic(lecturer.patronymic);
-                setRank(lecturer.rank);
-                setEmail(lecturer.email);
+                if (isOwner) {
+                    const lecturer = await getLecturerById(lectorId);
+                    console.log(lecturer);
+
+                    setName(lecturer.name);
+                    setSurname(lecturer.surname);
+                    setPatronymic(lecturer.patronymic);
+                    setRank(lecturer.rank);
+                    setEmail(lecturer.email);
+                }
+                else
+                {
+                    throw new Error("Don`t have permission");
+                }
             } catch (error) {
                 console.error('Error fetching lecturer data:', error);
             }

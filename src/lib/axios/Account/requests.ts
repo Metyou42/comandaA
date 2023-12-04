@@ -1,13 +1,18 @@
 import { REACT_APP_BACKEND_URL, REACT_APP_DATALOADER_URL } from 'environmentVariables';
 import { CSVWarningDuplicates, LoadDataEror, StratLoadTransactionError } from 'lib/types/customErrors';
-import axios from './axios';
-import { IClassGroupsData, IGetClassGroups, IGetLecturer, IGetSubject, IGetUser, ILecturer, ILogin, IMessage, ISubject, IUser } from './types';
+import axios from '../axios';
+import {
+    ILogin
+} from './types';
 import Cookies from "js-cookie";
+import {IMessage} from "../types";
 // import { IapiServerInfo, IEndLoadTransactionRequest, IloadDataRequest, IloadDataRequestBody, IloadDataRequestResponse, IStartLoadTransaction, IStartLoadTransactionRequestBody, IStartLoadTransactionResponse } from './types';
+
+const accountUrl = `${REACT_APP_BACKEND_URL}/api/Account`;
 
 export const login = async (email: string, password: string): Promise<string> => {
     const { data, status } = await axios.post<ILogin>(
-        `${REACT_APP_BACKEND_URL}/api/Account/Login`,
+        `${accountUrl}/Login`,
         {
             email,
             password
@@ -30,198 +35,134 @@ export const login = async (email: string, password: string): Promise<string> =>
     return data.data as string
 }
 
-export const getUser = async (id: string): Promise<IUser> => {
-    let url = `${REACT_APP_BACKEND_URL}/api/Users/Get`;
-
-    if (id) {
-        url += `ById?id=${id}`;
-    }
-
-    const { data, status } = await axios.get<IGetUser>(
-        url,
-        {
-            headers: {
-                Authorization: `Bearer ${Cookies.get('accessToken')}`,
-            }
-        },
-    );
-
-    if (!data) {
-        throw new Error("Some error");
-    }
-
-    if (data.httpCode !== 200) {
-        throw new Error("Not found");
-    }
-
-    if (!data.data) {
-        throw new Error("Data not found");
-    }
-
-    return data.data as IUser;
-};
-
-export const getLecturer = async (id: string): Promise<ILecturer> => {
-    const { data, status } = await axios.get<IGetLecturer>(
-        `${REACT_APP_BACKEND_URL}/api/Lecturers/GetById?id=${id}`,
-        {
-            headers: {
-                Authorization: `Bearer ${Cookies.get('accessToken')}`,
-            }
-        },
-    );
-
-    if (!data) {
-        throw new Error("Some error");
-    }
-
-    if (data.httpCode !== 200) {
-        throw new Error("Not found");
-    }
-
-    if (!data.data) {
-        throw new Error("Data not found");
-    }
-
-    return data.data as ILecturer;
-};
-
-export const getSubject = async (id: string): Promise<ISubject> => {
-    let url = `${REACT_APP_BACKEND_URL}/api/Subjects/GetById?id=${id}`;
-
-    const { data, status } = await axios.get<IGetSubject>(
-        url,
-        {
-            headers: {
-                Authorization: `Bearer ${Cookies.get('accessToken')}`,
-            }
-        },
-    );
-
-    if (!data) {
-        throw new Error("Some error");
-    }
-
-    if (data.httpCode !== 200) {
-        throw new Error("Not found");
-    }
-
-    if (!data.data) {
-        throw new Error("Data not found");
-    }
-
-    return data.data as ISubject;
-};
-
-export const updateLecturer = async (
-    id: string,
-    name: string,
-    surname: string,
-    patronymic: string,
-    email: string,
-    rank: string
-): Promise<string> => {
-
-    const { data, status } = await axios.put<IMessage>(
-        `${REACT_APP_BACKEND_URL}/api/Lecturers/Update`,
-        {
-            id,
-            name,
-            surname,
-            patronymic,
-            email,
-            rank
-        },
-        {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${Cookies.get('accessToken')}`,
-            }
-        },
-    );
-
-    if (!data) {
-        throw new Error("Some error");
-    }
-
-    if (data.httpCode !== 200) {
-        throw new Error("Not found");
-    }
-
-    return data.displayMessage as string;
-};
-
-export const updateSubject = async (
-    id: string,
-    name: string,
-    description: string
-): Promise<string> => {
-
-    const { data, status } = await axios.put<IMessage>(
-        `${REACT_APP_BACKEND_URL}/api/Subjects/Update`,
-        {
-            id,
-            name,
-            description
-        },
-        {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${Cookies.get('accessToken')}`,
-            }
-        },
-    );
-
-    if (!data) {
-        throw new Error("Some error");
-    }
-
-    if (data.httpCode !== 200) {
-        throw new Error("Not found");
-    }
-
-    return data.displayMessage as string;
-};
-
-export const getClassGroups = async (): Promise<IClassGroupsData> => {
-    let url = `${REACT_APP_BACKEND_URL}/api/ClassGroups/Get`;
-
-    const { data, status } = await axios.get<IGetClassGroups>(
-        url,
-        {
-            headers: {
-                Authorization: `Bearer ${Cookies.get('accessToken')}`,
-            }
-        },
-    );
-
-    if (!data) {
-        throw new Error("Some error");
-    }
-
-    if (data.httpCode !== 200) {
-        throw new Error("Not found");
-    }
-
-    if (!data.data) {
-        throw new Error("Data not found");
-    }
-
-    return data.data as IClassGroupsData;
-};
-
-export const createClassGroup = async (
-    subgroup: string
-): Promise<string> => {
-
+export const register = async (universityEmail: string, email: string, password: string): Promise<boolean> => {
     const { data, status } = await axios.post<IMessage>(
-        `${REACT_APP_BACKEND_URL}/api/ClassGroups/Create`,
+        `${accountUrl}/Register`,
         {
-            subgroup
+            universityEmail,
+            email,
+            password
         },
         {
             headers: {
-                "Content-Type": "application/json",
+                // "Access-Control-Allow-Origin": "*"
+            }
+        },
+    );
+
+    if (!data) {
+        throw new Error("Some error");
+    }
+
+    if (data.httpCode !== 200) {
+        throw new Error("Invalid login");
+    }
+
+    return true;
+}
+
+export const confirmRegister = async (email: string, universityEmail: string, token: number): Promise<boolean> => {
+    const { data, status } = await axios.get<IMessage>(
+        `${accountUrl}/ConfirmRegister?email=${email}&universityEmail=${universityEmail}&token=${token}`,
+        {
+            headers: {
+                // "Access-Control-Allow-Origin": "*"
+            }
+        },
+    );
+
+    if (!data) {
+        throw new Error("Some error");
+    }
+
+    if (data.httpCode !== 200) {
+        throw new Error("Invalid login");
+    }
+
+    return true;
+}
+
+export const forgotPassword = async (email: string): Promise<boolean> => {
+    const { data, status } = await axios.post<IMessage>(
+        `${accountUrl}/ForgotPassword`,
+        {
+            email
+        },
+        {
+            headers: {
+                // "Access-Control-Allow-Origin": "*"
+            }
+        },
+    );
+
+    if (!data) {
+        throw new Error("Some error");
+    }
+
+    if (data.httpCode !== 200) {
+        throw new Error("Invalid login");
+    }
+
+    return true;
+}
+
+export const confirmResetPassword = async (email: string, token: number): Promise<boolean> => {
+    const { data, status } = await axios.get<IMessage>(
+        `${accountUrl}/ResetPassword?email=${email}&token=${token}`,
+        {
+            headers: {
+                // "Access-Control-Allow-Origin": "*"
+            }
+        },
+    );
+
+    if (!data) {
+        throw new Error("Some error");
+    }
+
+    if (data.httpCode !== 200) {
+        throw new Error("Invalid login");
+    }
+
+    return true;
+}
+
+export const resetPassword = async (email: string, password: string, token: number): Promise<boolean> => {
+    const { data, status } = await axios.post<IMessage>(
+        `${accountUrl}/ResetPassword`,
+        {
+            email,
+            password,
+            token
+        },
+        {
+            headers: {
+                // "Access-Control-Allow-Origin": "*"
+            }
+        },
+    );
+
+    if (!data) {
+        throw new Error("Some error");
+    }
+
+    if (data.httpCode !== 200) {
+        throw new Error("Invalid login");
+    }
+
+    return true;
+}
+
+export const changePassword = async (currentPassword: string, newPassword: string): Promise<boolean> => {
+    const { data, status } = await axios.post<IMessage>(
+        `${accountUrl}/ChangePassword`,
+        {
+            currentPassword,
+            newPassword
+        },
+        {
+            headers: {
+                // "Access-Control-Allow-Origin": "*"
                 Authorization: `Bearer ${Cookies.get('accessToken')}`,
             }
         },
@@ -232,11 +173,78 @@ export const createClassGroup = async (
     }
 
     if (data.httpCode !== 200) {
-        throw new Error("Not found");
+        throw new Error("Invalid login");
     }
 
-    return data.displayMessage as string;
-};
+    return true;
+}
+
+export const changeEmail = async (newEmail: string): Promise<boolean> => {
+    const { data, status } = await axios.post<IMessage>(
+        `${accountUrl}/ChangeEmail`,
+        {
+            newEmail
+        },
+        {
+            headers: {
+                // "Access-Control-Allow-Origin": "*"
+                Authorization: `Bearer ${Cookies.get('accessToken')}`,
+            }
+        },
+    );
+
+    if (!data) {
+        throw new Error("Some error");
+    }
+
+    if (data.httpCode !== 200) {
+        throw new Error("Invalid login");
+    }
+
+    return true;
+}
+
+export const confirmChangeEmail = async (email: string, newEmail: string, token: number): Promise<boolean> => {
+    const { data, status } = await axios.get<IMessage>(
+        `${accountUrl}/ConfirmChangeEmail?email=${email}&newEmail=${newEmail}&token=${token}`,
+        {
+            headers: {
+                // "Access-Control-Allow-Origin": "*"
+            }
+        },
+    );
+
+    if (!data) {
+        throw new Error("Some error");
+    }
+
+    if (data.httpCode !== 200) {
+        throw new Error("Invalid login");
+    }
+
+    return true;
+}
+
+export const confirmNewEmail = async (email: string, newEmail: string, token: number): Promise<boolean> => {
+    const { data, status } = await axios.get<IMessage>(
+        `${accountUrl}/ConfirmNewEmail?email=${email}&newEmail=${newEmail}&token=${token}`,
+        {
+            headers: {
+                // "Access-Control-Allow-Origin": "*"
+            }
+        },
+    );
+
+    if (!data) {
+        throw new Error("Some error");
+    }
+
+    if (data.httpCode !== 200) {
+        throw new Error("Invalid login");
+    }
+
+    return true;
+}
 
 // export const startLoadTransactionRequest = async (apiServerUrl: string, accessToken: string, body: IStartLoadTransactionRequestBody): Promise<IStartLoadTransaction> => {
 //     const res = {
