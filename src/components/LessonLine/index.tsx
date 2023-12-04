@@ -9,7 +9,7 @@ import { TextLineBox } from "components/TextLineBox";
 
 interface LessonLineProps {
     text: string
-    time: string
+    time: number
 }
 
 export function LessonLine({ text, time }: LessonLineProps): React.ReactElement {
