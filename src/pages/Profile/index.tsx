@@ -10,6 +10,7 @@ import { useLocation } from 'react-router-dom';
 import {getUser, getUserById} from "lib/axios/Users/requests";
 
 export function Profile(): React.ReactElement {
+    const selectedPanel: "Settings" = "Settings";
     const searchParams = new URLSearchParams(useLocation().search)
     const profileId = searchParams.get("id")
     
@@ -52,7 +53,7 @@ export function Profile(): React.ReactElement {
 
     return (
         <MainBackGround>
-            <PanelHeader />
+            <PanelHeader picked={selectedPanel} />
 
             <MainContainer>
                 <MainBoxText>

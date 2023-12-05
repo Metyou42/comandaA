@@ -15,11 +15,12 @@ import {isUserOwner} from "../../lib/axios/Students/requests";
 export function EditLecturer(): React.ReactElement {
     const searchParams = new URLSearchParams(useLocation().search)
     const lectorId = searchParams.get("id")
+    const selectedPanel: "Study" = "Study";
 
     if (!lectorId) {
         return (
             <MainBackGround>
-                <PanelHeader />
+                <PanelHeader picked={selectedPanel} />
 
                 <MainContainer>
                 </MainContainer>
@@ -76,7 +77,7 @@ export function EditLecturer(): React.ReactElement {
 
     return (
         <MainBackGround>
-            <PanelHeader />
+            <PanelHeader picked={selectedPanel} />
 
             <MainContainer>
 

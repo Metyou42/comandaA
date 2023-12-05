@@ -41,10 +41,10 @@ export interface IClassGroup {
 
 export interface IStudent {
     id: number,
-    Name: string, 
-    Surname: string, 
-    Patronymic: string, 
-    Email: string, 
+    name: string, 
+    surname: string, 
+    patronymic: string, 
+    email: string, 
     roleInGroup: number,
     educationalInstitution: IEducationalInstitution 
 }

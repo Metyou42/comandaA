@@ -9,7 +9,8 @@ import {ISubjectForLecturer, ISubjectNote} from "../../lib/axios/types";
 import { getDeadLinesArchive } from "lib/axios/SubjectsNotes/requests";
 
 export function Archive(): React.ReactElement {
-
+    const selectedPanel: "Notebook" = "Notebook";
+    
     const [deadLines, setDeadLines] = useState<ISubjectNote[]>([]);
 
     useEffect(() => {
@@ -29,7 +30,7 @@ export function Archive(): React.ReactElement {
     
     return (
         <MainBackGround>
-            <PanelHeader />
+            <PanelHeader picked={selectedPanel} />
 
             <MainContainer>
                 <MainBoxText>

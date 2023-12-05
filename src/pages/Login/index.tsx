@@ -4,7 +4,7 @@ import { BlockFlex, BlockFlexCenter } from "./styled";
 import { BoxLogin } from "ui-components/BoxLogin/BoxLogin";
 import { REACT_APP_ACCESS_TOKEN_COOKIE_NAME, REACT_APP_BACKEND_URL } from "environmentVariables";
 import { toastError } from "components/Toastify";
-import { login } from "lib/axios/requests";
+import { login } from "lib/axios/Account/requests";
 import Cookies from "js-cookie";
 import { useHistory } from "react-router-dom";
 

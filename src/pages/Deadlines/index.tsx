@@ -13,6 +13,7 @@ import {TextLineBox} from "../../components/TextLineBox";
 import { getDeadLines } from "lib/axios/SubjectsNotes/requests";
 
 export function Deadlines(): React.ReactElement {
+    const selectedPanel: "Notebook" = "Notebook";
 
     const [deadLines, setDeadLines] = useState<ISubjectNote[]>([]);
     
@@ -33,7 +34,7 @@ export function Deadlines(): React.ReactElement {
     
     return (
         <MainBackGround>
-            <PanelHeader />
+            <PanelHeader picked={selectedPanel} />
 
             <MainContainer>
 

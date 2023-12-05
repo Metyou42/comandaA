@@ -19,7 +19,7 @@ interface NotesLineProps {
 }
 
 export function NotesLine({ text, number, privateNote }: NotesLineProps): React.ReactElement {
-    const [isPrivateNote, setIsPrivateNote] = useState<boolean>(privateNote);
+    const [isPublicNote, setIsPublicNote] = useState<boolean>(privateNote);
 
     return (
         <BlockFlexJustify>
@@ -28,22 +28,8 @@ export function NotesLine({ text, number, privateNote }: NotesLineProps): React.
             </Paper>
             <TextLineBox text={text} />
 
-            {isPrivateNote
+            {isPublicNote
                 ? (
-                    <BlockFlex>
-                        <IconButton
-                            sx={{
-                                marginLeft: "10px"
-                            }}
-                        >
-                            <PublicIcon
-                                sx={{
-                                    color: "white",
-                                }}
-                            />
-                        </IconButton>
-                    </BlockFlex>
-                ) : (
                     <BlockFlex>
                         <IconButton
                             sx={{
@@ -63,6 +49,20 @@ export function NotesLine({ text, number, privateNote }: NotesLineProps): React.
                             }}
                         >
                             <EditOutlinedIcon
+                                sx={{
+                                    color: "white",
+                                }}
+                            />
+                        </IconButton>
+                    </BlockFlex>
+                ) : (
+                    <BlockFlex>
+                        <IconButton
+                            sx={{
+                                marginLeft: "10px"
+                            }}
+                        >
+                            <PublicIcon
                                 sx={{
                                     color: "white",
                                 }}

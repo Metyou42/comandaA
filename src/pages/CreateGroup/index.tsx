@@ -5,11 +5,12 @@ import { MainContainer } from "ui-components/MainContainer/MainContainer";
 import { TextField, Button } from '@mui/material';
 import { MainSubject, MainWork, FormInput, SubWork, BlockFlex } from "./styled";
 import { useLocation } from "react-router-dom";
-import { createClassGroup, getSubject, updateSubject } from "lib/axios/requests";
+import { createClassGroup } from "lib/axios/ClassGroups/requests";
 import { toastError, toastSuccess } from "components/Toastify";
 import { FormInputBottom } from "pages/EditLecturer/styled";
 
 export function CreateGroup(): React.ReactElement {
+    const selectedPanel: "Group" = "Group";
     const [name, setName] = useState<string>("");
     const [numberGroup, setNumberGroup] = useState<string>("");
 
@@ -29,7 +30,7 @@ export function CreateGroup(): React.ReactElement {
 
     return (
         <MainBackGround>
-            <PanelHeader />
+            <PanelHeader picked={selectedPanel} />
 
             <MainContainer>
 

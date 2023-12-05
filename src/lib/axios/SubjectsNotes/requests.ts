@@ -94,9 +94,9 @@ export const getDeadLines = async (): Promise<ISubjectNote[]> => {
     return data.data as ISubjectNote[];
 };
 
-export const getSubjectsNotes = async (): Promise<ISubjectNote[]> => {
+export const getSubjectsNotes = async (from: Date, to: Date): Promise<ISubjectNote[]> => {
     const { data, status } = await axios.get<IGetSubjectsNotes>(
-        `${subjectsNotesUrl}/GetByUser`,
+        `${subjectsNotesUrl}/GetByUser?from=${from.toDateString()}&to=${to.toDateString()}`,
         {
             headers: {
                 Authorization: `Bearer ${Cookies.get('accessToken')}`,

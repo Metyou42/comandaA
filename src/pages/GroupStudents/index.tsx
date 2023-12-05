@@ -14,8 +14,9 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import IconButton from '@mui/material/IconButton';
 import { Paper } from '@mui/material';
-import { getClassGroups } from 'lib/axios/requests';
 import { useEffect } from 'react';
+import {getClassGroupStudentsByUser} from "../../lib/axios/Students/requests";
+import {IStudent} from "../../lib/axios/types";
 
 // function createData(
 //   name: string,
@@ -37,26 +38,14 @@ import { useEffect } from 'react';
 //   createData('I need more', "КБ49"),
 // ];
 
-interface UsersGroupItem {
-  name: string,
-  group: string
-}
-
-export function GroupList(): React.ReactElement {
-  const [users, setUsers] = React.useState<UsersGroupItem[]>([]);
+export function GroupStudents(): React.ReactElement {
+  const selectedPanel: "Group" = "Group";
+  const [users, setUsers] = React.useState<IStudent[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const classGroups = await getClassGroups();
-        const students = []
-
-        classGroups.students.forEach(student => {
-          students.push({
-            name: `${student.name} ${student.surname} ${student.patronymic}`,
-            group: student.classGroup
-          })
-        });
+        const students = await getClassGroupStudentsByUser();
 
         setUsers(students)
       } catch (error) {
@@ -69,24 +58,23 @@ export function GroupList(): React.ReactElement {
 
   return (
     <MainBackGround>
-      <PanelHeader />
+      <PanelHeader picked={selectedPanel} />
       <MainContainer>
         <MainBoxText>
-          Group
+          Список групи
         </MainBoxText>
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
           <TableContainer sx={{ minWidth: 650, maxHeight: 640 }}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableBody>
-                {users.map((row) => (
+                {users.map((student) => (
                   <TableRow
-                    key={row.name}
+                    key={student.id}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      {row.name}
+                      {`${student.name} ${student.surname} ${student.patronymic}`}
                     </TableCell>
-                    <TableCell>{row.group}</TableCell>
                     <TableCell align='right'>
                       <IconButton>
                         <MoreVertIcon

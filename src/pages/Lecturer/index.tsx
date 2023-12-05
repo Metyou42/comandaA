@@ -11,13 +11,14 @@ import { toastError } from "components/Toastify";
 import { getLecturerById } from "lib/axios/Lecturers/requests";
 
 export function Lecturer(): React.ReactElement {
+    const selectedPanel: "Study" = "Study";
     const searchParams = new URLSearchParams(useLocation().search)
     const lectorId = searchParams.get("id")
     
     if (!lectorId) {
         return (
             <MainBackGround>
-                <PanelHeader />
+                <PanelHeader picked={selectedPanel} />
 
                 <MainContainer>
                 </MainContainer>
@@ -53,7 +54,7 @@ export function Lecturer(): React.ReactElement {
 
     return (
         <MainBackGround>
-            <PanelHeader />
+            <PanelHeader picked={selectedPanel} />
 
             <MainContainer>
 
