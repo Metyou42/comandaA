@@ -35,6 +35,18 @@ export function PanelHeader({ picked }: PanelHeaderProps): React.ReactElement {
         history.push("/Notes")
     }
 
+    const onClickSupport = () => {
+        history.push("/technicalsupport")
+    }
+
+    const onClickSearch = () => {
+        history.push("/search")
+    }
+
+    const onClickSettings = () => {
+        history.push("/settings")
+    }
+
     const onClickLogout = () => {
         removeCookie(REACT_APP_ACCESS_TOKEN_COOKIE_NAME)
         history.push("/login")
@@ -128,15 +140,15 @@ export function PanelHeader({ picked }: PanelHeaderProps): React.ReactElement {
 
                 <SupportButtonContainer>
                     <SupportButtonCustom>
-                        <HeadersImg src={Search} />
+                        <HeadersImg src={Search} onClick={onClickSearch} />
                     </SupportButtonCustom>
 
                     <SupportButtonCustom>
-                        <HeadersImg src={Contact} />
+                        <HeadersImg src={Contact} onClick={onClickSupport} />
                     </SupportButtonCustom>
 
                     <SupportButtonCustom>
-                        <HeadersImg src={Settings} />
+                        <HeadersImg src={Settings} onClick={onClickSettings} />
                     </SupportButtonCustom>
 
                     <SupportButtonCustom>

@@ -13,46 +13,68 @@ import { MainBoxText, StyledPaperMui } from "./styled";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import IconButton from '@mui/material/IconButton';
-import { Paper } from '@mui/material';
+import { Menu, MenuItem, Paper } from '@mui/material';
 import { useEffect } from 'react';
 import { getClassGroupStudentsByUser } from "../../lib/axios/Students/requests";
 import { IStudent } from "../../lib/axios/types";
-
-// function createData(
-//   name: string,
-//   group: string,
-// ) {
-//   return { name, group };
-// }
-
-// const rows = [
-//   createData('I need more bullet', "КБ-49"),
-//   createData('I need more', "КБ49"),
-//   createData('I need more', "КБ49"),
-//   createData('I need more', "КБ49"),
-//   createData('I need more', "КБ49"),
-//   createData('I need more', "КБ49"),
-//   createData('I need more', "КБ49"),
-//   createData('I need more', "КБ49"),
-//   createData('I need more', "КБ49"),
-//   createData('I need more', "КБ49"),
-// ];
+import { useHistory } from 'react-router-dom';
+import { changeOwnerGroup, removeFromGroup } from 'lib/axios/ClassGroups/requests';
+import { toastError, toastSuccess } from 'components/Toastify';
 
 export function GroupStudents(): React.ReactElement {
+  const history = useHistory();
+
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+
   const selectedPanel: "Group" = "Group";
   const [users, setUsers] = React.useState<IStudent[]>([]);
 
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleOnClose = (id: string) => {
+    setAnchorEl(null);
+  };
+
+
+  const handleDelete = async (id: number) => {
+    try {
+      setAnchorEl(null);
+      await removeFromGroup(Number(id))
+      toastSuccess("Корситувача було видалено")
+      await fetchData();
+    } catch (error) {
+      console.error('Error deelete user:', error);
+      toastError(error.message)
+    }
+  };
+
+  const handleSetOwner = async (id: number) => {
+    try {
+      setAnchorEl(null);
+      await changeOwnerGroup(Number(id))
+      toastSuccess("Корситувача став власником")
+      await fetchData();
+    } catch (error) {
+      console.error('Error SetOwner user:', error);
+      toastError(error.message)
+    }
+  };
+
+  const fetchData = async () => {
+    try {
+      const students = await getClassGroupStudentsByUser();
+
+      setUsers(students)
+    } catch (error) {
+      console.error('Error fetching ClassGroups data:', error);
+      toastError(error.message)
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const students = await getClassGroupStudentsByUser();
-
-        setUsers(students)
-      } catch (error) {
-        console.error('Error fetching ClassGroups data:', error);
-      }
-    };
-
     fetchData();
   }, []);
 
@@ -72,11 +94,20 @@ export function GroupStudents(): React.ReactElement {
                     key={student.id}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
-                    <TableCell component="th" scope="row">
+                    <TableCell component="th" scope="row"
+                      onClick={() => {
+                        history.push(`/profile?id=${student.id}`)
+                      }}
+                      sx={{
+                        cursor: "pointer"
+                      }}
+                    >
                       {`${student.name} ${student.surname} ${student.patronymic}`}
                     </TableCell>
                     <TableCell align='right'>
-                      <IconButton>
+                      <IconButton
+                        onClick={handleClick}
+                      >
                         <MoreVertIcon
                           sx={{
                             fontSize: 36,
@@ -85,6 +116,27 @@ export function GroupStudents(): React.ReactElement {
                         />
                       </IconButton>
                     </TableCell>
+                    <Menu
+                      id="basic-menu"
+                      anchorEl={anchorEl}
+                      open={open}
+                      onClose={handleOnClose}
+                      MenuListProps={{
+                        'aria-labelledby': 'basic-button',
+                      }}
+                    >
+                      <MenuItem onClick={() => {
+                        handleDelete(student.id)
+                      }}>
+                        Видалити
+                      </MenuItem>
+                      {/* <MenuItem onClick={handleClose}>Змніити роль</MenuItem> */}
+                      <MenuItem onClick={() => {
+                        handleSetOwner(student.id)
+                      }}>
+                        Назанчити власником
+                      </MenuItem>
+                    </Menu>
                   </TableRow>
                 ))}
               </TableBody>

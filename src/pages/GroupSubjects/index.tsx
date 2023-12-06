@@ -15,31 +15,14 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import IconButton from '@mui/material/IconButton';
 import { Paper } from '@mui/material';
 import { useEffect } from 'react';
-import {getClassGroupStudentsByUser} from "../../lib/axios/Students/requests";
-import {IStudent, ISubject} from "../../lib/axios/types";
-import {getSubjectByUser} from "../../lib/axios/Subjects/requests";
-
-// function createData(
-//   name: string,
-//   group: string,
-// ) {
-//   return { name, group };
-// }
-
-// const rows = [
-//   createData('I need more bullet', "КБ-49"),
-//   createData('I need more', "КБ49"),
-//   createData('I need more', "КБ49"),
-//   createData('I need more', "КБ49"),
-//   createData('I need more', "КБ49"),
-//   createData('I need more', "КБ49"),
-//   createData('I need more', "КБ49"),
-//   createData('I need more', "КБ49"),
-//   createData('I need more', "КБ49"),
-//   createData('I need more', "КБ49"),
-// ];
+import { getClassGroupStudentsByUser } from "../../lib/axios/Students/requests";
+import { IStudent, ISubject } from "../../lib/axios/types";
+import { getSubjectByUser } from "../../lib/axios/Subjects/requests";
+import { useHistory } from 'react-router-dom';
 
 export function GroupSubjects(): React.ReactElement {
+  const history = useHistory();
+
   const selectedPanel: "Study" = "Study";
   const [subjects, setSubjects] = React.useState<ISubject[]>([]);
 
@@ -68,23 +51,20 @@ export function GroupSubjects(): React.ReactElement {
           <TableContainer sx={{ minWidth: 650, maxHeight: 640 }}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableBody>
-                {subjects.map((student) => (
+                {subjects.map((subject) => (
                   <TableRow
-                    key={student.id}
+                    key={subject.id}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
-                    <TableCell component="th" scope="row">
-                      {`Предмет - ${student.name}: Опис - ${student.description}`}
-                    </TableCell>
-                    <TableCell align='right'>
-                      <IconButton>
-                        <MoreVertIcon
-                          sx={{
-                            fontSize: 36,
-                            color: "white"
-                          }}
-                        />
-                      </IconButton>
+                    <TableCell component="th" scope="row"
+                      onClick={() => {
+                        history.push(`/subject?id=${subject.id}`)
+                      }}
+                      sx={{
+                        cursor: "pointer"
+                      }}
+                    >
+                      {`Предмет - ${subject.name}: Опис - ${subject.description}`}
                     </TableCell>
                   </TableRow>
                 ))}
@@ -93,7 +73,7 @@ export function GroupSubjects(): React.ReactElement {
           </TableContainer>
         </Paper>
       </MainContainer>
-    </MainBackGround>
+    </MainBackGround >
   );
 }
 

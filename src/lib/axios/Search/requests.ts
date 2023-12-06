@@ -4,7 +4,7 @@ import {
     IGetSearchLecturers, IGetSearchSubjects, IGetSearchUsers
 } from './types';
 import Cookies from "js-cookie";
-import {ILecturerForSubject, ISubjectForLecturer, IUserView} from "../types";
+import { ILecturerForSubject, ISubjectForLecturer, IUserView } from "../types";
 
 const searchUrl = `${REACT_APP_BACKEND_URL}/api/Search`;
 

@@ -11,12 +11,27 @@ import {
     VisuallyHiddenInput,
 } from "./styled";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { toastError, toastSuccess } from "components/Toastify";
+import { sendSupportMail } from "lib/axios/Support/requests";
 
 export function TechnicalSupport(): React.ReactElement {
+    const [email, setEmail] = React.useState<string>("");
+    const [text, setText] = React.useState<string>("");
+
+    const hadleClick = async () => {
+        try {
+            await sendSupportMail(email, text)
+
+            toastSuccess("Повідомлення було відправленно")
+        } catch (error) {
+            console.error('Error send message:', error);
+            toastError(error.message)
+        }
+    }
 
     return (
         <MainBackGround>
-            <PanelHeader />
+            <PanelHeader picked="Contact" />
             <MainContainer>
                 <BlockFlex>
                     <MainBoxText>Тех-підтримка STUPER</MainBoxText>
@@ -33,6 +48,10 @@ export function TechnicalSupport(): React.ReactElement {
                         id="outlined-required"
                         label="Email"
                         placeholder="Email"
+                        value={email}
+                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                            setEmail(event.target.value);
+                        }}
                         sx={{
                             fontSize: "1.6vh",
                             width: "60%",
@@ -52,6 +71,10 @@ export function TechnicalSupport(): React.ReactElement {
                         multiline
                         rows={12}
                         maxRows={12}
+                        value={text}
+                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                            setText(event.target.value);
+                        }}
                         sx={{
                             width: "100%",
                         }}
@@ -73,7 +96,7 @@ export function TechnicalSupport(): React.ReactElement {
 
 
                 <BlockFlex>
-                    <Button variant="contained" size="large" sx={{ marginTop: "2vh" }}>
+                    <Button variant="contained" size="large" sx={{ marginTop: "2vh" }} onClick={hadleClick}>
                         Надіслати
                     </Button>
                 </BlockFlex>
