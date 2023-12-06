@@ -7,7 +7,7 @@ import { Register } from "pages/Register";
 import { NewPassword } from "pages/NewPassword";
 import { ForgotPassword } from "pages/ForgotPassword";
 // import NotFoundPage from "pages/NotFoundPage";
-import React, { useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { BrowserRouter, Route, Switch, useHistory, useLocation } from "react-router-dom";
 import { Deadlines } from "pages/Deadlines";
@@ -21,6 +21,9 @@ import { EditLecturer } from "pages/EditLecturer";
 import { EditSubject } from "pages/EditingSubjectProfile";
 import { GroupStudents } from "pages/GroupStudents";
 import { CreateGroup } from "pages/CreateGroup";
+import { TechnicalSupport } from "pages/TechnicalSupport";
+import { Search } from "pages/Search";
+import { Settings } from "./pages/Settings";
 import NotFoundPage from "pages/NotFoundPage";
 import {GroupSubjects} from "./pages/GroupSubjects";
 import {CreateLecturer} from "./pages/CreateLecturer";
@@ -92,6 +95,12 @@ function SwitchRoutes(): React.ReactElement {
                 <Route component={GroupSubjects} path="/group/subjects" exact />
 
                 <Route component={CreateGroup} path="/CreateGroup" exact />
+
+                <Route component={TechnicalSupport} path="/technicalsupport" exact />
+
+                <Route component={Search} path="/search" exact />
+
+                <Route component={Settings} path="/settings" />
 
                 <Route path="*" component={NotFoundPage} />
             </Switch >
