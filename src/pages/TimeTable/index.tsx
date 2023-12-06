@@ -35,10 +35,11 @@ export function TimeTable(): React.ReactElement {
         setTodayDayOfWeek(today.getDay());
         setDay(today.getDay());
 
+        console.log(currentWeekNumber);
         setCurrentWeek(currentWeekNumber);
 
-        setTodayIsNumerator(currentWeek % 2 != 0);
-        setIsNumerator(currentWeek % 2 != 0);
+        setTodayIsNumerator(currentWeekNumber % 2 != 0);
+        setIsNumerator(currentWeekNumber % 2 != 0);
     }
 
     useEffect(() => {

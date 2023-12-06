@@ -8,12 +8,13 @@ import { useLocation } from "react-router-dom";
 import { toastError, toastSuccess } from "components/Toastify";
 import { FormInputBottom } from "pages/EditLecturer/styled";
 import { getSubjectById, updateSubject } from "lib/axios/Subjects/requests";
+import {isUserOwner} from "../../lib/axios/Students/requests";
 
 export function EditSubject(): React.ReactElement {
     const searchParams = new URLSearchParams(useLocation().search)
     const subjectId = searchParams.get("id")
     const selectedPanel: "Study" = "Study";
-
+    
     if (!subjectId) {
         return (
             <MainBackGround>
@@ -25,23 +26,41 @@ export function EditSubject(): React.ReactElement {
         );
     }
 
-    const [name, setName] = useState<string>("");
-    const [description, setDescription] = useState<string>("");
-
+    const [isSubjectOwner, setIsSubjectOwner] = useState<boolean>(false);
+    
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const subject = await getSubjectById(subjectId);
-                console.log(subject);
-
-                setName(subject.name);
-                setDescription(subject.description);
+                const isOwner = await isUserOwner(subjectId, 1);
+                setIsSubjectOwner(isOwner);
             } catch (error) {
                 console.error('Error fetching subject data:', error);
+                toastError(error.message)
             }
         };
 
         fetchData();
+    }, []);
+
+    const [name, setName] = useState<string>("");
+    const [description, setDescription] = useState<string>("");
+
+    useEffect(() => {
+        if (!isSubjectOwner) {
+            const fetchData = async () => {
+                try {
+                    const subject = await getSubjectById(subjectId);
+                    console.log(subject);
+
+                    setName(subject.name);
+                    setDescription(subject.description);
+                } catch (error) {
+                    console.error('Error fetching subject data:', error);
+                }
+            };
+
+            fetchData();
+        }
     }, []);
 
     const updateSubjectHandle = async () => {

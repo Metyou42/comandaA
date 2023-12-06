@@ -49,9 +49,34 @@ export const setSubjectInTimeTable = async (
     return true;
 };
 
-export const getSubjectInTimeTable = async (id: number): Promise<ISubjectInTimeTable> => {
+export const getSubjectInTimeTableById = async (id: number): Promise<ISubjectInTimeTable> => {
     const { data, status } = await axios.get<IGetSubjectInTimeTable>(
         `${timeTablesUrl}/GetById?id=${id}`,
+        {
+            headers: {
+                Authorization: `Bearer ${Cookies.get('accessToken')}`,
+            }
+        },
+    );
+
+    if (!data) {
+        throw new Error("Some error");
+    }
+
+    if (data.httpCode !== 200) {
+        throw new Error("Not found");
+    }
+
+    if (!data.data) {
+        throw new Error("Data not found");
+    }
+
+    return data.data as ISubjectInTimeTable;
+};
+
+export const getSubjectInTimeTableByDetails = async (day: number, isNumerator: boolean, position: number): Promise<ISubjectInTimeTable> => {
+    const { data, status } = await axios.get<IGetSubjectInTimeTable>(
+        `${timeTablesUrl}/GetByDetails?day=${day}&isNumerator=${isNumerator}&position=${position}`,
         {
             headers: {
                 Authorization: `Bearer ${Cookies.get('accessToken')}`,

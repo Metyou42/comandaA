@@ -28,36 +28,56 @@ export function EditLecturer(): React.ReactElement {
         );
     }
 
+    const [isLecturerOwner, setIsLecturerOwner] = useState<boolean>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const isOwner = await isUserOwner(lectorId, 0);
+                setIsLecturerOwner(isOwner);
+            } catch (error) {
+                console.error('Error fetching subject data:', error);
+                toastError(error.message)
+            }
+        };
+
+        fetchData();
+    }, []);
+
+   
+
     const [email, setEmail] = useState<string>("");
     const [name, setName] = useState<string>("");
     const [surname, setSurname] = useState<string>("");
     const [patronymic, setPatronymic] = useState<string>("");
     const [rank, setRank] = useState<string>("");
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const isOwner = await isUserOwner(lectorId, 0);
+    useEffect(() => { 
+        if (!isLecturerOwner) {
+            const fetchData = async () => {
+                try {
+                    const isOwner = await isUserOwner(lectorId, 0);
 
-                if (isOwner) {
-                    const lecturer = await getLecturerById(lectorId);
-                    console.log(lecturer);
+                    if (isOwner) {
+                        const lecturer = await getLecturerById(lectorId);
+                        console.log(lecturer);
 
-                    setName(lecturer.name);
-                    setSurname(lecturer.surname);
-                    setPatronymic(lecturer.patronymic);
-                    setRank(lecturer.rank);
-                    setEmail(lecturer.email);
+                        setName(lecturer.name);
+                        setSurname(lecturer.surname);
+                        setPatronymic(lecturer.patronymic);
+                        setRank(lecturer.rank);
+                        setEmail(lecturer.email);
+                    }
+                    else {
+                        throw new Error("Don`t have permission");
+                    }
+                } catch (error) {
+                    console.error('Error fetching lecturer data:', error);
                 }
-                else {
-                    throw new Error("Don`t have permission");
-                }
-            } catch (error) {
-                console.error('Error fetching lecturer data:', error);
-            }
-        };
+            };
 
-        fetchData();
+            fetchData();
+        }
     }, []);
 
     const updateLecturerHandle = async () => {

@@ -11,28 +11,32 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import { Moment } from "moment";
+import {getSubjectInTimeTableByDetails, getTimeTable} from "../../lib/axios/TimeTables/requests";
 
 export function CreateNotes(): React.ReactElement {
     const selectedPanel: "Notebook" = "Notebook";
-    const [lessonNumber, setLessonNumber] = useState<string>();
-    const [lessonName, setLessonName] = useState<string>();
+    const [lessonNumber, setLessonNumber] = useState<string>(null);
+    const [subjectName, setSubjectName] = useState<string>();
     const [lecturerName, setLecturerName] = useState<string>();
     const [lessonType, setLessonType] = useState<string>();
 
-    const [dateTime, setDateTime] = React.useState<Moment | null>();
+    const [selectedDateTime, setSelectedDateTime] = React.useState<Moment | null>();
+    const [dayOfWeek, setDayOfWeek] = useState<number>(null);
 
     const [checkedPersonalNote, setCheckedPersonalNote] = useState<boolean>();
     const [checkedReminderNote, setCheckedReminderNote] = useState<boolean>();
+    const [currentWeek, setCurrentWeek] = useState<number>(null);
+    const [isNumerator, setIsNumerator] = useState<boolean>(true);
 
 
-    // console.log("dateTime", dateTime);
+    // console.log("selectedDateTime", selectedDateTime);
 
     function onChangeLessonNumber(event: SelectChangeEvent) {
         setLessonNumber(event.target.value as string)
     }
 
     function onChangeLessonName(event: SelectChangeEvent) {
-        setLessonName(event.target.value as string)
+        setSubjectName(event.target.value as string)
     }
 
     function onChangeLecturerName(event: SelectChangeEvent) {
@@ -51,6 +55,61 @@ export function CreateNotes(): React.ReactElement {
         setCheckedReminderNote(event.target.checked);
     }
 
+
+
+    useEffect(() => {
+        
+    }, []);
+
+    useEffect(() => {
+        if (dayOfWeek && isNumerator && lessonNumber) {
+            const fetchData = async () => {
+                try {
+                    let position = Number(lessonNumber);
+                    const subjectInTimeTable = await getSubjectInTimeTableByDetails(dayOfWeek, isNumerator, position);
+                    
+                    setSubjectName(subjectInTimeTable.subject.name);
+                    setLecturerName(subjectInTimeTable.lecturer.name);
+                    setLessonType(getTypeDescription(subjectInTimeTable.type));
+                } catch (error) {
+                    console.error('Error fetching lecturer data:', error);
+                }
+            };
+
+            fetchData();
+        }
+    }, [dayOfWeek, isNumerator, lessonNumber]);
+
+    const getTypeDescription = (type) => {
+        switch (type) {
+            case 0:
+                return "Лекція";
+            case 1:
+                return "Практична";
+            case 2:
+                return "Лабораторна";
+            case 3:
+                return "Консультація";
+            default:
+                return "Невідомий тип";
+        }
+    };
+    
+    const setDateTime = async (dateTimeMoment) => {
+        await setSelectedDateTime(dateTimeMoment);
+        
+        const date = dateTimeMoment.toDate();
+        
+        const yearStart = new Date(date.getFullYear(), 0, 1);
+        const days = Math.floor((date.getTime() - yearStart.getTime()) / (24 * 60 * 60 * 1000));
+        const currentWeekNumber = Math.ceil((days + yearStart.getDay() + 1) / 7);
+        
+        console.log(currentWeekNumber);
+        setCurrentWeek(currentWeekNumber);
+        setDayOfWeek(date.getDay());
+        setIsNumerator(currentWeekNumber % 2 != 0);
+    }
+
     return (
         <MainBackGround>
             <PanelHeader picked={selectedPanel} />
@@ -62,13 +121,13 @@ export function CreateNotes(): React.ReactElement {
 
                 <BlockFlexJustify>
                     <Paper sx={StyledPaperMui}>
-                        <Typography>{"Чисельник"}</Typography>
+                        <Typography>{isNumerator ? 'Чисельник' : 'Знаменник'}</Typography>
                     </Paper>
 
                     <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DatePicker
                             label="Дата"
-                            value={dateTime}
+                            value={selectedDateTime}
                             onChange={(dateTime) => setDateTime(dateTime)}
                         />
                     </LocalizationProvider>
@@ -93,6 +152,11 @@ export function CreateNotes(): React.ReactElement {
                             <MenuItem value={"1"}>1</MenuItem>
                             <MenuItem value={"2"}>2</MenuItem>
                             <MenuItem value={"3"}>3</MenuItem>
+                            <MenuItem value={"4"}>4</MenuItem>
+                            <MenuItem value={"5"}>5</MenuItem>
+                            <MenuItem value={"6"}>6</MenuItem>
+                            <MenuItem value={"7"}>7</MenuItem>
+                            <MenuItem value={"8"}>8</MenuItem>
                         </Select>
                     </FormControl>
 
@@ -107,7 +171,7 @@ export function CreateNotes(): React.ReactElement {
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            value={lessonName}
+                            value={subjectName}
                             label="lessonName"
                             onChange={onChangeLessonName}
                         >

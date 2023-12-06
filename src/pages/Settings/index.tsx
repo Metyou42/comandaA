@@ -8,7 +8,6 @@ import { deepOrange } from "@mui/material/colors";
 import { BlockFlex } from "./styled";
 import { MainBoxText } from "../Settings/styled";
 
-import avaImage from "./ava.jpg";
 import {getUser} from "../../lib/axios/Users/requests";
 
 export function Settings(): React.ReactElement {

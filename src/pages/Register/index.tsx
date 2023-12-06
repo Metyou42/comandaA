@@ -4,17 +4,18 @@ import { BlockCenter } from "./styled";
 import { BoxLogin } from "ui-components/BoxLogin/BoxLogin";
 import { useHistory } from "react-router-dom";
 import { toastError } from "components/Toastify";
+import {register} from "../../lib/axios/Account/requests";
 
 export function Register(): React.ReactElement {
     const history = useHistory();
 
     const [email, setEmail] = useState<string>("");
-    const [emailU, setEmailU] = useState<string>("");
+    const [universityEmail, setUniversityEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [password2, setPassword2] = useState<string>("");
 
     const onRegister = async () => {
-        if (password === "" || password2 === "" || email === "" || emailU === "") {
+        if (password === "" || password2 === "" || email === "" || universityEmail === "") {
             toastError("Незаповнені поля")
             return
         } else if (password !== password2) {
@@ -23,9 +24,9 @@ export function Register(): React.ReactElement {
         }
 
         try {
-            // const accessToken = await login(email, password)
+            const response = await register(universityEmail, email, password);
 
-            // history.push("/")
+            history.push("/")
         } catch (error) {
             toastError(error.message)
         }
@@ -53,9 +54,9 @@ export function Register(): React.ReactElement {
                 required
                 id="outlined-required"
                 label="Enter your University Email"
-                value={emailU}
+                value={universityEmail}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setEmailU(event.target.value);
+                    setUniversityEmail(event.target.value);
                 }}
                 sx={{
                     fontSize: "1.6vh",
