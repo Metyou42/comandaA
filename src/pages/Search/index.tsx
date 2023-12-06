@@ -29,7 +29,6 @@ export function Search(): React.ReactElement {
     };
 
 
-    // https://mui.com/material-ui/react-table/#custom-pagination-options
     const getTale = () => {
         if (alignment === "students") {
             return (
@@ -55,16 +54,16 @@ export function Search(): React.ReactElement {
                 <Table>
                     <TableBody>
                         <TableRow>
-                            <TableCell>Прикладна математика</TableCell>
-                            <TableCell></TableCell>
+                            <TableCell>Максименко Лідія Анатолівна</TableCell>
+                            <TableCell>maksymenko.l@lpnu.ua</TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell>Прикладна математика</TableCell>
-                            <TableCell></TableCell>
+                            <TableCell>Максименко Лідія Анатолівна</TableCell>
+                            <TableCell>maksymenko.l@lpnu.ua</TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell>Прикладна математика</TableCell>
-                            <TableCell></TableCell>
+                            <TableCell>Максименко Лідія Анатолівна</TableCell>
+                            <TableCell>maksymenko.l@lpnu.ua</TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
@@ -74,16 +73,16 @@ export function Search(): React.ReactElement {
                 <Table>
                     <TableBody>
                         <TableRow>
-                            <TableCell>Максименко Лідія Анатолівна</TableCell>
-                            <TableCell>maksymenko.l@lpnu.ua</TableCell>
+                            <TableCell>Прикладна математика</TableCell>
+                            <TableCell></TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell>Максименко Лідія Анатолівна</TableCell>
-                            <TableCell>maksymenko.l@lpnu.ua</TableCell>
+                            <TableCell>Прикладна математика</TableCell>
+                            <TableCell></TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell>Максименко Лідія Анатолівна</TableCell>
-                            <TableCell>maksymenko.l@lpnu.ua</TableCell>
+                            <TableCell>Прикладна математика</TableCell>
+                            <TableCell></TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
