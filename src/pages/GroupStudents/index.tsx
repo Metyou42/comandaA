@@ -158,16 +158,16 @@ export function GroupStudents(): React.ReactElement {
                         <MenuItem onClick={() => {
                           handleDelete(student.id)
                         }}>
-                          Видалити
+                          Видалити з групи
                         </MenuItem>
                         <MenuItem onClick={() => {
                           handleSetOwner(student.id)
                         }}>
-                          Назанчити власником
+                          Назначити власником
                         </MenuItem>
                         <MenuItem onClick={() => {
                           handleSetAdmin(student.id)
-                        }}>Назанчити адміном</MenuItem>
+                        }}>Назначити адміном</MenuItem>
                       </Menu>
                     </TableRow>
                   )

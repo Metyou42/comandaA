@@ -76,7 +76,7 @@ export function Lecturer(): React.ReactElement {
                                         fontSize: 36,
                                         color: "white"
                                     }}
-                                    onClick={() => history.push("/edit/subject?id=" + lectorId)}
+                                    onClick={() => history.push("/edit/lecturer?id=" + lectorId)}
                                 />
                             </IconButton>
                         ) : null}
