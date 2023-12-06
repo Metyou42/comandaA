@@ -18,31 +18,30 @@ import { useEffect } from 'react';
 import { getClassGroupStudentsByUser } from "../../lib/axios/Students/requests";
 import { IStudent } from "../../lib/axios/types";
 import { useHistory } from 'react-router-dom';
-import {changeOwnerGroup, removeFromGroup, setRoleGroup} from 'lib/axios/ClassGroups/requests';
+import { changeOwnerGroup, removeFromGroup, setRoleGroup } from 'lib/axios/ClassGroups/requests';
 import { toastError, toastSuccess } from 'components/Toastify';
 
 export function GroupStudents(): React.ReactElement {
   const history = useHistory();
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = React.useState<{ [key: number]: null | HTMLElement }>({});
   const open = Boolean(anchorEl);
 
   const selectedPanel: "Group" = "Group";
   const [users, setUsers] = React.useState<IStudent[]>([]);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>, id: number) => {
+    setAnchorEl((prev) => ({ ...prev, [id]: event.currentTarget }));
   };
 
-  const handleOnClose = (id: string) => {
-    setAnchorEl(null);
+  const handleOnClose = (id: number) => {
+    setAnchorEl((prev) => ({ ...prev, [id]: null }));
   };
-
 
   const handleDelete = async (id: number) => {
     try {
-      setAnchorEl(null);
       await removeFromGroup(Number(id))
+      setAnchorEl((prev) => ({ ...prev, [id]: null }));
       toastSuccess("Корситувача було видалено")
       await fetchData();
     } catch (error) {
@@ -53,21 +52,21 @@ export function GroupStudents(): React.ReactElement {
 
   const handleSetOwner = async (id: number) => {
     try {
-      setAnchorEl(null);
       await changeOwnerGroup(Number(id))
-      toastSuccess("Користувача став власником")
+      setAnchorEl((prev) => ({ ...prev, [id]: null }));
+      toastSuccess("Корситувача став власником")
       await fetchData();
     } catch (error) {
       console.error('Error SetOwner user:', error);
       toastError(error.message)
     }
   };
-  
+
   const handleSetAdmin = async (id: number) => {
     try {
-      setAnchorEl(null);
       await setRoleGroup(Number(id), 1)
       toastSuccess("Користувача став адміном")
+      setAnchorEl((prev) => ({ ...prev, [id]: null }));
       await fetchData();
     } catch (error) {
       console.error('Error SetOwner user:', error);
@@ -101,81 +100,84 @@ export function GroupStudents(): React.ReactElement {
           <TableContainer sx={{ minWidth: 650, maxHeight: 640 }}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableBody>
-                {users.map((student) => (
-                  <TableRow
-                    key={student.id}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row"
-                      onClick={() => {
-                        history.push(`/profile?id=${student.id}`)
-                      }}
-                      sx={{
-                        cursor: "pointer"
-                      }}
+                {users.map((student) => {
+
+                  return (
+                    <TableRow
+                      key={student.id}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
-                      {`${student.name} ${student.surname} ${student.patronymic}`}
-                    </TableCell>
-                    <TableCell align='right'>
-                      {(() => {
-                        switch (student.roleInGroup) {
-                          case 0:
-                            return 'В';
-                          case 1:
-                            return 'А';
-                          case 2:
-                            return 'У';
-                          default:
-                            return '';
-                        }
-                      })()}
-                    </TableCell>
-                    <TableCell align='right'>
-                      <IconButton
-                        onClick={handleClick}
+                      <TableCell component="th" scope="row"
+                        onClick={() => {
+                          history.push(`/profile?id=${student.id}`)
+                        }}
+                        sx={{
+                          cursor: "pointer"
+                        }}
                       >
-                        <MoreVertIcon
-                          sx={{
-                            fontSize: 36,
-                            color: "white"
+                        {`${student.name} ${student.surname} ${student.patronymic}`}
+                      </TableCell>
+                      <TableCell align='right'>
+                        {(() => {
+                          switch (student.roleInGroup) {
+                            case 0:
+                              return 'В';
+                            case 1:
+                              return 'А';
+                            case 2:
+                              return 'У';
+                            default:
+                              return '';
+                          }
+                        })()}
+                      </TableCell>
+                      <TableCell align='right'>
+                        <IconButton
+                          onClick={(event) => {
+                            handleClick(event, student.id)
                           }}
-                        />
-                      </IconButton>
-                    </TableCell>
-                    <Menu
-                      id="basic-menu"
-                      anchorEl={anchorEl}
-                      open={open}
-                      onClose={handleOnClose}
-                      MenuListProps={{
-                        'aria-labelledby': 'basic-button',
-                      }}
-                    >
-                      <MenuItem onClick={() => {
-                        handleDelete(student.id)
-                      }}>
-                        Видалити
-                      </MenuItem>
-                      {/* <MenuItem onClick={handleClose}>Змніити роль</MenuItem> */}
-                      <MenuItem onClick={() => {
-                        handleSetOwner(student.id)
-                      }}>
-                        Назначити власником
-                      </MenuItem>
-                      <MenuItem onClick={() => {
-                        handleSetAdmin(student.id)
-                      }}>
-                        Назначити адміном
-                      </MenuItem>
-                    </Menu>
-                  </TableRow>
-                ))}
+                        >
+                          <MoreVertIcon
+                            sx={{
+                              fontSize: 36,
+                              color: "white"
+                            }}
+                          />
+                        </IconButton>
+                      </TableCell>
+                      <Menu
+                        id={`basic-menu-${student.id}`}
+                        key={student.id}
+                        anchorEl={anchorEl[student.id]}
+                        open={Boolean(anchorEl[student.id])}
+                        onClose={() => handleOnClose(student.id)}
+                        MenuListProps={{
+                          'aria-labelledby': 'basic-button',
+                        }}
+                      >
+                        <MenuItem onClick={() => {
+                          handleDelete(student.id)
+                        }}>
+                          Видалити
+                        </MenuItem>
+                        <MenuItem onClick={() => {
+                          handleSetOwner(student.id)
+                        }}>
+                          Назанчити власником
+                        </MenuItem>
+                        <MenuItem onClick={() => {
+                          handleSetAdmin(student.id)
+                        }}>Назанчити адміном</MenuItem>
+                      </Menu>
+                    </TableRow>
+                  )
+                })}
               </TableBody>
             </Table>
-          </TableContainer>
-        </Paper>
-      </MainContainer>
-    </MainBackGround>
+          </TableContainer >
+        </Paper >
+      </MainContainer >
+    </MainBackGround >
   );
 }
 
