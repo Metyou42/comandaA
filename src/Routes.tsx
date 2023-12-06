@@ -32,7 +32,7 @@ function SwitchRoutes(): React.ReactElement {
     const history = useHistory();
     const location = useLocation();
 
-    if (!["/login", "/registration", "/registration", "/forgotpassword"].includes(location.pathname) && !currentAccessToken) {
+    if (!["/login", "/registration", "/newpassword", "/forgotpassword"].includes(location.pathname) && !currentAccessToken) {
         // toastError(t("validations:session.expired"));
         history.push("/login")
     }
