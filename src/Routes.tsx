@@ -4,6 +4,8 @@ import { useCookie } from "contexts/cookieContext";
 import { Login } from "pages/Login";
 import { Archive } from "pages/Archive";
 import { Register } from "pages/Register";
+import { NewPassword } from "pages/NewPassword";
+import { ForgotPassword } from "pages/ForgotPassword";
 // import NotFoundPage from "pages/NotFoundPage";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -30,7 +32,7 @@ function SwitchRoutes(): React.ReactElement {
     const history = useHistory();
     const location = useLocation();
 
-    if (!["/login", "/registration"].includes(location.pathname) && !currentAccessToken) {
+    if (!["/login", "/registration", "/registration", "/forgotpassword"].includes(location.pathname) && !currentAccessToken) {
         // toastError(t("validations:session.expired"));
         history.push("/login")
     }
@@ -43,6 +45,10 @@ function SwitchRoutes(): React.ReactElement {
                 <Route component={Login} path="/login" exact />
 
                 <Route component={Register} path="/registration" exact />
+
+                <Route component={NewPassword} path="/newpassword" exact />
+
+                <Route component={ForgotPassword} path="/forgotpassword" exact />
 
                 <Route path="*" component={NotFoundPage} />
             </Switch >
