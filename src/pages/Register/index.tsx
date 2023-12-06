@@ -41,7 +41,7 @@ export function Register(): React.ReactElement {
                 label="Enter your Email"
                 value={email}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setEmailU(event.target.value);
+                    setEmail(event.target.value);
                 }}
                 sx={{
                     fontSize: "1.6vh",
@@ -55,7 +55,7 @@ export function Register(): React.ReactElement {
                 label="Enter your University Email"
                 value={emailU}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setEmail(event.target.value);
+                    setEmailU(event.target.value);
                 }}
                 sx={{
                     fontSize: "1.6vh",
@@ -68,7 +68,7 @@ export function Register(): React.ReactElement {
                 required
                 id="outlined-required"
                 label="Create your password"
-                value={password2}
+                value={password}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                     setPassword(event.target.value);
                 }}
@@ -83,7 +83,7 @@ export function Register(): React.ReactElement {
                 required
                 id="outlined-required"
                 label="Enter your password again"
-                value={password}
+                value={password2}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                     setPassword2(event.target.value);
                 }}
