@@ -2,6 +2,7 @@
 /* eslint-disable react/no-multi-comp */
 import { useCookie } from "contexts/cookieContext";
 import { Login } from "pages/Login";
+import { Archive } from "pages/Archive";
 import { Register } from "pages/Register";
 import { NewPassword } from "pages/NewPassword";
 import { ForgotPassword } from "pages/ForgotPassword";
@@ -9,6 +10,18 @@ import { ForgotPassword } from "pages/ForgotPassword";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { BrowserRouter, Route, Switch, useHistory, useLocation } from "react-router-dom";
+import { Deadlines } from "pages/Deadlines";
+import { Notes } from "pages/Notes";
+import { CreateNotes } from "pages/CreateNotes";
+import { TimeTable } from "pages/TimeTable";
+import { Lecturer } from "pages/Lecturer";
+import { Profile } from "pages/Profile";
+import { Subject } from "pages/Subject";
+import { EditLecturer } from "pages/EditLecturer";
+import { EditingSubjectProfile } from "pages/EditingSubjectProfile";
+import { GroupList } from "pages/GroupList";
+import { CreateGroup } from "pages/CreateGroup";
+import NotFoundPage from "pages/NotFoundPage";
 // import { toastError } from "components/Toastify";
 
 function SwitchRoutes(): React.ReactElement {
@@ -19,10 +32,10 @@ function SwitchRoutes(): React.ReactElement {
     const history = useHistory();
     const location = useLocation();
 
-    // if (!["/login"].includes(location.pathname) && !currentAccessToken) {
-    //     // toastError(t("validations:session.expired"));
-    //     history.push("/login")
-    // }
+    if (!["/login", "/registration", "/registration", "/forgotpassword"].includes(location.pathname) && !currentAccessToken) {
+        // toastError(t("validations:session.expired"));
+        history.push("/login")
+    }
 
     if (!currentAccessToken) {
         return (
@@ -33,27 +46,47 @@ function SwitchRoutes(): React.ReactElement {
 
                 <Route component={Register} path="/registration" exact />
 
-                <Route component={NewPassword} path="/new-password" exact />
+                <Route component={NewPassword} path="/newpassword" exact />
 
-                <Route component={ForgotPassword} path="/forgot-password" exact />
-            </Switch>
+                <Route component={ForgotPassword} path="/forgotpassword" exact />
+
+                <Route path="*" component={NotFoundPage} />
+            </Switch >
         );
     }
 
     return (
         <Switch>
-            {/* <Route render={(props) => <LoadDataPage {...props} apiServerUrl={apiServerUrl} setApiServerUrl={setApiServerUrl} isApiServerConnected={isApiServerConnected} setIsApiServerConnected={setIsApiServerConnected} />} path="/" exact />
+            <Switch>
+                <Route component={Profile} path="/" exact />
 
-            <Route render={(props) => <LoadDataPage {...props} apiServerUrl={apiServerUrl} setApiServerUrl={setApiServerUrl} isApiServerConnected={isApiServerConnected} setIsApiServerConnected={setIsApiServerConnected} />} path="/load" exact />
+                <Route component={Archive} path="/archive" exact />
 
-            <Route render={(props) => <Logs {...props} apiServerUrl={apiServerUrl} isApiServerConnected={isApiServerConnected} />} path="/logs" exact />
+                <Route component={Deadlines} path="/deadlines" exact />
 
-            <Route component={Login} path="/login" exact />
+                <Route component={Notes} path="/notes" exact />
 
-            <Route path="*" component={() => <NotFoundPage isAuth />} /> */}
+                <Route component={CreateNotes} path="/createnotes" exact />
 
-            {/* <Route component={Login} path="/" exact /> */}
-        </Switch>
+                <Route component={Profile} path="/profile" exact />
+
+                <Route component={TimeTable} path="/TimeTable" exact />
+
+                <Route component={Lecturer} path="/Lecturer" exact />
+
+                <Route component={Subject} path="/subject" exact />
+
+                <Route component={EditLecturer} path="/edit/lecturer" exact />
+
+                <Route component={EditingSubjectProfile} path="/edit/subject" exact />
+
+                <Route component={GroupList} path="/grouplist" exact />
+
+                <Route component={CreateGroup} path="/CreateGroup" exact />
+
+                <Route path="*" component={NotFoundPage} />
+            </Switch >
+        </Switch >
     );
 }
 

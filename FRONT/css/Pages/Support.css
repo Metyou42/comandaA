@@ -1,0 +1,103 @@
+#main-context {
+    width: 100%;
+    height: 80vh;
+    display: grid;
+    justify-content: space-evenly;
+    padding: 3vh;
+    border-radius: 1vh;
+    background-color: #361866;
+    grid-row: 2;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    margin: 3vh 0 0 -2vh;
+    grid-template-columns: 95%;
+    grid-template-rows: 10% 8% 7% 5% 10% 40% 5%;
+    grid-row-gap: 2%;
+}
+
+.title{
+    color: white;
+    text-align: center;
+    font-size: 5vh;
+}
+
+.details{
+    color: white;
+    text-align: center;
+    font-size: 3vh;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.email-container{
+    display: grid;
+    grid-row-start: 3;
+    grid-row-end: 5;
+    grid-template-columns: repeat(5% 3);
+    grid-template-rows: 45% 45%;
+    grid-row-gap: 10%;
+}
+
+.email-label{
+    width: 60vh;
+    background-color: #384477;
+    border: 1px solid gray;
+    color: white;
+    height: 4vh;
+    margin: 0 auto;
+    font-style: oblique;
+    grid-row: 1;
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+.autofill-button{
+    color:#848383;
+    background-color: black;
+    opacity: 0.7;
+    border-radius: 1vh;
+    width: 22vh;
+    text-align: center;
+    height: 3vh;
+    font-size: 2vh;
+    cursor: pointer;
+    grid-row: 2;
+    grid-column: 2;
+}
+
+.problem-container{
+    display: grid;
+    grid-row-start: 6;
+    grid-row-end: 9;
+    grid-template-columns: repeat(5% 3);
+    grid-template-rows: 70% 10%;
+    grid-row-gap: 10%;
+}
+
+.problem-label{
+    width: 70vh;
+    background-color: #384477;
+    border: 1px solid gray;
+    color: white;
+    height: 30vh;
+    margin: 0 auto;
+    text-align: left;
+    font-style: oblique;
+    grid-row: 1;
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+.photo-button{
+    color: black;
+    background-color: #A2B2EEA3;
+    border-radius: 1vh;
+    width: 18vh;
+    text-align: center;
+    height: 3vh;
+    font-size: 2vh;
+    cursor: pointer;
+    grid-row: 2;
+    grid-column: 2;
+}
+

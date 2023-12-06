@@ -1,0 +1,20 @@
+﻿@using Web.Domain.DTOs.UserAccount
+@using Web.Domain.DTOs.StudySpace
+@{
+    UserDto user = Model[0];
+    ClassGroupDto classGroup = Model[1];
+}
+
+<link rel="stylesheet" type="text/css" href="~/css/Pages/AboutProfile.css" >
+
+<div id="HeadBody">
+    <p>Мій профіль</p>
+    <img id="main-avatar" src="@user.Avatar">
+    <div id="BodyBody">
+        <p class="line-before">@user.NickName - @user.LastName @user.FirstName</p>
+        <p>Навчальний заклад: @user.University</p>
+        <p>Спеціальність: @user.Special.ToUpper()</p>
+        <p>Група: @classGroup.Year@classGroup.Subgroup</p>
+        <p class="line-after">Рік вступу: @user.Year</p>
+    </div>
+</div>

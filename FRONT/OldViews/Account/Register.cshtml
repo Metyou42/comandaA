@@ -1,0 +1,43 @@
+﻿@model Web.Models.Identity.RegisterModel
+
+<link rel="stylesheet" href="/css/Identity/Main.css" />
+<link rel="stylesheet" href="/css/Identity/Register.css" />
+
+<div class="identity-area">
+    <div id="register">
+        <div class="information">
+            <img class="logo" src="~/Images/logo.png"/>
+            <h2>STUPER</h2>
+            <h3>Реєстрація</h3>
+        </div>
+        <form asp-controller="Account" asp-action="Register" method="post">
+            <label asp-for="UniversityEmail">Університетська пошта</label>
+            <div class="string-parameters" id="university-email">
+                <input type="email" asp-for="UniversityEmail" required/>
+            </div>
+            
+            <label asp-for="Email">Пошта</label>
+            <div class="string-parameters" id="email">
+                <input type="email" asp-for="Email" required/>
+            </div>
+
+            <label asp-for="Password">Пароль</label>
+            <div class="string-parameters" id="password">
+                <input type="password" asp-for="Password" required/>
+            </div>
+
+            <label asp-for="RepeatPassword">Повторити пароль</label>
+            <div class="string-parameters" id="repeat-password">
+                <input type="password" asp-for="RepeatPassword" required/>
+            </div>
+
+            <div class="form-groups">
+                <a href="">Прочитати умови реєстрації</a>
+            </div>
+
+            <div class="action-buttons">
+                <input id="submit" type="submit" asp-controller="Account" asp-action="Register" value="Зареєструватися" />
+            </div>
+        </form>
+    </div>
+</div>

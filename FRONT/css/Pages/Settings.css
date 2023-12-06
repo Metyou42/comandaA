@@ -1,0 +1,134 @@
+#main-context {
+    width: 100%;
+    height: 83vh;
+    display: grid;
+    justify-content: space-evenly;
+    padding-bottom: 3vh;
+    border-radius: 1vh;
+    background-color: #361866;
+    grid-row: 2;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    margin: 3vh 0 0 1vh;
+    grid-template-columns: 100%;
+    grid-template-rows: 10% 80%;
+    grid-row-gap: 3%;
+}
+
+.right_toolbar{
+    grid-template-columns: repeat(3, 25%);
+    grid-column-gap: 10%;
+}
+
+.title{
+    display: grid;
+    width: 100%;
+    color:white;
+    border-bottom: 3px solid black;
+    align-items: center;
+    text-align: center;
+    grid-column: 1;
+    font-size: 24px;
+}
+
+.settings-container{
+    display: grid;
+    margin: 3vh;
+    grid-row: 2;
+    grid-template-rows: 35% repeat(3, 12%) 20%;
+    grid-row-gap: 5%;
+}
+
+.change-name, .change-mail, .change-password, .log-out{
+    color: #B7B7B7;
+    font-size: 24px;
+    background-color: #3f465b;
+    align-items: center; 
+    padding: 2vh 5vh 2vh 3vh;
+    width: 65%;
+    margin-left: 15%;
+}
+
+.change-name:hover, .change-mail:hover, .change-password:hover, .log-out p:hover{
+    color: white;
+    transition: color 0.3s;
+    cursor: pointer;
+}
+
+
+.avatar-changing{
+    position: absolute;
+    margin: 1vh;
+    height: 15vh;
+    width: 15vh;
+    border-radius: 15vh;
+}
+
+.changing-avatar-container{
+    position: relative;
+    display: inline-block;
+    left: 42%;
+    margin: 1vh;
+    height: 15vh;
+    width: 15vh;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    margin: 1vh;
+    height: 15vh;
+    width: 15vh;
+    border-radius: 15vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.changing-avatar-container:hover .overlay{
+    opacity: 1;
+}
+
+.changing-avatar-container:hover .change-button{
+    color:white;
+}
+
+.change-button{
+    position: absolute;
+    top: 6vh;
+    left: 2vh;
+    margin: 1vh;
+    height: 15vh;
+    width: 15vh;
+    color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.log-out{
+    display: grid;
+    grid-template-columns: 80% 5%;
+    grid-column-gap: 15%;
+}
+
+.log-out img{
+    width: 6vh;
+    height: 6vh;
+}
+
+.log-out p{
+    color: #B7B7B7;
+}
+
+@media (max-width: 1200px){
+    .changing-avatar-container{
+        left:40%;
+    }
+}
+
+@media (max-width: 1000px){
+    .changing-avatar-container{
+        left:40%;
+    }
+}

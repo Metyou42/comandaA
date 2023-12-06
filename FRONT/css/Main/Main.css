@@ -1,0 +1,78 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    background-color: #2a2a2c;
+}
+
+main {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: grid;
+    width: 97%;
+    grid-template-columns: 15% 70% 15%;
+    grid-template-rows: 5% 95%;
+    grid-column-gap: 1%;
+    grid-row-gap: 2%;
+    background-color: #2a2a2c;
+}
+
+footer {
+    width: 100%;
+    height: 5vh;
+    text-align: center;
+    color: green;
+    float: left;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    border-radius: 1vh 1vh 0 0;
+}
+
+footer h4{
+    padding-top: 2.5vh;
+}
+
+h1 {
+    font-size: 64px;
+    margin: 8px;
+}
+
+h2 {
+    font-size: 48px;
+    margin: 6px;
+}
+
+h3 {
+    font-size: 32px;
+    margin: 4px;
+}
+
+h4 {
+    font-size: 16px;
+    margin: 2px;
+}
+
+h5 {
+    font-size: 12px;
+    margin: 1px;
+}
+
+h6 {
+    font-size: 8px;
+    margin: 1px;
+}
+
+p {
+    font-size: 24px;
+    margin: 1px;
+}
+
+label {
+    font-size: 16px;
+    margin: 2px;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+}

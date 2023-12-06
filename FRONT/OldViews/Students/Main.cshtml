@@ -1,0 +1,23 @@
+﻿@using Web.Domain.DTOs.StudySpace
+@{
+    ClassGroupDto classGroup = Model;
+}
+
+<link rel="stylesheet" type="text/css" href="~/css/Pages/Group.css" >
+
+<div class="group-info">
+    <p class="group-name">@classGroup.Specialty - @classGroup.Year@classGroup.Subgroup</p>
+</div>
+<div class="group-members">
+    <table class="members">
+        @foreach (var student in classGroup.Students)
+        {
+            <tr class="member">
+                <td><img class="member-image" src=""></td>
+                <td class="member-name">@student.Surname @student.Name @student.Patronymic</td>
+                <td class = "member-subgroup">@student.Name</td>
+                <td class="member-settings-button"><a class="wrapper_button"><img src="/Images/Settings_button.png"></a></td>
+            </tr>   
+        }
+    </table>
+</div>
