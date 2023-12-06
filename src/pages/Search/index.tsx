@@ -16,24 +16,40 @@ import {
 } from "./styled";
 import { IconButton, Menu, MenuItem, TextField } from "@mui/material";
 import { getSearchLecturer, getSearchSubject, getSearchUsers } from "lib/axios/Search/requests";
-import { ILecturerForSubject, ISubjectForLecturer, IUserView } from "lib/axios/types";
-import { toastError } from "components/Toastify";
+import {ILecturerForSubject, IStudent, ISubjectForLecturer, IUserView} from "lib/axios/types";
+import {toastError, toastSuccess} from "components/Toastify";
+import {useHistory} from "react-router-dom";
+import {addToGroup, removeFromGroup} from "../../lib/axios/ClassGroups/requests";
 
 export function Search(): React.ReactElement {
+    const history = useHistory();
     // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     // const open = Boolean(anchorEl);
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(7);
 
-    const [alignment, setAlignment] = React.useState<"students" | "teachers" | "subjects">('students');
+    const [alignment, setAlignment] = React.useState<"students" | "lecturers" | "subjects">('students');
     const [searchWord, setSearchWord] = React.useState<string>("");
     const [data, satData] = React.useState<IUserView[] | ILecturerForSubject[] | ISubjectForLecturer[]>([]);
 
 
+    const [anchorEl, setAnchorEl] = React.useState<{ [key: number]: null | HTMLElement }>({});
+    const open = Boolean(anchorEl);
+
+    const [users, setUsers] = React.useState<IStudent[]>([]);
+
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>, id: number) => {
+        setAnchorEl((prev) => ({ ...prev, [id]: event.currentTarget }));
+    };
+
+    const handleOnClose = (id: number) => {
+        setAnchorEl((prev) => ({ ...prev, [id]: null }));
+    };
+
     const handleAlignment = (
         event: React.MouseEvent<HTMLElement>,
-        newAlignment: "students" | "teachers" | "subjects",
+        newAlignment: "students" | "lecturers" | "subjects",
     ) => {
         if (newAlignment !== alignment) {
             setAlignment(newAlignment);
@@ -59,12 +75,12 @@ export function Search(): React.ReactElement {
                 console.error('Error fetching students data:', error);
                 toastError(error.message)
             }
-        } else if (alignment === "teachers") {
+        } else if (alignment === "lecturers") {
             try {
                 const dataRes = await getSearchLecturer(page, rowsPerPage, searchWord)
                 satData(dataRes)
             } catch (error) {
-                console.error('Error fetching teachers data:', error);
+                console.error('Error fetching lecturers data:', error);
                 toastError(error.message)
             }
         } else if (alignment === "subjects") {
@@ -77,6 +93,18 @@ export function Search(): React.ReactElement {
             }
         }
     }
+    
+    const handleAddToGroup = async (id: number) => {
+        try {
+            await addToGroup(Number(id))
+            setAnchorEl((prev) => ({ ...prev, [id]: null }));
+            toastSuccess("Корситувача було додано")
+            await fetchData();
+        } catch (error) {
+            console.error('Error deelete user:', error);
+            toastError(error.message)
+        }
+    };
 
     const getTale = () => {
         if (alignment === "students") {
@@ -87,9 +115,11 @@ export function Search(): React.ReactElement {
                             <TableRow>
                                 <TableCell>{`${student.firstName} ${student.lastName}`}</TableCell>
                                 <TableCell>{`${student.group}`}</TableCell>
-                                {/* <TableCell align='right'>
+                                <TableCell align='right'>
                                     <IconButton
-                                        onClick={handleClick}
+                                        onClick={(event) => {
+                                            handleClick(event, student.id)
+                                        }}
                                     >
                                         <MoreVertIcon
                                             sx={{
@@ -100,31 +130,69 @@ export function Search(): React.ReactElement {
                                     </IconButton>
                                 </TableCell>
                                 <Menu
-                                    id="basic-menu"
-                                    anchorEl={anchorEl}
-                                    open={open}
-                                    onClose={handleClose}
+                                    id={`basic-menu-${student.id}`}
+                                    key={student.id}
+                                    anchorEl={anchorEl[student.id]}
+                                    open={Boolean(anchorEl[student.id])}
+                                    onClose={() => handleOnClose(student.id)}
                                     MenuListProps={{
                                         'aria-labelledby': 'basic-button',
                                     }}
                                 >
-                                    <MenuItem onClick={handleClose}>Видалити</MenuItem>
-                                    <MenuItem onClick={handleClose}>Змніити роль</MenuItem>
-                                    <MenuItem onClick={handleClose}>Назанчити власником</MenuItem>
-                                </Menu> */}
+                                    <MenuItem onClick={() => {
+                                        handleAddToGroup(student.id)
+                                    }}>
+                                        Добавити у групу
+                                    </MenuItem>
+                                    <MenuItem onClick={() => {
+                                        history.push("/profile?id=" + student.id)
+                                    }}>
+                                        Відкрити профіль
+                                    </MenuItem>
+                                </Menu>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             )
-        } else if (alignment === "teachers") {
+        } else if (alignment === "lecturers") {
             return (
                 <Table>
                     <TableBody>
-                        {data.map((teacher) => (
+                        {data.map((lecturer) => (
                             <TableRow>
-                                <TableCell>{`${teacher.name} ${teacher.surname} ${teacher.patronymic}`}</TableCell>
-                                <TableCell>{teacher.email}</TableCell>
+                                <TableCell>{`${lecturer.name} ${lecturer.surname} ${lecturer.patronymic}`}</TableCell>
+                                <TableCell>{lecturer.email}</TableCell>
+                                <TableCell align='right'>
+                                    <IconButton
+                                        onClick={(event) => {
+                                            handleClick(event, lecturer.id)
+                                        }}
+                                    >
+                                        <MoreVertIcon
+                                            sx={{
+                                                fontSize: 36,
+                                                color: "white"
+                                            }}
+                                        />
+                                    </IconButton>
+                                </TableCell>
+                                <Menu
+                                    id={`basic-menu-${lecturer.id}`}
+                                    key={lecturer.id}
+                                    anchorEl={anchorEl[lecturer.id]}
+                                    open={Boolean(anchorEl[lecturer.id])}
+                                    onClose={() => handleOnClose(lecturer.id)}
+                                    MenuListProps={{
+                                        'aria-labelledby': 'basic-button',
+                                    }}
+                                >
+                                    <MenuItem onClick={() => {
+                                        history.push("/lecturer?id=" + lecturer.id)
+                                    }}>
+                                        Відкрити лектора
+                                    </MenuItem>
+                                </Menu>
                             </TableRow>
                         ))}
                     </TableBody>
@@ -138,6 +206,36 @@ export function Search(): React.ReactElement {
                             <TableRow>
                                 <TableCell>{subject.name}</TableCell>
                                 <TableCell></TableCell>
+                                <TableCell align='right'>
+                                    <IconButton
+                                        onClick={(event) => {
+                                            handleClick(event, subject.id)
+                                        }}
+                                    >
+                                        <MoreVertIcon
+                                            sx={{
+                                                fontSize: 36,
+                                                color: "white"
+                                            }}
+                                        />
+                                    </IconButton>
+                                </TableCell>
+                                <Menu
+                                    id={`basic-menu-${subject.id}`}
+                                    key={subject.id}
+                                    anchorEl={anchorEl[subject.id]}
+                                    open={Boolean(anchorEl[subject.id])}
+                                    onClose={() => handleOnClose(subject.id)}
+                                    MenuListProps={{
+                                        'aria-labelledby': 'basic-button',
+                                    }}
+                                >
+                                    <MenuItem onClick={() => {
+                                        history.push("/subject?id=" + subject.id)
+                                    }}>
+                                        Відкрити предмет
+                                    </MenuItem>
+                                </Menu>
                             </TableRow>
                         ))}
                     </TableBody>
@@ -195,7 +293,7 @@ export function Search(): React.ReactElement {
                         <ToggleButton value="students" aria-label="students">
                             Students
                         </ToggleButton>
-                        <ToggleButton value="teachers" aria-label="teachers">
+                        <ToggleButton value="lecturers" aria-label="lecturers">
                             Teachers
                         </ToggleButton>
                         <ToggleButton value="subjects" aria-label="subjects">

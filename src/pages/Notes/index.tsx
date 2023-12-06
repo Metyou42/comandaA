@@ -121,8 +121,7 @@ export function Notes(): React.ReactElement {
 
         if (notes !== null && notes.length > 0) {
             let filteredNotes = notes.filter(function (note) {
-                const noteDate = new Date(note.date);
-                return noteDate.getDay() === selectedDate.getDay();
+                return note.subjectInTimeTable.day === selectedDate.getDay();
             });
 
             console.log(filteredNotes);
