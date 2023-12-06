@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { PanelHeader } from "components/header";
 import { MainBackGround } from "ui-components/MainCss/MainCSS";
 import { MainContainer } from "ui-components/MainContainer/MainContainer";
@@ -7,16 +7,16 @@ import { BlockFlex, BlockFlexAdditional, BlockFlexJustify, BlockFlexText, MainBo
 import { DeadlinesCheckBox } from "components/DeadlinesCheckBox";
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { NotesLine } from "components/NotesLine";
-import {getDeadLines, getSubjectsNotes} from "../../lib/axios/SubjectsNotes/requests";
-import {getTimeTable} from "../../lib/axios/TimeTables/requests";
-import {ISubjectNote} from "../../lib/axios/types";
-import {useHistory} from "react-router-dom";
+import { getDeadLines, getSubjectsNotes } from "../../lib/axios/SubjectsNotes/requests";
+import { getTimeTable } from "../../lib/axios/TimeTables/requests";
+import { ISubjectNote } from "../../lib/axios/types";
+import { useHistory } from "react-router-dom";
 
 export function Notes(): React.ReactElement {
     const history = useHistory();
     const selectedPanel: "Notebook" = "Notebook";
     const daysOfWeek = ['Понеділок', 'Вівторок', 'Середа', 'Четвер', 'П\'ятниця'];
-    
+
     const [todayDayOfWeek, setTodayDayOfWeek] = useState<number>(null);
     const [todayWeekNumber, setTodayWeekNumber] = useState<number>(null);
 
@@ -49,12 +49,11 @@ export function Notes(): React.ReactElement {
     }, []);
 
     useEffect(() => {
-        if (selectedDayOfWeek && todayWeekNumber && todayDayOfWeek && !weekNotes)
-        {
+        if (selectedDayOfWeek && todayWeekNumber && todayDayOfWeek && !weekNotes) {
             const fetchData = async () => {
                 setWeekData(todayWeekNumber);
             };
-    
+
             fetchData();
         }
     }, [selectedDayOfWeek, todayWeekNumber, todayDayOfWeek]);
@@ -62,8 +61,7 @@ export function Notes(): React.ReactElement {
 
 
     useEffect(() => {
-        if (selectedDayOfWeek && todayWeekNumber && todayDayOfWeek && weekNotes && isInit)
-        {
+        if (selectedDayOfWeek && todayWeekNumber && todayDayOfWeek && weekNotes && isInit) {
             setNotesForThisDay(selectedDayOfWeek, todayWeekNumber, weekNotes);
             setIsInit(false);
         }
@@ -77,7 +75,7 @@ export function Notes(): React.ReactElement {
 
             console.log(firstDateOfWeek);
             console.log(lastDateOfWeek);
-            
+
             setFirstDateOfWeek(firstDateOfWeek);
             setLastDateOfWeek(lastDateOfWeek);
 
@@ -85,7 +83,7 @@ export function Notes(): React.ReactElement {
 
             console.log(notesForWeek);
             setWeekNotes(notesForWeek);
-            
+
             return notesForWeek;
         } catch (error) {
             console.error('Error fetching lecturer data:', error);
@@ -96,11 +94,11 @@ export function Notes(): React.ReactElement {
         await setActiveButtonIndex(day);
     }
 
-    const changeDay = async (day) =>{
+    const changeDay = async (day) => {
         setNotesForThisDay(day, selectedWeekNumber, weekNotes);
         setDay(day);
     }
-    
+
     const nextWeek = async () => {
         let nextWeekNumber = selectedWeekNumber + 1;
         setWeek(nextWeekNumber);
@@ -110,13 +108,13 @@ export function Notes(): React.ReactElement {
         let prevWeekNumber = selectedWeekNumber - 1;
         setWeek(prevWeekNumber);
     }
-    
-    const setWeek = async (weekNumber) =>{
+
+    const setWeek = async (weekNumber) => {
         let currentNotes = await setWeekData(weekNumber);
         setNotesForThisDay(selectedDayOfWeek, weekNumber, currentNotes);
         setSelectedWeekNumber(weekNumber);
     }
-    
+
     const setNotesForThisDay = (dayChange, weekNumber, notes) => {
         console.log("Day - " + dayChange + "; WeekNumber - " + weekNumber)
         let selectedDate = getDateFromWeekNumber(dayChange, weekNumber, new Date().getFullYear());
@@ -135,7 +133,7 @@ export function Notes(): React.ReactElement {
             setCurrentNotes([]);
         }
     }
-    
+
     function getDateFromWeekNumber(dayOfWeek, weekNumber, year) {
         console.log(dayOfWeek);
         console.log(weekNumber);
@@ -145,12 +143,12 @@ export function Notes(): React.ReactElement {
         const dayDifference = dayOfWeek - firstDayInYear;
         const daysToAdd = (weekNumber - 1) * 7 + dayDifference;
         const resultDate = new Date(startDate);
-        
+
         resultDate.setDate(startDate.getDate() + daysToAdd);
 
         return resultDate;
     }
-    
+
     return (
         <MainBackGround>
             <PanelHeader picked={selectedPanel} />
@@ -162,8 +160,8 @@ export function Notes(): React.ReactElement {
                     </BlockFlexText>
 
                     <BlockFlexAdditional>
-                        <Button 
-                            variant="outlined" 
+                        <Button
+                            variant="outlined"
                             sx={{ marginLeft: "auto", marginRight: "24px" }}
 
                             onClick={() => history.push("/deadlines")}
@@ -197,20 +195,20 @@ export function Notes(): React.ReactElement {
                         </Button>
                     ))}
                 </BlockFlexJustify>
-                
+
                 <BlockFlex>
-                    <Button variant="outlined" 
-                            sx={{ marginLeft: "80px", marginRight: "80px", marginTop: "5px"}}
-                            onClick={() => prevWeek()}
+                    <Button variant="outlined"
+                        sx={{ marginLeft: "80px", marginRight: "80px", marginTop: "5px" }}
+                        onClick={() => prevWeek()}
                     >Попередній</Button>
-                    
+
                     <BlockFlexText>
                         <p>{firstDateOfWeek.getDate()}.{firstDateOfWeek.getMonth() + 1}-{lastDateOfWeek.getDate()}.{lastDateOfWeek.getMonth() + 1}</p>
                     </BlockFlexText>
-                    
-                    <Button variant="outlined" 
-                            sx={{ marginLeft: "80px", marginRight: "80px", marginTop: "5px"}}
-                            onClick={() => nextWeek()}
+
+                    <Button variant="outlined"
+                        sx={{ marginLeft: "80px", marginRight: "80px", marginTop: "5px" }}
+                        onClick={() => nextWeek()}
                     >Наступний</Button>
                 </BlockFlex>
 

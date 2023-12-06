@@ -9,8 +9,8 @@ import { Cat } from "assets";
 import { useLocation } from "react-router-dom";
 import { toastError, toastSuccess } from "components/Toastify";
 import { log } from "console";
-import {getLecturerById, updateLecturer } from "lib/axios/Lecturers/requests";
-import {isUserOwner} from "../../lib/axios/Students/requests";
+import { getLecturerById, updateLecturer } from "lib/axios/Lecturers/requests";
+import { isUserOwner } from "../../lib/axios/Students/requests";
 
 export function EditLecturer(): React.ReactElement {
     const searchParams = new URLSearchParams(useLocation().search)
@@ -49,8 +49,7 @@ export function EditLecturer(): React.ReactElement {
                     setRank(lecturer.rank);
                     setEmail(lecturer.email);
                 }
-                else
-                {
+                else {
                     throw new Error("Don`t have permission");
                 }
             } catch (error) {

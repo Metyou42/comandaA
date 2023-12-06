@@ -1,18 +1,18 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { PanelHeader } from "components/header";
 import { MainBackGround } from "ui-components/MainCss/MainCSS";
 import { MainContainer } from "ui-components/MainContainer/MainContainer";
 import { Stack, Typography, Paper, Button, IconButton } from '@mui/material';
 import { BlockFlex, BlockFlexAdditional, BlockFlexJustify, BlockFlexText, MainBoxText, StyledPaperMui } from "./styled";
-import {ISubjectInTimeTable, ISubjectNote} from "../../lib/axios/types";
+import { ISubjectInTimeTable, ISubjectNote } from "../../lib/axios/types";
 import { getTimeTable } from "lib/axios/TimeTables/requests";
 import { LessonLine } from "components/LessonLine";
 
 export function TimeTable(): React.ReactElement {
-    
+
     const [subjectInTimeTable, setSubjectInTimeTable] = useState<ISubjectInTimeTable[]>([]);
     const [currentSubjectInTimeTable, setCurrentSubjectInTimeTable] = useState<ISubjectInTimeTable[]>([]);
-    
+
     const [dayOfWeek, setDayOfWeek] = useState<number>(0);
     const [isNumerator, setIsNumerator] = useState<boolean>(true);
 
@@ -31,7 +31,7 @@ export function TimeTable(): React.ReactElement {
 
         setTodayDayOfWeek(today.getDay());
         setDay(today.getDay());
-        
+
         setCurrentWeek(currentWeekNumber);
 
         setTodayIsNumerator(currentWeek % 2 != 0);
@@ -48,14 +48,13 @@ export function TimeTable(): React.ReactElement {
                 console.error('Error fetching lecturer data:', error);
             }
         };
-        
+
         fetchData();
     }, []);
 
     useEffect(() => {
-        if (dayOfWeek && subjectInTimeTable && isNumerator && currentWeek && todayDayOfWeek && todayIsNumerator)
-        {
-            setTimeTableForThisDay(dayOfWeek, isNumerator);   
+        if (dayOfWeek && subjectInTimeTable && isNumerator && currentWeek && todayDayOfWeek && todayIsNumerator) {
+            setTimeTableForThisDay(dayOfWeek, isNumerator);
         }
     }, [dayOfWeek, subjectInTimeTable, isNumerator, currentWeek, todayDayOfWeek, todayIsNumerator]);
 
@@ -64,10 +63,10 @@ export function TimeTable(): React.ReactElement {
             return (subject.day === dayChange) && (subject.isEveryWeek || subject.isNumerator === isNumeratorChange);
         });
 
-        if(dayChange == todayDayOfWeek && isNumeratorChange == todayIsNumerator) {
+        if (dayChange == todayDayOfWeek && isNumeratorChange == todayIsNumerator) {
             setViewReset(true);
         }
-        else{
+        else {
             setViewReset(false);
         }
 
@@ -78,26 +77,26 @@ export function TimeTable(): React.ReactElement {
         setTimeTableForThisDay(dayOfWeek, !isNumerator);
         setIsNumerator(!isNumerator);
     }
-    
+
     const setDay = async (day) => {
         await setDayOfWeek(day);
         await setActiveButtonIndex(day);
     }
 
-    const changeDay = async (day) =>{
+    const changeDay = async (day) => {
         setTimeTableForThisDay(day, isNumerator);
         setDay(day);
     }
 
-    const resetDay = async () =>{
+    const resetDay = async () => {
         setTimeTableForThisDay(todayDayOfWeek, todayIsNumerator);
         setDay(todayDayOfWeek);
         setIsNumerator(todayIsNumerator);
     }
-    
+
     const daysOfWeek = ['Понеділок', 'Вівторок', 'Середа', 'Четвер', 'П\'ятниця'];
     const selectedPanel: "Schedule" = "Schedule";
-    
+
     return (
         <MainBackGround>
             <PanelHeader picked={selectedPanel} />
@@ -107,7 +106,7 @@ export function TimeTable(): React.ReactElement {
                 <MainBoxText>
                     Розклад
                 </MainBoxText>
-                
+
                 <BlockFlexJustify>
                     {daysOfWeek.map((day, index) => (
                         <Button
@@ -147,12 +146,13 @@ export function TimeTable(): React.ReactElement {
 
                     <BlockFlexAdditional>
                         <Button
-                            disabled={viewReset} 
-                            variant="outlined" 
-                            sx={{ 
-                                marginLeft: "auto", 
-                                marginRight: "24px", 
-                                marginBottom: "20px" }}
+                            disabled={viewReset}
+                            variant="outlined"
+                            sx={{
+                                marginLeft: "auto",
+                                marginRight: "24px",
+                                marginBottom: "20px"
+                            }}
                             onClick={() => resetDay()}
                         >
                             Повернутись до поточного дня
@@ -170,16 +170,16 @@ export function TimeTable(): React.ReactElement {
                 >
 
                     {currentSubjectInTimeTable.map((subjectInTimeTable) => {
-                    return (
-                        <LessonLine
-                            text={`${subjectInTimeTable.lecturer.surname} ${subjectInTimeTable.lecturer.name} ${subjectInTimeTable.lecturer.patronymic} - ${subjectInTimeTable.subject.name} - ${subjectInTimeTable.description}`}
-                            time={subjectInTimeTable.position}
-                        />
-                    );
-                })}
+                        return (
+                            <LessonLine
+                                text={`${subjectInTimeTable.lecturer.surname} ${subjectInTimeTable.lecturer.name} ${subjectInTimeTable.lecturer.patronymic} - ${subjectInTimeTable.subject.name} - ${subjectInTimeTable.description}`}
+                                time={subjectInTimeTable.position}
+                            />
+                        );
+                    })}
                 </Stack>
 
-                
+
             </MainContainer>
         </MainBackGround>
     );

@@ -9,7 +9,7 @@ import { REACT_APP_ACCESS_TOKEN_COOKIE_NAME } from "environmentVariables";
 import { getUser } from "lib/axios/Users/requests";
 
 interface PanelHeaderProps {
-    picked: "Notebook" | "Study" | "Group" | "Schedule" | "Search" | "Contact" | "Settings" | "LogOut"
+    picked: "Notebook" | "Study" | "Group" | "Schedule" | "Search" | "Contact" | "Settings" | "LogOut" | "none"
 }
 
 export function PanelHeader({ picked }: PanelHeaderProps): React.ReactElement {
@@ -23,7 +23,7 @@ export function PanelHeader({ picked }: PanelHeaderProps): React.ReactElement {
     const onClickGroup = () => {
         history.push("/group/students")
     }
-    
+
     const onStudy = () => {
         history.push("/group/subjects")
     }
@@ -93,7 +93,7 @@ export function PanelHeader({ picked }: PanelHeaderProps): React.ReactElement {
                             {group}
                         </Username>
                     </HeaderInfo>
-                    
+
                 </Button>
 
                 <ButtonContainer>

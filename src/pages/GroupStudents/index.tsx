@@ -15,8 +15,8 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import IconButton from '@mui/material/IconButton';
 import { Paper } from '@mui/material';
 import { useEffect } from 'react';
-import {getClassGroupStudentsByUser} from "../../lib/axios/Students/requests";
-import {IStudent} from "../../lib/axios/types";
+import { getClassGroupStudentsByUser } from "../../lib/axios/Students/requests";
+import { IStudent } from "../../lib/axios/types";
 
 // function createData(
 //   name: string,

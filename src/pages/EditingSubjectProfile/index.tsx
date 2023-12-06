@@ -5,9 +5,9 @@ import { MainContainer } from "ui-components/MainContainer/MainContainer";
 import { TextField, Button } from '@mui/material';
 import { MainSubject, MainWork, FormInput } from "./styled";
 import { useLocation } from "react-router-dom";
-import { getSubjectById, updateSubject } from "lib/axios/Subjects/requests";
 import { toastError, toastSuccess } from "components/Toastify";
 import { FormInputBottom } from "pages/EditLecturer/styled";
+import { getSubjectById, updateSubject } from "lib/axios/Subjects/requests";
 
 export function EditSubject(): React.ReactElement {
     const searchParams = new URLSearchParams(useLocation().search)
@@ -21,7 +21,7 @@ export function EditSubject(): React.ReactElement {
 
                 <MainContainer>
                 </MainContainer>
-            </MainBackGround>
+            </MainBackGround >
         );
     }
 

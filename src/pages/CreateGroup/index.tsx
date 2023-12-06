@@ -5,9 +5,9 @@ import { MainContainer } from "ui-components/MainContainer/MainContainer";
 import { TextField, Button } from '@mui/material';
 import { MainSubject, MainWork, FormInput, SubWork, BlockFlex } from "./styled";
 import { useLocation } from "react-router-dom";
-import { createClassGroup } from "lib/axios/ClassGroups/requests";
 import { toastError, toastSuccess } from "components/Toastify";
 import { FormInputBottom } from "pages/EditLecturer/styled";
+import { createClassGroup } from "lib/axios/ClassGroups/requests";
 
 export function CreateGroup(): React.ReactElement {
     const selectedPanel: "Group" = "Group";

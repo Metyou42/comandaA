@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { PanelHeader } from "components/header";
 import { MainBackGround } from "ui-components/MainCss/MainCSS";
 import { MainContainer } from "ui-components/MainContainer/MainContainer";
@@ -8,15 +8,15 @@ import FlagIcon from '@mui/icons-material/Flag';
 import { red, green, yellow } from '@mui/material/colors';
 import { DeadlinesCheckBox } from "components/DeadlinesCheckBox";
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import {ISubjectNote} from "../../lib/axios/types";
-import {TextLineBox} from "../../components/TextLineBox";
+import { ISubjectNote } from "../../lib/axios/types";
+import { TextLineBox } from "../../components/TextLineBox";
 import { getDeadLines } from "lib/axios/SubjectsNotes/requests";
 
 export function Deadlines(): React.ReactElement {
     const selectedPanel: "Notebook" = "Notebook";
 
     const [deadLines, setDeadLines] = useState<ISubjectNote[]>([]);
-    
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -31,7 +31,7 @@ export function Deadlines(): React.ReactElement {
 
         fetchData();
     }, []);
-    
+
     return (
         <MainBackGround>
             <PanelHeader picked={selectedPanel} />

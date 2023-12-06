@@ -14,7 +14,7 @@ export function Lecturer(): React.ReactElement {
     const selectedPanel: "Study" = "Study";
     const searchParams = new URLSearchParams(useLocation().search)
     const lectorId = searchParams.get("id")
-    
+
     if (!lectorId) {
         return (
             <MainBackGround>
