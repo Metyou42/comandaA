@@ -1,9 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, Checkbox, FormControlLabel, Link, TextField } from "@mui/material";
 import { BlockFlex, BlockRight } from "./styled";
 import { BoxLogin } from "ui-components/BoxLogin/BoxLogin";
+import { useHistory } from "react-router-dom";
+import { toastError } from "components/Toastify";
 
 export function ForgotPassword(): React.ReactElement {
+    const history = useHistory();
+
+    const [email, setEmail] = useState<string>("");
+
+    const onForgotPassword = async () => {
+        if (email === "") {
+            toastError("Незаповнені поля")
+            return
+        }
+
+        try {
+            // const accessToken = await login(email, password)
+
+            // history.push("/")
+        } catch (error) {
+            toastError(error.message)
+        }
+    }
 
     return (
         <BoxLogin
@@ -13,7 +33,10 @@ export function ForgotPassword(): React.ReactElement {
                 required
                 id="outlined-required"
                 label="Email"
-                defaultValue="Email"
+                value={email}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    setEmail(event.target.value);
+                }}
                 sx={{
                     fontSize: "1.6vh",
                     width: "100%",
@@ -42,6 +65,7 @@ export function ForgotPassword(): React.ReactElement {
             <Button
                 variant="contained"
                 size="large"
+                onClick={onForgotPassword}
                 sx={{
                     width: "100%",
                     marginTop: "23px"
