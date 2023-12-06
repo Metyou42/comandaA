@@ -90,12 +90,13 @@ export function Login(): React.ReactElement {
                     label="Запам'ятати мене?"
                 />
                 <Link
-                    href="#"
+                    onClick={() => history.push("/forgotpassword")}
                     sx={{
                         marginLeft: "auto",
                         marginTop: "auto",
                         marginBottom: "auto",
-                        color: "white"
+                        color: "white",
+                        cursor: "pointer"
                     }}
                 >
                     Забули пароль?
@@ -119,10 +120,11 @@ export function Login(): React.ReactElement {
                     Немає аккаунту?
                 </span>
                 <Link
-                    href="#"
+                    onClick={() => history.push("/registration")}
                     sx={{
                         marginLeft: "9px",
-                        color: "white"
+                        color: "white",
+                        cursor: "pointer"
                     }}
                 >
                     Зареєєструватись
