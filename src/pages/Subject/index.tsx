@@ -21,7 +21,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { useLocation } from "react-router-dom";
 import { ILecturerForSubject } from "../../lib/axios/types";
 import { toastError } from "components/Toastify";
-import {getSubjectById} from "../../lib/axios/Subjects/requests";
+import { getSubjectById } from "../../lib/axios/Subjects/requests";
 
 export function Subject(): React.ReactElement {
     const searchParams = new URLSearchParams(useLocation().search)
@@ -30,7 +30,7 @@ export function Subject(): React.ReactElement {
     if (!subjectId) {
         return (
             <MainBackGround>
-                <PanelHeader />
+                <PanelHeader picked="none" />
 
                 <MainContainer>
                 </MainContainer>
@@ -62,7 +62,7 @@ export function Subject(): React.ReactElement {
 
     return (
         <MainBackGround>
-            <PanelHeader />
+            <PanelHeader picked="none" />
 
             <MainContainer>
 

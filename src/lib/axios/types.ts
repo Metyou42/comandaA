@@ -41,12 +41,13 @@ export interface IClassGroup {
 
 export interface IStudent {
     id: number,
-    Name: string, 
-    Surname: string, 
-    Patronymic: string, 
-    Email: string, 
+    name: string,
+    surname: string,
+    patronymic: string,
+    email: string,
+    classGroup: string,
     roleInGroup: number,
-    educationalInstitution: IEducationalInstitution 
+    educationalInstitution: IEducationalInstitution
 }
 
 export interface IGetClassGroups extends IMessage {
@@ -111,23 +112,23 @@ export interface IEducationalInstitution {
 
 export interface ISubjectNote {
     id: number,
-  text: string,
-  type: number,
-  isPersonal: boolean,
-  date: Date,
-  status: number,
-  subjectInTimeTable: ISubjectInTimeTable
+    text: string,
+    type: number,
+    isPersonal: boolean,
+    date: Date,
+    status: number,
+    subjectInTimeTable: ISubjectInTimeTable
 }
 
 export interface ISubjectInTimeTable {
     id: number,
-  position: number,
-  day: number,
-  isEveryWeek: boolean,
-  isNumerator: boolean,
-  description: string,
-  type: number,
-  lecturer: ILecturerForSubject
-  subject: ISubjectForLecturer
+    position: number,
+    day: number,
+    isEveryWeek: boolean,
+    isNumerator: boolean,
+    description: string,
+    type: number,
+    lecturer: ILecturerForSubject
+    subject: ISubjectForLecturer
 }
 

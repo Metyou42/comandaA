@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { PanelHeader } from "components/header";
 import { MainBackGround } from "ui-components/MainCss/MainCSS";
 import { MainContainer } from "ui-components/MainContainer/MainContainer";
-import {Stack, Typography, Paper, ListItem, ListItemButton, ListItemText} from '@mui/material';
+import { Stack, Typography, Paper, ListItem, ListItemButton, ListItemText } from '@mui/material';
 import { MainBoxText, StyledPaperMui } from "./styled";
 import { TextLineBox } from "components/TextLineBox";
-import {ISubjectForLecturer, ISubjectNote} from "../../lib/axios/types";
+import { ISubjectForLecturer, ISubjectNote } from "../../lib/axios/types";
 import { getDeadLinesArchive } from "lib/axios/SubjectsNotes/requests";
 
 export function Archive(): React.ReactElement {
@@ -17,7 +17,7 @@ export function Archive(): React.ReactElement {
             try {
                 const deadLines = await getDeadLinesArchive();
                 console.log(deadLines);
-                
+
                 setDeadLines(deadLines);
             } catch (error) {
                 console.error('Error fetching lecturer data:', error);
@@ -26,10 +26,10 @@ export function Archive(): React.ReactElement {
 
         fetchData();
     }, []);
-    
+
     return (
         <MainBackGround>
-            <PanelHeader />
+            <PanelHeader picked="Schedule" />
 
             <MainContainer>
                 <MainBoxText>

@@ -13,11 +13,11 @@ import { getLecturerById } from "lib/axios/Lecturers/requests";
 export function Lecturer(): React.ReactElement {
     const searchParams = new URLSearchParams(useLocation().search)
     const lectorId = searchParams.get("id")
-    
+
     if (!lectorId) {
         return (
             <MainBackGround>
-                <PanelHeader />
+                <PanelHeader picked="none" />
 
                 <MainContainer>
                 </MainContainer>
@@ -53,7 +53,7 @@ export function Lecturer(): React.ReactElement {
 
     return (
         <MainBackGround>
-            <PanelHeader />
+            <PanelHeader picked="none" />
 
             <MainContainer>
 

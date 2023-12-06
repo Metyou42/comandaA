@@ -9,7 +9,7 @@ import { useCookie } from "contexts/cookieContext";
 import { REACT_APP_ACCESS_TOKEN_COOKIE_NAME } from "environmentVariables";
 
 interface PanelHeaderProps {
-    picked: "Notebook" | "Study" | "Group" | "Schedule" | "Search" | "Contact" | "Settings" | "LogOut"
+    picked: "Notebook" | "Study" | "Group" | "Schedule" | "Search" | "Contact" | "Settings" | "LogOut" | "none"
 }
 
 export function PanelHeader({ picked }: PanelHeaderProps): React.ReactElement {

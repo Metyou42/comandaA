@@ -1,37 +1,37 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { PanelHeader } from "components/header";
 import { MainBackGround } from "ui-components/MainCss/MainCSS";
 import { MainContainer } from "ui-components/MainContainer/MainContainer";
 import { Stack, Typography, Paper, Button, IconButton } from '@mui/material';
 import { BlockFlex, BlockFlexAdditional, BlockFlexJustify, BlockFlexText, MainBoxText, StyledPaperMui } from "./styled";
-import {ISubjectInTimeTable, ISubjectNote} from "../../lib/axios/types";
+import { ISubjectInTimeTable, ISubjectNote } from "../../lib/axios/types";
 import { getTimeTable } from "lib/axios/TimeTables/requests";
 import { LessonLine } from "components/LessonLine";
 
 export function TimeTable(): React.ReactElement {
-    
+
     const [subjectInTimeTable, setSubjectInTimeTable] = useState<ISubjectInTimeTable[]>([]);
     const [currentSubjectInTimeTable, setCurrentSubjectInTimeTable] = useState<ISubjectInTimeTable[]>([]);
-    
+
     const [dayOfWeek, setDayOfWeek] = useState<number>(0);
     const [isNumerator, setIsNumerator] = useState<boolean>(true);
 
     const [todayDayOfWeek, setTodayDayOfWeek] = useState<number>(0);
     const [currentWeek, setCurrentWeek] = useState<number>(0);
     const [todayIsNumerator, setTodayIsNumerator] = useState<boolean>(true);
-    
-    
+
+
     const setWeekNumber = () => {
         let today = new Date();
         const yearStart = new Date(today.getFullYear(), 0, 1);
         const days = Math.floor((today.getTime() - yearStart.getTime()) / (24 * 60 * 60 * 1000));
         const currentWeekNumber = Math.ceil((days + yearStart.getDay() + 1) / 7);
-        
+
         console.log("CurrentWeek " + currentWeekNumber);
 
         setTodayDayOfWeek(today.getDay());
         setDayOfWeek(today.getDay());
-        
+
         setCurrentWeek(currentWeekNumber);
 
         setTodayIsNumerator(currentWeek % 2 != 0);
@@ -42,10 +42,10 @@ export function TimeTable(): React.ReactElement {
         const fetchData = async () => {
             try {
                 const subjectInTimeTable = await getTimeTable();
-                
+
                 console.log(subjectInTimeTable);
                 setSubjectInTimeTable(subjectInTimeTable);
-                
+
                 setWeekNumber();
             } catch (error) {
                 console.error('Error fetching lecturer data:', error);
@@ -57,16 +57,15 @@ export function TimeTable(): React.ReactElement {
     }, []);
 
     useEffect(() => {
-        if (dayOfWeek && subjectInTimeTable && isNumerator && currentWeek && todayDayOfWeek && todayIsNumerator)
-        {
-            setTimeTableForThisDay();   
+        if (dayOfWeek && subjectInTimeTable && isNumerator && currentWeek && todayDayOfWeek && todayIsNumerator) {
+            setTimeTableForThisDay();
         }
     }, [dayOfWeek, subjectInTimeTable, isNumerator, currentWeek, todayDayOfWeek, todayIsNumerator]);
 
     const setTimeTableForThisDay = () => {
 
         console.log(dayOfWeek)
-        
+
         let filteredSubjects = subjectInTimeTable.filter(function (subject) {
             return (subject.day === dayOfWeek) && (subject.isEveryWeek || subject.isNumerator === isNumerator);
         });
@@ -81,15 +80,13 @@ export function TimeTable(): React.ReactElement {
         //     hideResetDiv();
         // }
     } // NW
-    
+
     const setWeek = () => {
         //let currentWeek = document.getElementById('current-week');
-        if (isNumerator)
-        {
+        if (isNumerator) {
             //currentWeek.innerText = "Чисельник"; // TODO translate
         }
-        else
-        {
+        else {
             //currentWeek.innerText = "Знаменник"; // TODO translate 
         }
     }; // NW
@@ -101,7 +98,7 @@ export function TimeTable(): React.ReactElement {
     }
 
 
-    const setDay = (day)=> {
+    const setDay = (day) => {
         // let isSelected = false;
         //
         // document.querySelectorAll('.day')
@@ -126,8 +123,8 @@ export function TimeTable(): React.ReactElement {
         // }
     }// NW
 
-    const changeDay = (day) =>{
-       // let currentDayElement = document.getElementById('current-day');
+    const changeDay = (day) => {
+        // let currentDayElement = document.getElementById('current-day');
 
         // if (currentDayElement) {
         //     //currentDayElement.id = "";
@@ -138,8 +135,7 @@ export function TimeTable(): React.ReactElement {
         // setTimeTableForThisDay();
     } // NW
 
-    const resetDay = ()=>
-    {
+    const resetDay = () => {
         // setDayOfWeek(today.getDay());
         // setIsNumerator(todayIsNumerator);
         //
@@ -153,18 +149,18 @@ export function TimeTable(): React.ReactElement {
         resetDiv.style.display = 'block';
     } // NW
 
-    const hideResetDiv = ()=> { 
+    const hideResetDiv = () => {
         let resetDiv = document.getElementById('reset-to-current-day');
         resetDiv.style.display = 'none';
     } // NW
-    
+
     /*
 
      */
 
     return (
         <MainBackGround>
-            <PanelHeader />
+            <PanelHeader picked="Schedule" />
 
             <MainContainer>
 
@@ -262,16 +258,16 @@ export function TimeTable(): React.ReactElement {
                 >
 
                     {currentSubjectInTimeTable.map((subjectInTimeTable) => {
-                    return (
-                        <LessonLine
-                            text={`${subjectInTimeTable.lecturer.surname} ${subjectInTimeTable.lecturer.name} ${subjectInTimeTable.lecturer.patronymic} - ${subjectInTimeTable.subject.name} - ${subjectInTimeTable.description}`}
-                            time={subjectInTimeTable.position}
-                        />
-                    );
-                })}
+                        return (
+                            <LessonLine
+                                text={`${subjectInTimeTable.lecturer.surname} ${subjectInTimeTable.lecturer.name} ${subjectInTimeTable.lecturer.patronymic} - ${subjectInTimeTable.subject.name} - ${subjectInTimeTable.description}`}
+                                time={subjectInTimeTable.position}
+                            />
+                        );
+                    })}
                 </Stack>
 
-                
+
             </MainContainer>
         </MainBackGround>
     );

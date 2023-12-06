@@ -7,12 +7,12 @@ import { MainBoxText, StyledPaperMui, MainPhoto } from "./styled";
 import { TextLineBox } from "components/TextLineBox";
 import { Cat } from "assets";
 import { useLocation } from 'react-router-dom';
-import {getUser, getUserById} from "lib/axios/Users/requests";
+import { getUser, getUserById } from "lib/axios/Users/requests";
 
 export function Profile(): React.ReactElement {
     const searchParams = new URLSearchParams(useLocation().search)
     const profileId = searchParams.get("id")
-    
+
     const [name, setName] = useState<string>("");
     const [avatar, setAvatar] = useState<string>("");
     const [university, setUniversity] = useState<string>("");
@@ -24,24 +24,24 @@ export function Profile(): React.ReactElement {
         const fetchData = async () => {
             try {
                 console.log(profileId);
-                
+
                 let user;
-                
+
                 if (profileId) {
-                    user = await getUserById(profileId);   
+                    user = await getUserById(profileId);
                 }
                 else {
                     user = await getUser();
                 }
                 console.log(user);
-                
+
                 setName(user.firstName + " " + user.lastName);
                 setAvatar(user.avatar)
                 setUniversity(user.university);
                 setSpecial(user.special);
                 setGroup(user.group);
                 setYear(user.year);
-                
+
             } catch (error) {
                 console.error('Error fetching user data:', error);
             }
@@ -52,7 +52,7 @@ export function Profile(): React.ReactElement {
 
     return (
         <MainBackGround>
-            <PanelHeader />
+            <PanelHeader picked="none" />
 
             <MainContainer>
                 <MainBoxText>
