@@ -11,8 +11,10 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { ISubjectNote } from "../../lib/axios/types";
 import { TextLineBox } from "../../components/TextLineBox";
 import { getDeadLines } from "lib/axios/SubjectsNotes/requests";
+import {useHistory} from "react-router-dom";
 
 export function Deadlines(): React.ReactElement {
+    const history = useHistory();
     const selectedPanel: "Notebook" = "Notebook";
 
     const [deadLines, setDeadLines] = useState<ISubjectNote[]>([]);
@@ -44,7 +46,13 @@ export function Deadlines(): React.ReactElement {
                     </BlockFlexText>
 
                     <BlockFlexAdditional>
-                        <Button variant="outlined" sx={{ marginLeft: "auto", marginRight: "24px" }}>Архів</Button>
+                        <Button 
+                            variant="outlined" 
+                                sx={{ marginLeft: "auto", marginRight: "24px" }}
+                                onClick={() => history.push("/archive")}
+                        >
+                            Архів
+                        </Button>
                         <IconButton>
                             <InfoOutlinedIcon
                                 sx={{

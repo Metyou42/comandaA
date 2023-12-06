@@ -5,12 +5,14 @@ import { MainContainer } from "ui-components/MainContainer/MainContainer";
 import { Stack, Typography, Paper, Avatar, IconButton, Box, ListItem, ListItemButton, ListItemText, List, Divider } from '@mui/material';
 import { MainBoxText, StyledPaperMui, MainEmail, MainWork, BlockFlex, BlockFlexText, BlockFlexAdditional, BlockMargin } from "./styled";
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import { useLocation } from "react-router-dom";
+import {useHistory, useLocation} from "react-router-dom";
 import { ISubjectForLecturer } from "../../lib/axios/types";
 import { toastError } from "components/Toastify";
 import { getLecturerById } from "lib/axios/Lecturers/requests";
+import {isUserOwner} from "../../lib/axios/Students/requests";
 
 export function Lecturer(): React.ReactElement {
+    const history = useHistory();
     const selectedPanel: "Study" = "Study";
     const searchParams = new URLSearchParams(useLocation().search)
     const lectorId = searchParams.get("id")
@@ -31,13 +33,16 @@ export function Lecturer(): React.ReactElement {
     const [rank, setRank] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [subjects, setSubjects] = useState<ISubjectForLecturer[]>([]);
+    const [isLecturerOwner, setIsLecturerOwner] = useState<boolean>(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const lecturer = await getLecturerById(lectorId);
+                const isOwner = await isUserOwner(lectorId, 0);
                 console.log(lecturer);
 
+                setIsLecturerOwner(isOwner);
                 setFullName(lecturer.surname + " " + lecturer.name + " " + lecturer.patronymic);
                 setUniversity(lecturer.educationalInstitution.name);
                 setRank(lecturer.rank);
@@ -64,15 +69,17 @@ export function Lecturer(): React.ReactElement {
                     </BlockFlexText>
 
                     <BlockFlexAdditional>
-                        <IconButton>
-                            <EditOutlinedIcon
-                                sx={{
-                                    fontSize: 36,
-                                    color: "white"
-                                }}
-                            />
-                        </IconButton>
-
+                        {isLecturerOwner ? (
+                            <IconButton>
+                                <EditOutlinedIcon
+                                    sx={{
+                                        fontSize: 36,
+                                        color: "white"
+                                    }}
+                                    onClick={() => history.push("/edit/subject?id=" + lectorId)}
+                                />
+                            </IconButton>
+                        ) : null}
                     </BlockFlexAdditional>
                 </BlockFlex>
 
@@ -108,7 +115,7 @@ export function Lecturer(): React.ReactElement {
                             }}
                         >
                             {subjects.map((subject) => (
-                                <ListItem disablePadding>
+                                <ListItem disablePadding key={subject.id} onClick={() => history.push("/subject?id=" + subject.id)}>
                                     <ListItemButton>
                                         <ListItemText
                                             primary={`${subject.name}`}

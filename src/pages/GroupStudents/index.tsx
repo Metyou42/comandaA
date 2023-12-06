@@ -18,7 +18,7 @@ import { useEffect } from 'react';
 import { getClassGroupStudentsByUser } from "../../lib/axios/Students/requests";
 import { IStudent } from "../../lib/axios/types";
 import { useHistory } from 'react-router-dom';
-import { changeOwnerGroup, removeFromGroup } from 'lib/axios/ClassGroups/requests';
+import { changeOwnerGroup, removeFromGroup, setRoleGroup } from 'lib/axios/ClassGroups/requests';
 import { toastError, toastSuccess } from 'components/Toastify';
 
 export function GroupStudents(): React.ReactElement {
@@ -55,6 +55,18 @@ export function GroupStudents(): React.ReactElement {
       await changeOwnerGroup(Number(id))
       setAnchorEl((prev) => ({ ...prev, [id]: null }));
       toastSuccess("Корситувача став власником")
+      await fetchData();
+    } catch (error) {
+      console.error('Error SetOwner user:', error);
+      toastError(error.message)
+    }
+  };
+
+  const handleSetAdmin = async (id: number) => {
+    try {
+      await setRoleGroup(Number(id), 1)
+      toastSuccess("Користувача став адміном")
+      setAnchorEl((prev) => ({ ...prev, [id]: null }));
       await fetchData();
     } catch (error) {
       console.error('Error SetOwner user:', error);
@@ -106,6 +118,20 @@ export function GroupStudents(): React.ReactElement {
                         {`${student.name} ${student.surname} ${student.patronymic}`}
                       </TableCell>
                       <TableCell align='right'>
+                        {(() => {
+                          switch (student.roleInGroup) {
+                            case 0:
+                              return 'В';
+                            case 1:
+                              return 'А';
+                            case 2:
+                              return 'У';
+                            default:
+                              return '';
+                          }
+                        })()}
+                      </TableCell>
+                      <TableCell align='right'>
                         <IconButton
                           onClick={(event) => {
                             handleClick(event, student.id)
@@ -134,22 +160,24 @@ export function GroupStudents(): React.ReactElement {
                         }}>
                           Видалити
                         </MenuItem>
-                        {/* <MenuItem onClick={handleClose}>Змніити роль</MenuItem> */}
                         <MenuItem onClick={() => {
                           handleSetOwner(student.id)
                         }}>
                           Назанчити власником
                         </MenuItem>
+                        <MenuItem onClick={() => {
+                          handleSetAdmin(student.id)
+                        }}>Назанчити адміном</MenuItem>
                       </Menu>
                     </TableRow>
                   )
                 })}
               </TableBody>
             </Table>
-          </TableContainer>
-        </Paper>
-      </MainContainer>
-    </MainBackGround>
+          </TableContainer >
+        </Paper >
+      </MainContainer >
+    </MainBackGround >
   );
 }
 

@@ -18,7 +18,7 @@ import { Lecturer } from "pages/Lecturer";
 import { Profile } from "pages/Profile";
 import { Subject } from "pages/Subject";
 import { EditLecturer } from "pages/EditLecturer";
-import { EditSubject } from "pages/EditingSubjectProfile";
+import { EditSubject } from "pages/EditingSubject";
 import { GroupStudents } from "pages/GroupStudents";
 import { CreateGroup } from "pages/CreateGroup";
 import { TechnicalSupport } from "pages/TechnicalSupport";
@@ -72,7 +72,7 @@ function SwitchRoutes(): React.ReactElement {
 
                 <Route component={Notes} path="/notes" exact />
 
-                <Route component={CreateNotes} path="/createnotes" exact />
+                <Route component={CreateNotes} path="/create/note" exact />
 
                 <Route component={Profile} path="/profile" exact />
 
@@ -94,7 +94,7 @@ function SwitchRoutes(): React.ReactElement {
                 
                 <Route component={GroupSubjects} path="/group/subjects" exact />
 
-                <Route component={CreateGroup} path="/CreateGroup" exact />
+                <Route component={CreateGroup} path="/create/group" exact />
 
                 <Route component={TechnicalSupport} path="/technicalsupport" exact />
 

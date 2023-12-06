@@ -29,6 +29,7 @@ export interface IUserView {
     lastName: string,
     avatar: string,
     nickName: string,
+    group: string
 }
 
 export interface IClassGroup {

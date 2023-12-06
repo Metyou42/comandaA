@@ -54,6 +54,7 @@ export function PanelHeader({ picked }: PanelHeaderProps): React.ReactElement {
 
     const [name, setName] = useState<string>("");
     const [group, setGroup] = useState<string>("");
+    const [avatar, setAvatar] = useState<string>("");
 
     useEffect(() => {
         const fetchData = async () => {
@@ -61,6 +62,7 @@ export function PanelHeader({ picked }: PanelHeaderProps): React.ReactElement {
                 const user = await getUser();
                 console.log(user);
 
+                setAvatar(user.avatar);
                 setName(user.firstName + " " + user.lastName);
                 setGroup(user.special + "-" + user.group)
             } catch (error) {
@@ -92,7 +94,7 @@ export function PanelHeader({ picked }: PanelHeaderProps): React.ReactElement {
                         <Avatar
                             alt="Remy Sharp"
                             sx={{ width: "5vh", height: "5vh" }}
-                            src={Cat}
+                            src={avatar}
                         />
                     </Tooltip>
 

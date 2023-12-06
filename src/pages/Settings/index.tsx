@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { PanelHeader } from "components/header";
 import { MainBackGround } from "ui-components/MainCss/MainCSS";
 import { MainContainer } from "ui-components/MainContainer/MainContainer";
@@ -8,12 +8,30 @@ import { deepOrange } from "@mui/material/colors";
 import { BlockFlex } from "./styled";
 import { MainBoxText } from "../Settings/styled";
 
-import avaImage from "./ava.jpg";
+import {getUser} from "../../lib/axios/Users/requests";
 
 export function Settings(): React.ReactElement {
+    const selectedPanel: "Settings" = "Settings";
+
+    const [avatar, setAvatar] = useState<string>("");
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const user = await getUser();
+                console.log(user);
+
+                setAvatar(user.avatar);
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
     return (
         <MainBackGround>
-            <PanelHeader />
+            <PanelHeader picked={selectedPanel} />
             <MainContainer>
                 <BlockFlex>
                     <MainBoxText>Налаштування</MainBoxText>
@@ -31,7 +49,7 @@ export function Settings(): React.ReactElement {
                             aspectRatio: 1,
                             borderRadius: "50%",
                             width: "200px",
-                            backgroundImage: `url(${avaImage})`,
+                            backgroundImage: `url(${avatar})`,
                             backgroundSize: "cover",
                             margin: "50px"
                         }}
@@ -90,7 +108,8 @@ export function Settings(): React.ReactElement {
                         position: "absolute",
                         bottom: "0",
                         left: "18%",
-                        right: "18%"
+                        right: "18%",
+                        marginBottom: "20px"
                     }}
                 >
                     Log Out

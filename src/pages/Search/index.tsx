@@ -86,7 +86,7 @@ export function Search(): React.ReactElement {
                         {data.map((student) => (
                             <TableRow>
                                 <TableCell>{`${student.firstName} ${student.lastName}`}</TableCell>
-                                <TableCell>КБ - 49</TableCell>
+                                <TableCell>{`${student.group}`}</TableCell>
                                 {/* <TableCell align='right'>
                                     <IconButton
                                         onClick={handleClick}
