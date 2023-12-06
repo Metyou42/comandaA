@@ -72,7 +72,7 @@ function SwitchRoutes(): React.ReactElement {
 
                 <Route component={Notes} path="/notes" exact />
 
-                <Route component={CreateNotes} path="/createnotes" exact />
+                <Route component={CreateNotes} path="/create/note" exact />
 
                 <Route component={Profile} path="/profile" exact />
 

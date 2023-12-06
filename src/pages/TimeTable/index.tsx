@@ -7,9 +7,12 @@ import { BlockFlex, BlockFlexAdditional, BlockFlexJustify, BlockFlexText, MainBo
 import { ISubjectInTimeTable, ISubjectNote } from "../../lib/axios/types";
 import { getTimeTable } from "lib/axios/TimeTables/requests";
 import { LessonLine } from "components/LessonLine";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+import {useHistory} from "react-router-dom";
 
 export function TimeTable(): React.ReactElement {
 
+    const history = useHistory();
     const [subjectInTimeTable, setSubjectInTimeTable] = useState<ISubjectInTimeTable[]>([]);
     const [currentSubjectInTimeTable, setCurrentSubjectInTimeTable] = useState<ISubjectInTimeTable[]>([]);
 
@@ -157,6 +160,16 @@ export function TimeTable(): React.ReactElement {
                         >
                             Повернутись до поточного дня
                         </Button>
+                        <IconButton>
+                            <AddCircleOutlineOutlinedIcon
+                                sx={{
+                                    fontSize: 36,
+                                    marginBottom: "20px",
+                                    color: "white"
+                                }}
+                                onClick={() => history.push("/create/subjectInTimeTable")}
+                            />
+                        </IconButton>
                     </BlockFlexAdditional>
                 </BlockFlex>
 

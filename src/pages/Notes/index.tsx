@@ -172,6 +172,7 @@ export function Notes(): React.ReactElement {
                                     fontSize: 36,
                                     color: "white"
                                 }}
+                                onClick={() => history.push("/create/note")}
                             />
                         </IconButton>
 
