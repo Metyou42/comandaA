@@ -9,18 +9,19 @@ import { toastError, toastSuccess } from "components/Toastify";
 import { FormInputBottom } from "pages/EditLecturer/styled";
 import { getSubjectById, updateSubject } from "lib/axios/Subjects/requests";
 
-export function EditingSubjectProfile(): React.ReactElement {
+export function EditSubject(): React.ReactElement {
     const searchParams = new URLSearchParams(useLocation().search)
     const subjectId = searchParams.get("id")
+    const selectedPanel: "Study" = "Study";
 
     if (!subjectId) {
         return (
             <MainBackGround>
-                <PanelHeader picked="none" />
+                <PanelHeader picked={selectedPanel} />
 
                 <MainContainer>
                 </MainContainer>
-            </MainBackGround>
+            </MainBackGround >
         );
     }
 
@@ -59,7 +60,7 @@ export function EditingSubjectProfile(): React.ReactElement {
 
     return (
         <MainBackGround>
-            <PanelHeader picked="none" />
+            <PanelHeader picked={selectedPanel} />
 
             <MainContainer>
 

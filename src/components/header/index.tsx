@@ -3,10 +3,10 @@ import { AppBar, Avatar, Box, Button, ButtonGroup, Checkbox, Container, FormCont
 import { BoxLogin } from "ui-components/BoxLogin/BoxLogin";
 import { Cat, Contact, Group, LogOut, Notebook, Schedule, Search, Settings, Study } from "assets";
 import { ButtonContainer, ButtonCustom, HeaderInfo, HeadersImg, SupportButtonContainer, SupportButtonCustom, Username } from "./styled";
-import { getUser } from "lib/axios/Users/requests";
 import { useHistory } from "react-router-dom";
 import { useCookie } from "contexts/cookieContext";
 import { REACT_APP_ACCESS_TOKEN_COOKIE_NAME } from "environmentVariables";
+import { getUser } from "lib/axios/Users/requests";
 
 interface PanelHeaderProps {
     picked: "Notebook" | "Study" | "Group" | "Schedule" | "Search" | "Contact" | "Settings" | "LogOut" | "none"
@@ -21,9 +21,12 @@ export function PanelHeader({ picked }: PanelHeaderProps): React.ReactElement {
     }
 
     const onClickGroup = () => {
-        history.push("/grouplist")
+        history.push("/group/students")
     }
 
+    const onStudy = () => {
+        history.push("/group/subjects")
+    }
     const onClickTimeTable = () => {
         history.push("/TimeTable")
     }
@@ -73,7 +76,7 @@ export function PanelHeader({ picked }: PanelHeaderProps): React.ReactElement {
                     }}
                     onClick={onClickAvatar}
                 >
-                    <Tooltip title="Open profile">
+                    <Tooltip title="Open settings">
                         <Avatar
                             alt="Remy Sharp"
                             sx={{ width: "5vh", height: "5vh" }}
@@ -103,6 +106,7 @@ export function PanelHeader({ picked }: PanelHeaderProps): React.ReactElement {
 
                     <ButtonCustom
                         isSelected={picked === "Study" ? true : false}
+                        onClick={onStudy}
                     >
                         <HeadersImg src={Study} />
                     </ButtonCustom>

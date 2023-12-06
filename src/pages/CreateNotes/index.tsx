@@ -13,6 +13,7 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import { Moment } from "moment";
 
 export function CreateNotes(): React.ReactElement {
+    const selectedPanel: "Notebook" = "Notebook";
     const [lessonNumber, setLessonNumber] = useState<string>();
     const [lessonName, setLessonName] = useState<string>();
     const [lecturerName, setLecturerName] = useState<string>();
@@ -52,7 +53,7 @@ export function CreateNotes(): React.ReactElement {
 
     return (
         <MainBackGround>
-            <PanelHeader picked="Notebook" />
+            <PanelHeader picked={selectedPanel} />
 
             <MainContainer>
                 <MainBoxText>
