@@ -5,48 +5,19 @@ import { MainContainer } from "ui-components/MainContainer/MainContainer";
 import { TextField, Button } from '@mui/material';
 import { MainSubject, MainWork, FormInput } from "./styled";
 import { useLocation } from "react-router-dom";
-import { getSubjectById, updateSubject } from "lib/axios/Subjects/requests";
+import {createSubject, getSubjectById, updateSubject} from "lib/axios/Subjects/requests";
 import { toastError, toastSuccess } from "components/Toastify";
 import { FormInputBottom } from "pages/EditLecturer/styled";
 
-export function EditSubject(): React.ReactElement {
-    const searchParams = new URLSearchParams(useLocation().search)
-    const subjectId = searchParams.get("id")
+export function CreateSubject(): React.ReactElement {
     const selectedPanel: "Study" = "Study";
-
-    if (!subjectId) {
-        return (
-            <MainBackGround>
-                <PanelHeader picked={selectedPanel} />
-
-                <MainContainer>
-                </MainContainer>
-            </MainBackGround>
-        );
-    }
 
     const [name, setName] = useState<string>("");
     const [description, setDescription] = useState<string>("");
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const subject = await getSubjectById(subjectId);
-                console.log(subject);
-
-                setName(subject.name);
-                setDescription(subject.description);
-            } catch (error) {
-                console.error('Error fetching subject data:', error);
-            }
-        };
-
-        fetchData();
-    }, []);
-
-    const updateSubjectHandle = async () => {
+    const createSubjectHandle = async () => {
         try {
-            const res = await updateSubject(subjectId, name, description)
+            const res = await createSubject(name, description)
             console.log("res", res);
 
 
@@ -65,7 +36,7 @@ export function EditSubject(): React.ReactElement {
             <MainContainer>
 
                 <MainSubject>
-                    Редагування профілю предмету
+                    Створення профілю предмету
                 </MainSubject>
 
                 <MainWork>Введіть повну назву предмету:</MainWork>
@@ -106,7 +77,7 @@ export function EditSubject(): React.ReactElement {
                     <Button
                         variant="contained"
                         size="large"
-                        onClick={updateSubjectHandle}
+                        onClick={createSubjectHandle}
                         sx={{
                             width: "40%",
                             marginTop: "45px"

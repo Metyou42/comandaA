@@ -16,11 +16,13 @@ import { Lecturer } from "pages/Lecturer";
 import { Profile } from "pages/Profile";
 import { Subject } from "pages/Subject";
 import { EditLecturer } from "pages/EditLecturer";
-import { EditingSubjectProfile } from "pages/EditingSubjectProfile";
+import { EditSubject } from "pages/EditingSubjectProfile";
 import { GroupStudents } from "pages/GroupStudents";
 import { CreateGroup } from "pages/CreateGroup";
 import NotFoundPage from "pages/NotFoundPage";
 import {GroupSubjects} from "./pages/GroupSubjects";
+import {CreateLecturer} from "./pages/CreateLecturer";
+import {CreateSubject} from "./pages/CreateSubject";
 // import { toastError } from "components/Toastify";
 
 function SwitchRoutes(): React.ReactElement {
@@ -73,7 +75,11 @@ function SwitchRoutes(): React.ReactElement {
 
                 <Route component={EditLecturer} path="/edit/lecturer" exact />
 
-                <Route component={EditingSubjectProfile} path="/edit/subject" exact />
+                <Route component={EditSubject} path="/edit/subject" exact />
+
+                <Route component={CreateLecturer} path="/create/lecturer" exact />
+
+                <Route component={CreateSubject} path="/create/subject" exact />
 
                 <Route component={GroupStudents} path="/group/students" exact />
                 
