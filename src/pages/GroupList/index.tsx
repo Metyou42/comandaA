@@ -69,7 +69,7 @@ export function GroupList(): React.ReactElement {
 
   return (
     <MainBackGround>
-      <PanelHeader />
+      <PanelHeader picked="Group" />
       <MainContainer>
         <MainBoxText>
           Group
