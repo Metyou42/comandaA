@@ -9,24 +9,11 @@ import { Cat } from "assets";
 import { useLocation } from "react-router-dom";
 import { toastError, toastSuccess } from "components/Toastify";
 import { log } from "console";
-import { getLecturerById, updateLecturer } from "lib/axios/Lecturers/requests";
-import { isUserOwner } from "../../lib/axios/Students/requests";
+import {createLecturer, getLecturerById, updateLecturer } from "lib/axios/Lecturers/requests";
+import {isUserOwner} from "../../lib/axios/Students/requests";
 
-export function EditLecturer(): React.ReactElement {
-    const searchParams = new URLSearchParams(useLocation().search)
-    const lectorId = searchParams.get("id")
+export function CreateLecturer(): React.ReactElement {
     const selectedPanel: "Study" = "Study";
-
-    if (!lectorId) {
-        return (
-            <MainBackGround>
-                <PanelHeader picked={selectedPanel} />
-
-                <MainContainer>
-                </MainContainer>
-            </MainBackGround>
-        );
-    }
 
     const [email, setEmail] = useState<string>("");
     const [name, setName] = useState<string>("");
@@ -34,38 +21,11 @@ export function EditLecturer(): React.ReactElement {
     const [patronymic, setPatronymic] = useState<string>("");
     const [rank, setRank] = useState<string>("");
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const isOwner = await isUserOwner(lectorId, 0);
-
-                if (isOwner) {
-                    const lecturer = await getLecturerById(lectorId);
-                    console.log(lecturer);
-
-                    setName(lecturer.name);
-                    setSurname(lecturer.surname);
-                    setPatronymic(lecturer.patronymic);
-                    setRank(lecturer.rank);
-                    setEmail(lecturer.email);
-                }
-                else {
-                    throw new Error("Don`t have permission");
-                }
-            } catch (error) {
-                console.error('Error fetching lecturer data:', error);
-            }
-        };
-
-        fetchData();
-    }, []);
-
-    const updateLecturerHandle = async () => {
+    const createLecturerHandle = async () => {
         try {
-            const res = await updateLecturer(lectorId, name, surname, patronymic, email, rank)
+            const res = await createLecturer(name, surname, patronymic, email, rank)
             console.log("res", res);
-
-
+            
             if (res) {
                 toastSuccess(res)
             }
@@ -81,7 +41,7 @@ export function EditLecturer(): React.ReactElement {
             <MainContainer>
 
                 <MainSubject>
-                    Редагування профілю викладача
+                    Створення профілю викладача
                 </MainSubject>
 
                 <MainWork>Введіть корпоративну пошту викладача:</MainWork>
@@ -142,13 +102,13 @@ export function EditLecturer(): React.ReactElement {
                     <Button
                         variant="contained"
                         size="large"
-                        onClick={updateLecturerHandle}
+                        onClick={createLecturerHandle}
                         sx={{
                             width: "40%",
                             marginTop: "45px"
                         }}
                     >
-                        Apply
+                        Створити
                     </Button>
                 </FormInputBottom>
             </MainContainer>

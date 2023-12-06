@@ -24,13 +24,14 @@ import { toastError } from "components/Toastify";
 import { getSubjectById } from "../../lib/axios/Subjects/requests";
 
 export function Subject(): React.ReactElement {
+    const selectedPanel: "Study" = "Study";
     const searchParams = new URLSearchParams(useLocation().search)
     const subjectId = searchParams.get("id")
 
     if (!subjectId) {
         return (
             <MainBackGround>
-                <PanelHeader picked="none" />
+                <PanelHeader picked={selectedPanel} />
 
                 <MainContainer>
                 </MainContainer>
@@ -62,7 +63,7 @@ export function Subject(): React.ReactElement {
 
     return (
         <MainBackGround>
-            <PanelHeader picked="none" />
+            <PanelHeader picked={selectedPanel} />
 
             <MainContainer>
 
