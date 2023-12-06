@@ -39,6 +39,10 @@ export interface IGetSubject extends IMessage {
     data: ISubject
 }
 
+export interface IGetClassGroups extends IMessage {
+    data: IClassGroupsData
+}
+
 export interface ILecturer {
     id: number,
     name: string,
@@ -61,6 +65,25 @@ export interface ISubject {
     name: string,
     description: string
     lecturers: ILecturerForSubject[]
+}
+
+export interface IClassGroupsData {
+    id: number,
+    specialty: string,
+    year: number,
+    subgroup: string,
+    students: IClassGroupsItem[]
+}
+
+export interface IClassGroupsItem {
+    id: number,
+    name: string,
+    surname: string,
+    patronymic: string,
+    email: string,
+    roleInGroup: number,
+    classGroup: string,
+    educationalInstitution: any
 }
 
 export interface ILecturerForSubject {
