@@ -5,9 +5,9 @@ import { MainContainer } from "ui-components/MainContainer/MainContainer";
 import { TextField, Button } from '@mui/material';
 import { MainSubject, MainWork, FormInput, SubWork, BlockFlex } from "./styled";
 import { useLocation } from "react-router-dom";
-import { createClassGroup, getSubject, updateSubject } from "lib/axios/requests";
 import { toastError, toastSuccess } from "components/Toastify";
 import { FormInputBottom } from "pages/EditLecturer/styled";
+import { createClassGroup } from "lib/axios/ClassGroups/requests";
 
 export function CreateGroup(): React.ReactElement {
     const [name, setName] = useState<string>("");
@@ -29,7 +29,7 @@ export function CreateGroup(): React.ReactElement {
 
     return (
         <MainBackGround>
-            <PanelHeader />
+            <PanelHeader picked="Group" />
 
             <MainContainer>
 

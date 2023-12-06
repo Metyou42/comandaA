@@ -12,7 +12,7 @@ export function Notes(): React.ReactElement {
 
     return (
         <MainBackGround>
-            <PanelHeader />
+            <PanelHeader picked="Notebook" />
 
             <MainContainer>
                 <BlockFlex>

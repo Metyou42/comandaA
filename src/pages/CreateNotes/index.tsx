@@ -52,7 +52,7 @@ export function CreateNotes(): React.ReactElement {
 
     return (
         <MainBackGround>
-            <PanelHeader />
+            <PanelHeader picked="Notebook" />
 
             <MainContainer>
                 <MainBoxText>

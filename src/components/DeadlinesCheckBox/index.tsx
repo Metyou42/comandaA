@@ -5,15 +5,17 @@ import { Cat, Contact, Group, LogOut, Notebook, Schedule, Search, Settings, Stud
 import FlagIcon from '@mui/icons-material/Flag';
 import { red, green, yellow } from '@mui/material/colors';
 import { StyledPaperMui } from "./styled";
+import {changeDeadLineStatus, getDeadLines} from "../../lib/axios/SubjectsNotes/requests";
 
 interface DeadlinesCheckBoxProps {
+    id: number
     text: string
     color: "red" | "green" | "yellow"
-    checked: "Option 1" | "Option 2" | "Option 3"
+    checked: 1 | 2 | 3
 }
 
-export function DeadlinesCheckBox({ text, color, checked }: DeadlinesCheckBoxProps): React.ReactElement {
-    const [checkedIs, setcheckedIs] = useState<string>(checked);
+export function DeadlinesCheckBox({ id, text, color, checked }: DeadlinesCheckBoxProps): React.ReactElement {
+    const [checkedIs, setcheckedIs] = useState<number>(checked);
 
     function defineColor(color: "red" | "green" | "yellow") {
         if (color === "red") {
@@ -26,9 +28,19 @@ export function DeadlinesCheckBox({ text, color, checked }: DeadlinesCheckBoxPro
     }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setcheckedIs(event.target.name)
+        let idStatus = Number(event.target.name);
+        setcheckedIs(idStatus)
 
-        // request Update
+        const fetchData = async () => {
+            try {
+                console.log((idStatus - 1) + " - " + id);
+                await changeDeadLineStatus(id, idStatus - 1);
+            } catch (error) {
+                console.error('Error fetching lecturer data:', error);
+            }
+        };
+
+        fetchData();
     };
 
     return (
@@ -48,15 +60,15 @@ export function DeadlinesCheckBox({ text, color, checked }: DeadlinesCheckBoxPro
                 <FormControlLabel
                     control={
                         <Checkbox
-                            checked={checkedIs ? checkedIs === "Option 1" : false}
+                            checked={checkedIs ? checkedIs === 1 : false}
                             onChange={handleChange}
-                            name="Option 1"
+                            name="1"
                             sx={{
                                 paddingTop: '0px'
                             }}
                         />
                     }
-                    label="Option 1"
+                    label="Не зроблено"
                     labelPlacement="top"
 
                 />
@@ -64,15 +76,15 @@ export function DeadlinesCheckBox({ text, color, checked }: DeadlinesCheckBoxPro
                 <FormControlLabel
                     control={
                         <Checkbox
-                            checked={checkedIs ? checkedIs === "Option 2" : false}
+                            checked={checkedIs ? checkedIs === 2 : false}
                             onChange={handleChange}
-                            name="Option 2"
+                            name="2"
                             sx={{
                                 paddingTop: '0px'
                             }}
                         />
                     }
-                    label="Option 2"
+                    label="Не здано"
                     labelPlacement="top"
 
                 />
@@ -80,15 +92,15 @@ export function DeadlinesCheckBox({ text, color, checked }: DeadlinesCheckBoxPro
                 <FormControlLabel
                     control={
                         <Checkbox
-                            checked={checkedIs ? checkedIs === "Option 3" : false}
+                            checked={checkedIs ? checkedIs === 3 : false}
                             onChange={handleChange}
-                            name="Option 3"
+                            name="3"
                             sx={{
                                 paddingTop: '0px'
                             }}
                         />
                     }
-                    label="Option 3"
+                    label="Здано"
                     labelPlacement="top"
 
                 />
