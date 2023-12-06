@@ -5,9 +5,9 @@ import { MainContainer } from "ui-components/MainContainer/MainContainer";
 import { TextField, Button } from '@mui/material';
 import { MainSubject, MainWork, FormInput } from "./styled";
 import { useLocation } from "react-router-dom";
-import { getSubject, updateSubject } from "lib/axios/requests";
 import { toastError, toastSuccess } from "components/Toastify";
 import { FormInputBottom } from "pages/EditLecturer/styled";
+import { getSubjectById, updateSubject } from "lib/axios/Subjects/requests";
 
 export function EditingSubjectProfile(): React.ReactElement {
     const searchParams = new URLSearchParams(useLocation().search)
@@ -16,7 +16,7 @@ export function EditingSubjectProfile(): React.ReactElement {
     if (!subjectId) {
         return (
             <MainBackGround>
-                <PanelHeader />
+                <PanelHeader picked="none" />
 
                 <MainContainer>
                 </MainContainer>
@@ -30,7 +30,7 @@ export function EditingSubjectProfile(): React.ReactElement {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const subject = await getSubject(subjectId);
+                const subject = await getSubjectById(subjectId);
                 console.log(subject);
 
                 setName(subject.name);
@@ -59,7 +59,7 @@ export function EditingSubjectProfile(): React.ReactElement {
 
     return (
         <MainBackGround>
-            <PanelHeader />
+            <PanelHeader picked="none" />
 
             <MainContainer>
 

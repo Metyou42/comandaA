@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { PanelHeader } from "components/header";
 import { MainBackGround } from "ui-components/MainCss/MainCSS";
 import { MainContainer } from "ui-components/MainContainer/MainContainer";
@@ -8,12 +8,32 @@ import FlagIcon from '@mui/icons-material/Flag';
 import { red, green, yellow } from '@mui/material/colors';
 import { DeadlinesCheckBox } from "components/DeadlinesCheckBox";
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import { ISubjectNote } from "../../lib/axios/types";
+import { TextLineBox } from "../../components/TextLineBox";
+import { getDeadLines } from "lib/axios/SubjectsNotes/requests";
 
 export function Deadlines(): React.ReactElement {
 
+    const [deadLines, setDeadLines] = useState<ISubjectNote[]>([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const deadLines = await getDeadLines();
+                console.log(deadLines);
+
+                setDeadLines(deadLines);
+            } catch (error) {
+                console.error('Error fetching lecturer data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     return (
         <MainBackGround>
-            <PanelHeader />
+            <PanelHeader picked="Schedule" />
 
             <MainContainer>
 
@@ -23,7 +43,7 @@ export function Deadlines(): React.ReactElement {
                     </BlockFlexText>
 
                     <BlockFlexAdditional>
-                        <Button variant="outlined" sx={{ marginLeft: "auto", marginRight: "24px" }}>Outlined</Button>
+                        <Button variant="outlined" sx={{ marginLeft: "auto", marginRight: "24px" }}>Архів</Button>
                         <IconButton>
                             <InfoOutlinedIcon
                                 sx={{
@@ -45,21 +65,42 @@ export function Deadlines(): React.ReactElement {
                         paddingRight: '20px'
                     }}
                 >
-                    <DeadlinesCheckBox
-                        text="27.08 - Дискретна метематика - 5 лаб"
-                        color="red"
-                        checked="Option 1"
-                    />
-                    <DeadlinesCheckBox
-                        text="27.08 - Дискретна метематика - 2 лаб"
-                        color="green"
-                        checked="Option 2"
-                    />
-                    <DeadlinesCheckBox
-                        text="27.08 - Дискретна метематика - 3 лаб"
-                        color="yellow"
-                        checked="Option 2"
-                    />
+                    {deadLines.map((deadLine) => {
+                        const deadLineDate = new Date(deadLine.date);
+                        const day = deadLineDate.getDate();
+                        const month = deadLineDate.getMonth() + 1;
+
+                        let color: "green" | "red" | "yellow" = "red";
+                        let checked: 1 | 2 | 3 = 1;
+
+                        const currentDate = new Date();
+                        const twoWeeksFromNow = new Date(currentDate);
+                        twoWeeksFromNow.setDate(currentDate.getDate() + 14);
+
+                        switch (true) {
+                            case deadLineDate > twoWeeksFromNow:
+                                color = "green";
+                                break;
+                            case deadLineDate < currentDate:
+                                color = "red";
+                                break;
+                            default:
+                                color = "yellow";
+                                break;
+                        }
+
+
+                        checked = deadLine.status + 1 as 1 | 2 | 3;
+
+                        return (
+                            <DeadlinesCheckBox
+                                id={deadLine.id}
+                                text={`${day}.${month} - ${deadLine.subjectInTimeTable.subject.name} - ${deadLine.text}`}
+                                color={color}
+                                checked={checked}
+                            />
+                        );
+                    })}
                 </Stack>
 
             </MainContainer>

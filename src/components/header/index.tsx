@@ -1,14 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { AppBar, Avatar, Box, Button, ButtonGroup, Checkbox, Container, FormControlLabel, IconButton, Link, TextField, Toolbar, Tooltip } from "@mui/material";
 import { BoxLogin } from "ui-components/BoxLogin/BoxLogin";
 import { Cat, Contact, Group, LogOut, Notebook, Schedule, Search, Settings, Study } from "assets";
 import { ButtonContainer, ButtonCustom, HeaderInfo, HeadersImg, SupportButtonContainer, SupportButtonCustom, Username } from "./styled";
+import { getUser } from "lib/axios/Users/requests";
 import { useHistory } from "react-router-dom";
 import { useCookie } from "contexts/cookieContext";
 import { REACT_APP_ACCESS_TOKEN_COOKIE_NAME } from "environmentVariables";
 
 interface PanelHeaderProps {
-    picked: "Notebook" | "Study" | "Group" | "Schedule" | "Search" | "Contact" | "Settings" | "LogOut"
+    picked: "Notebook" | "Study" | "Group" | "Schedule" | "Search" | "Contact" | "Settings" | "LogOut" | "none"
 }
 
 export function PanelHeader({ picked }: PanelHeaderProps): React.ReactElement {
@@ -36,6 +37,24 @@ export function PanelHeader({ picked }: PanelHeaderProps): React.ReactElement {
         history.push("/login")
     }
 
+    const [name, setName] = useState<string>("");
+    const [group, setGroup] = useState<string>("");
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const user = await getUser();
+                console.log(user);
+
+                setName(user.firstName + " " + user.lastName);
+                setGroup(user.special + "-" + user.group)
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
     return (
         <AppBar
             position="static"
@@ -54,7 +73,7 @@ export function PanelHeader({ picked }: PanelHeaderProps): React.ReactElement {
                     }}
                     onClick={onClickAvatar}
                 >
-                    <Tooltip title="Open settings">
+                    <Tooltip title="Open profile">
                         <Avatar
                             alt="Remy Sharp"
                             sx={{ width: "5vh", height: "5vh" }}
@@ -64,13 +83,14 @@ export function PanelHeader({ picked }: PanelHeaderProps): React.ReactElement {
 
                     <HeaderInfo>
                         <Username>
-                            {"Матвійчук Адрій"}
+                            {name}
                         </Username>
 
                         <Username>
-                            {"КБ-49"}
+                            {group}
                         </Username>
                     </HeaderInfo>
+
                 </Button>
 
                 <ButtonContainer>

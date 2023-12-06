@@ -14,8 +14,8 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import IconButton from '@mui/material/IconButton';
 import { Paper } from '@mui/material';
-import { getClassGroups } from 'lib/axios/requests';
 import { useEffect } from 'react';
+import { getClassGroupByUser } from 'lib/axios/ClassGroups/requests';
 
 // function createData(
 //   name: string,
@@ -48,7 +48,7 @@ export function GroupList(): React.ReactElement {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const classGroups = await getClassGroups();
+        const classGroups = await getClassGroupByUser();
         const students = []
 
         classGroups.students.forEach(student => {
@@ -69,7 +69,7 @@ export function GroupList(): React.ReactElement {
 
   return (
     <MainBackGround>
-      <PanelHeader />
+      <PanelHeader picked="Group" />
       <MainContainer>
         <MainBoxText>
           Group
