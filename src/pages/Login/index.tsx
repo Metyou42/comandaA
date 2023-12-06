@@ -5,9 +5,12 @@ import { BoxLogin } from "ui-components/BoxLogin/BoxLogin";
 import { REACT_APP_ACCESS_TOKEN_COOKIE_NAME, REACT_APP_BACKEND_URL } from "environmentVariables";
 import { toastError } from "components/Toastify";
 import Cookies from "js-cookie";
+import { useHistory } from "react-router-dom";
 import { login } from "lib/axios/Account/requests";
 
 export function Login(): React.ReactElement {
+    const history = useHistory();
+
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [rememberMe, setRememberMe] = useState<boolean>(false);
@@ -31,6 +34,8 @@ export function Login(): React.ReactElement {
                 secure: window.location.protocol === 'https:' ? true : false,
                 sameSite: 'strict',
             });
+
+            history.push("/")
         } catch (error) {
             toastError(error.message)
         }
@@ -59,6 +64,7 @@ export function Login(): React.ReactElement {
                 required
                 id="outlined-required"
                 label="Password"
+                type="password"
                 value={password}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                     setPassword(event.target.value);
@@ -84,12 +90,13 @@ export function Login(): React.ReactElement {
                     label="Запам'ятати мене?"
                 />
                 <Link
-                    href="#"
+                    onClick={() => history.push("/forgotpassword")}
                     sx={{
                         marginLeft: "auto",
                         marginTop: "auto",
                         marginBottom: "auto",
-                        color: "white"
+                        color: "white",
+                        cursor: "pointer"
                     }}
                 >
                     Забули пароль?
@@ -113,10 +120,11 @@ export function Login(): React.ReactElement {
                     Немає аккаунту?
                 </span>
                 <Link
-                    href="#"
+                    onClick={() => history.push("/registration")}
                     sx={{
                         marginLeft: "9px",
-                        color: "white"
+                        color: "white",
+                        cursor: "pointer"
                     }}
                 >
                     Зареєєструватись
