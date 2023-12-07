@@ -25,9 +25,10 @@ import { TechnicalSupport } from "pages/TechnicalSupport";
 import { Search } from "pages/Search";
 import { Settings } from "./pages/Settings";
 import NotFoundPage from "pages/NotFoundPage";
-import {GroupSubjects} from "./pages/GroupSubjects";
-import {CreateLecturer} from "./pages/CreateLecturer";
-import {CreateSubject} from "./pages/CreateSubject";
+import { GroupSubjects } from "./pages/GroupSubjects";
+import { CreateLecturer } from "./pages/CreateLecturer";
+import { CreateSubject } from "./pages/CreateSubject";
+import { CreatesubjectInTimeTable } from "pages/CreatesubjectInTimeTable";
 // import { toastError } from "components/Toastify";
 
 function SwitchRoutes(): React.ReactElement {
@@ -91,7 +92,7 @@ function SwitchRoutes(): React.ReactElement {
                 <Route component={CreateSubject} path="/create/subject" exact />
 
                 <Route component={GroupStudents} path="/group/students" exact />
-                
+
                 <Route component={GroupSubjects} path="/group/subjects" exact />
 
                 <Route component={CreateGroup} path="/create/group" exact />
@@ -101,6 +102,8 @@ function SwitchRoutes(): React.ReactElement {
                 <Route component={Search} path="/search" exact />
 
                 <Route component={Settings} path="/settings" />
+
+                <Route component={CreatesubjectInTimeTable} path="/create/subjectInTimeTable" />
 
                 <Route path="*" component={NotFoundPage} />
             </Switch >

@@ -11,6 +11,7 @@ import { getDeadLines, getSubjectsNotes } from "../../lib/axios/SubjectsNotes/re
 import { getTimeTable } from "../../lib/axios/TimeTables/requests";
 import { ISubjectNote } from "../../lib/axios/types";
 import { useHistory } from "react-router-dom";
+import { isEmpty } from "utils";
 
 export function Notes(): React.ReactElement {
     const history = useHistory();
@@ -119,7 +120,7 @@ export function Notes(): React.ReactElement {
         console.log("Day - " + dayChange + "; WeekNumber - " + weekNumber)
         let selectedDate = getDateFromWeekNumber(dayChange, weekNumber, new Date().getFullYear());
 
-        if (notes !== null && notes.length > 0) {
+        if (!isEmpty(notes)) {
             let filteredNotes = notes.filter(function (note) {
                 return note.subjectInTimeTable.day === selectedDate.getDay();
             });

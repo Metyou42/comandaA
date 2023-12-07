@@ -11,9 +11,9 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import { Moment } from "moment";
-import {getSubjectInTimeTableByDetails, getTimeTable} from "../../lib/axios/TimeTables/requests";
-import {useHistory} from "react-router-dom";
-import {createSubjectNote} from "../../lib/axios/SubjectsNotes/requests";
+import { getSubjectInTimeTableByDetails, getTimeTable } from "../../lib/axios/TimeTables/requests";
+import { useHistory } from "react-router-dom";
+import { createSubjectNote } from "../../lib/axios/SubjectsNotes/requests";
 
 export function CreateNotes(): React.ReactElement {
     const history = useHistory();
@@ -32,21 +32,21 @@ export function CreateNotes(): React.ReactElement {
     const [checkedReminderNote, setCheckedReminderNote] = useState<boolean>(false);
     const [isNumerator, setIsNumerator] = useState<boolean>(true);
 
-
     // console.log("selectedDateTime", selectedDateTime);
 
     const createNote = async () => {
         try {
             if (subjectInTimeTableId !== 0) {
                 let position = Number(lessonNumber);
-                const isSuccess = await createSubjectNote(noteText,checkedReminderNote ? 0 : 1, checkedPersonalNote, selectedDateTime.toDate(), subjectInTimeTableId);
-                
+                const isSuccess = await createSubjectNote(noteText, checkedReminderNote ? 0 : 1, checkedPersonalNote, selectedDateTime.toDate(), subjectInTimeTableId);
+
+                history.push("/Notes")
             }
         } catch (error) {
             console.error('Error fetching lecturer data:', error);
         }
     }
-    
+
     const setSubjectInTimeTable = async (dayOfWeek, isNumerator, lessonNumber) => {
         try {
             setSubjectInTimeTableId(0);
@@ -84,7 +84,7 @@ export function CreateNotes(): React.ReactElement {
     function onChangeCheckedReminderNote(event: React.ChangeEvent<HTMLInputElement>) {
         setCheckedReminderNote(event.target.checked);
     }
-    
+
     const getTypeDescription = (type) => {
         switch (type) {
             case 0:
@@ -99,12 +99,12 @@ export function CreateNotes(): React.ReactElement {
                 return "Невідомий тип";
         }
     };
-    
+
     const setDateTime = async (dateTimeMoment) => {
         await setSelectedDateTime(dateTimeMoment);
-        
+
         const date = dateTimeMoment.toDate();
-        
+
         const yearStart = new Date(date.getFullYear(), 0, 1);
         const days = Math.floor((date.getTime() - yearStart.getTime()) / (24 * 60 * 60 * 1000));
         const currentWeekNumber = Math.ceil((days + yearStart.getDay() + 1) / 7);
